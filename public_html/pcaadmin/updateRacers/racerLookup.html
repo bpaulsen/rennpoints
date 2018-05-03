@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>Racer Lookup</title>
+<LINK href="content.css" rel="stylesheet">
+</head>
+<body>
+<TMPL_IF NAME="resultsList">
+  <table class="data" border="1" cellspacing="0">
+    <tr class="header">
+      <th>Racer</th>
+      <th>Description</th>
+      <th>Car Number</th>
+      <th>Class</th>
+      <th>Transponder</th>
+    </tr>
+    <TMPL_LOOP NAME="resultsList">
+      <tr class="<TMPL_IF NAME="__odd__">odd<TMPL_ELSE>even</TMPL_IF>">
+	<td>&nbsp;<TMPL_VAR NAME="full_name"></td>
+	<td>&nbsp;<TMPL_VAR NAME="description"></td>
+	<td>&nbsp;<TMPL_VAR NAME="car_number"></td>
+	<td>&nbsp;<TMPL_VAR NAME="class"></td>
+	<td>&nbsp;<TMPL_VAR NAME="transponder"></td>
+      </tr>
+    </TMPL_LOOP>
+  </table>
+  <br />
+  <br />
+</TMPL_IF>
+
+<TMPL_IF NAME="rosterList">
+  <table class="data" border="1" cellspacing="0">
+    <tr class="header">
+      <th>Name</th>
+      <th>Codriver</th>
+      <th>Car</th>
+      <th>Car Number</th>
+      <th>Session</th>
+      <th>Race</th>
+      <th>Class</th>
+    </tr>
+    <TMPL_LOOP NAME="rosterList">
+      <tr class="<TMPL_IF NAME="__odd__">odd<TMPL_ELSE>even</TMPL_IF>">
+        <td>&nbsp;<TMPL_VAR NAME="clubreg_name"></td>
+        <td>&nbsp;<TMPL_IF NAME="codriver">Yes<TMPL_ELSE>No</TMPL_IF></td>
+        <td>&nbsp;<TMPL_VAR NAME="car"></td>
+        <td>&nbsp;<TMPL_VAR NAME="car_number"></td>
+        <td>&nbsp;<TMPL_VAR NAME="session"></td>
+        <td>&nbsp;<TMPL_VAR NAME="race"></td>
+        <td>&nbsp;<TMPL_VAR NAME="class"></td>
+      </tr>
+    </TMPL_LOOP>
+  </table>
+  <br />
+  <br />
+</TMPL_IF>
+
+<TMPL_IF NAME="transponderList">
+  <table class="data" border="1" cellspacing="0">
+    <tr class="header">
+      <th>Name</th>
+      <th>Class</th>
+      <th>Racer ID</th>
+      <th>Coracer ID</th>
+      <th>Count</th>
+    </tr>
+    <TMPL_LOOP NAME="transponderList">
+      <tr class="<TMPL_IF NAME="__odd__">odd<TMPL_ELSE>even</TMPL_IF>">
+        <td>&nbsp;<TMPL_VAR NAME="full_name"></td>
+        <td>&nbsp;<TMPL_VAR NAME="class"></td>
+        <td>&nbsp;<TMPL_VAR NAME="racer_id"></td>
+        <td>&nbsp;<TMPL_VAR NAME="coracer_id"></td>
+        <td>&nbsp;<TMPL_VAR NAME="count"></td>
+      </tr>
+    </TMPL_LOOP>
+  </table>
+  <br />
+  <br />
+</TMPL_IF>
+
+</body>
+</html>
+

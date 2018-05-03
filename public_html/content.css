@@ -1,0 +1,242 @@
+body {
+     background-color:gainsboro;
+     font-family:Arial,Helvetica,sans-serif;
+     color:#444444;
+     font-size:12px;
+     margin:0px;
+     border:0px;
+}
+
+div#banner {
+	     background-color:#484C5A;
+	     padding-left:8px;
+	     border:0px;
+	     margin:0px;
+}
+
+div#banner * {
+	     margin:0px;
+	     padding:0px;
+	     border:0px;
+	     color:lightslategray;
+}
+	   
+
+div#banner h1 {
+	     font-size:20px;
+	     font-weight:bold;
+}
+
+div#banner ul {
+	list-style-type:none;
+	padding:0px;
+	margin:0px;
+	border-bottom:none;
+	text-decoration:none;
+}
+
+div#banner li {
+ 	display:inline;
+	border:0px;
+	margin:0px;
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:0px;
+	padding-bottom:0px;
+	text-decoration:none;
+}
+
+div#banner .selected  {
+        background-color:gainsboro;
+	padding-bottom:0px;
+}
+
+
+div#banner a {
+	text-decoration: none;
+	font-weight:bold;
+	font-size:10px;
+	padding:0px;
+	margin:0px;	
+	border:0px;
+}
+
+div#banner a:hover {
+	color: white;
+}
+
+div#initialform {
+	background-color: gainsboro;
+	padding-left:10px;
+	padding-top:5px;
+	padding-bottom:0px;
+}
+
+div#content {
+	background-color: gainsboro;
+	padding-left:10px;
+	padding-right:10px;
+        padding-bottom:10px;
+	padding-top:5px;
+	float:left;
+}
+
+div#map_canvas {
+	padding-left:10px;
+        padding-bottom:10px;
+	padding-top:5px;
+	float:left;
+}
+
+.winnerslisting {
+	margin-top:0px;
+	padding-top:0px;
+}
+
+table.columnstable {
+		    margin:0px;
+		    padding:0px;
+		    border:none;
+}
+
+table.columnstable td {
+		     vertical-align: top;
+}
+
+table.data { 
+   text-align:left;
+   border:1px solid black;
+   border-collapse:collapse;
+   padding:0px;
+   margin:0px;
+}
+
+table.data * { 
+   padding:0px;
+   margin:0px;
+}
+
+table.data td {
+  padding-left: 5px;
+  padding-right: 5px;
+  border:1px solid black;
+}
+
+table.data tr.odd td {
+   background-color:#FFFFFF;
+}
+
+table.data tr.even td {
+   background-color:#F0F0F0;
+}
+
+table.data th {
+  background-color: lightsteelblue;
+  padding-left: 5px;
+  padding-right: 5px;
+  border:1px solid black;
+}
+
+table.data td.rr0 {
+  padding-left: 25px;
+}
+
+table.data td.rr1 {
+  text-align:right;
+}
+
+table.data tr.even td.p1 {
+  background-color:palegoldenrod;
+#  background-color:khaki;
+}
+
+table.data tr.odd td.p1 {
+  background-color:palegoldenrod;
+}
+
+table.data td.p2 {
+  background-color: lightsteelblue;
+  text-align:right;
+  font-weight:bold;
+}
+
+table.data td.p3 {
+  background-color: lightsteelblue;
+  font-weight:bold;
+}
+
+.classname {
+	   background-color: limegreen;
+	   border:none;
+	   width:100%;
+}
+
+table.classname td {
+	   background-color: limegreen;
+	   border:none;
+	   padding:0px;
+}
+
+table.classname td.c0 {
+	   width:25%;
+	   font-weight:bold;
+	   padding-left:8px;
+}
+
+table.classname td.c1 {
+	   width:50%;
+	   text-align:center;
+}
+
+table.classname td.c2 {
+	   width:25%;
+	   text-align:right;
+	   font-size:12px;
+}
+
+.racer {
+       background-color: palegoldenrod;
+       border:none;
+       width:100%;
+}
+
+table.racer td { 
+       background-color: palegoldenrod;
+       border:none;
+       padding:0px;
+}
+
+table.racer td.r0 {
+	    padding-left:12px;
+	    padding-right:10px;
+}
+
+table.racer td.r1 {
+	   text-align:right;
+	   font-size:12px;
+}
+
+td.r4 {
+	   text-align:right;	
+}
+
+ol.rulesmain li {
+	     padding-bottom:10px;
+	     list-style-type: upper-roman;
+}
+
+ol.rulessub {
+	    list-style-type:lower-alpha;
+}
+
+ol.rulessub li {
+	    padding-bottom:0px;
+}
+
+ol.rulessubsub {
+	    list-style-type:lower-roman;
+}
+
+.nowrap {
+ 	write-space: nowrap;
+}

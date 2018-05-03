@@ -1,0 +1,16 @@
+#!/usr/bin/perl -w
+
+use warnings;
+use strict;
+use RennPoints::PCA::Race;
+use Data::Dumper;
+
+my $url = shift;
+my $race_name = shift;
+
+my $race = RennPoints::PCA::Race->new(url => $url, race => $race_name);
+my $participants = $race->participants;
+
+if ( $participants ) {
+    print Dumper( $participants );
+}

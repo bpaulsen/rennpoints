@@ -1,0 +1,11 @@
+    <div id="banner">
+      <h1>RennPoints.com</h1>
+
+      <ul>
+	<li<TMPL_IF NAME="standingstab"> class="selected"</TMPL_IF>><a href="<TMPL_VAR NAME='BASEURL'>points/">Current Standings</a></li>
+	<li<TMPL_IF NAME="laptimestab"> class="selected"</TMPL_IF>><a href="<TMPL_VAR NAME='BASEURL'>laptimes/">Lap Time Predictions</a></li>
+	<li<TMPL_IF NAME="recordstab"> class="selected"</TMPL_IF>><a href="<TMPL_VAR NAME='BASEURL'>classrecords/">Class Records</a></li>
+	<li<TMPL_IF NAME="driverstab"> class="selected"</TMPL_IF>><a href="<TMPL_VAR NAME='BASEURL'>driverhistory/">Driver History</a></li>
+	<li<TMPL_IF NAME="rulestab"> class="selected"</TMPL_IF>><a href="<TMPL_VAR NAME='BASEURL'>rules/">Rules</a></li>
+      </ul>
+    </div>

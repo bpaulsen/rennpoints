@@ -1,0 +1,26 @@
+    <div id="banner">
+      <a href="/"><h1>RennPoints.com</h1></a>
+
+      <ul>
+	<li
+            [%- IF standingstab -%]
+                 class="selected"
+            [%- END -%]><a href="[% BASEURL %]points/">Current Standings</a></li>
+	<li
+            [%- IF laptimestab -%]
+                 class="selected"
+            [%- END -%]><a href="[% BASEURL %]laptimes/">Lap Time Predictions</a></li>
+	<li
+            [%- IF recordstab -%]
+                 class="selected"
+            [%- END -%]><a href="[% BASEURL %]classrecords/">Class Records</a></li>
+	<li
+            [%- IF driverstab -%]
+                 class="selected"
+            [%- END -%]><a href="[% BASEURL %]driverhistory/">Driver History</a></li>
+	<li
+            [%- IF rulestab -%]
+                 class="selected"
+            [%- END -%]><a href="[% BASEURL %]rules/">Rules</a></li>
+      </ul>
+    </div>

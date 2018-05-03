@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">    
+    <title>DQ</title>
+    <LINK href="../../content.css" rel="stylesheet">
+  </head>
+  <body>
+    [% USE CGI %]
+    [% CGI.delete_all() %]
+    [% USE HTML %]
+    [% INCLUDE '../navbar.html'
+       BASEURL     = '../'
+       dqtab = 1
+    %]
+
+      <div id="content">
+	<form action="." method="post">
+	  <table class="data">
+	    <tr>
+	      <th>Event</th>
+	      <th>Race</th>
+	      <th>Car</th>
+	      <th>Name</th>
+	      <th>Status</th>
+	      <th>Reason</th>
+	      <th>Update</th>
+	    </tr>
+            [%- FOREACH race = RACES -%]
+	    [%- count = loop.count %]
+	      <tr class="[% loop.parity %]">
+		<td>[% HTML.escape( race.event ) %]</td>
+		<td><a href="[% race.mylaps_url %]">[% HTML.escape( race.race ) %]</a></td>
+		<td>[% HTML.escape( race.car_number ) %]</td>
+		<td>[% HTML.escape( race.full_name ) %]</td>
+		<td>
+		  [%- CGI.popup_menu( Name   => "status_$count",
+		                      Values => [ 3, 4 ],
+		                      Labels => { "3" => "DQ", "4" => "DNF" },
+		                      Default => race.status,
+		                    ) 
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.textfield( Name    => "reason_$count",
+		                     Default => race.dq_reason,
+		                     Size    => 30,
+		                   )
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.checkbox( Name    => "check_$count",
+		                    Label   => "",
+		                    Checked => race.dq_reason ? 0 : 1,
+                                  )
+		  -%]
+		  [% CGI.hidden( Name => "name_$count", Default => race.full_name ) %]
+		  [% CGI.hidden( Name => "race_$count", Default => race.race_id ) %]
+		</td>
+	      </tr>
+	    [%- END %]
+	  </table>
+	  <br>
+	  [% CGI.hidden( Name => "race_count", Default => RACES.size ) %]
+	  [% CGI.hidden( Name => "rm", Default => "update_dq" ) %]
+	  <input type="submit" value="Update RennPoints">
+	</form>
+      </div>
+  </body>
+</html>

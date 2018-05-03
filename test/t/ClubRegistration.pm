@@ -1,0 +1,2734 @@
+package TestsFor::RennPoints::ClubRegistration;
+use Test::Class::Moose;
+use RennPoints::ClubRegistration;
+
+# Watkins Glen International - Watkins Glen, NY
+# Gateway Motorsports Park - Madison, IL
+# Mid-Ohio Sports Car Course – Lexington, OH
+# Lime Rock Park - Lakeville, CT
+# Auto Club Speedway - Fontana, CA
+# Mazda Raceway Laguna Seca, Salinas, CA
+
+    # methods that begin with test_ are test methods.
+sub test_parseLocation {
+    my $test = shift;
+
+    isa_ok my $clubreg = RennPoints::ClubRegistration->new(), 'RennPoints::ClubRegistration';
+
+    my $location = "Watkins Glen International - Watkins Glen, NY";
+    my $ref = $clubreg->_parseLocation( $location );
+    is $ref->{name}, 'Watkins Glen International', "Testing parsing of name for '$location'";
+    is $ref->{city}, 'Watkins Glen', "Testing parsing of city for '$location'";
+    is $ref->{state}, 'NY', "Testing parsing of state for '$location'";
+
+    $location = "Mid-Ohio Sports Car Course – Lexington, OH";
+    $ref = $clubreg->_parseLocation( $location );
+    is $ref->{name}, 'Mid-Ohio Sports Car Course', "Testing parsing of name for '$location'";
+    is $ref->{city}, 'Lexington', "Testing parsing of city for '$location'";
+    is $ref->{state}, 'OH', "Testing parsing of state for '$location'";
+
+    $location = "Mazda Raceway Laguna Seca, Salinas, CA";
+    $ref = $clubreg->_parseLocation( $location );
+    is $ref->{name}, 'Mazda Raceway Laguna Seca', "Testing parsing of name for '$location'";
+    is $ref->{city}, 'Salinas', "Testing parsing of city for '$location'";
+    is $ref->{state}, 'CA', "Testing parsing of state for '$location'";
+}
+
+sub test_parseRaces {
+    my $test = shift;
+
+    isa_ok my $clubreg = RennPoints::ClubRegistration->new( content => getContent(),
+							    retrieve_registration_dates => 0 ), 
+    'RennPoints::ClubRegistration';
+    is @{$clubreg->races}, 4, "Testing number of races that were parsed";
+
+    is_deeply $clubreg->races->[0], { 'ID' => '8530',
+				      'LOCATION' => 'Pittsburgh International Race Complex',
+				      'CITY' => 'Wampum',
+				      'TRACKNAME' => 'Pittsburgh International Race Complex',
+				      'ENDDATE' => '10/15/17',
+				      'STARTDATE' => '10/13/17',
+				      'STATE' => 'PA'
+                                    }, 'Test structure of first race'
+}
+
+sub getContent {
+my $content =<<'EOF';
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Search for Events :: ClubRegistration.net</title>
+        
+
+
+<meta name="robots" content="NOINDEX,NOFOLLOW">
+<meta name="format-detection" content="telephone=yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link href="//clubregistration.net/events/event-search.cfm" rel="canonical">
+        <link href="/assets/css/clubreg.css" rel="stylesheet" type="text/css">
+        <!--[if lt IE 9]>
+            <script src="/assets/js/html5shiv.js?v=3.6.2"></script>
+            <script src="/assets/js/respond.min.js?v=1.3.0"></script>
+        <![endif]-->
+<script src="/assets/js/jquery.js?v=1.10.2"></script>
+
+<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/css/atc-style-blue.css" rel="stylesheet" type="text/css">
+
+
+<script src="/assets/js/jquery.collapser.min.js"></script>
+<script>
+$(document).ready(function(){
+			  $('.collapseChar').collapser({
+						       mode: 'chars',
+						       showText: '(EXPAND)',
+						       hideText: '(COLLAPSE)',
+						       truncate: 30
+						       });
+			  
+			  $('.collapseBlock').collapser({
+							target: 'next',
+							mode: 'block',
+							showText: '(Expand)',
+							hideText: '(Collapse)',
+							changeText: 1
+							});
+
+			  $('.collapseBlockShow').collapser({
+							    target: 'next',
+							    mode: 'block',
+							    showText: '(Expand)',
+							    hideText: '(Collapse)',
+							    changeText: 1,
+							    atStart: 'show'
+							    });
+
+			  $('.collapseBlockHide').collapser({
+							    target: 'next',
+							    mode: 'block',
+							    showText: '(Expand)',
+							    hideText: '(Collapse)',
+							    changeText: 1,
+							    atStart: 'hide'
+							    });
+
+			  $('.collapseBlockHideMembership').collapser({
+								      target: 'next',
+								      mode: 'block',
+								      showText: 'Show Membership',
+								      hideText: 'Hide Membership',
+								      changeText: 1,
+								      atStart: 'hide'
+								      });
+
+			  $('.collapseLineShow').collapser({
+							   mode: 'lines',
+							   showText: '...Show More',
+							   hideText: '...Show Less',
+							   changeText: 1,
+							   atStart: 'hide',
+							   truncate: 2
+							   });
+
+			  $('.collapseLineShowTall').collapser({
+							       mode: 'lines',
+							       showText: '...Show More',
+							       hideText: '...Show Less',
+							       changeText: 1,
+							       atStart: 'hide',
+							       truncate: 8
+							       });
+
+			  $('.collapseWords li').collapser({
+							   mode: 'words',
+							   truncate: 2,
+							   });
+			  
+			  });
+
+</script>
+<style>
+.show-class{
+background: #f2f2f2;
+}
+.hide-class{
+background: #fff;
+}
+</style>
+
+<link href="/assets/ico/crnet-icon-iTunesArtwork.png" rel="apple-touch-icon-precomposed">
+<link href="/assets/ico/crnet-icon.ico" rel="shortcut icon">
+
+</head>
+
+
+<body>
+
+
+        <noscript>
+            <div class="wrapper">
+                <div class="wrap three-quarter offset">
+
+                </div>
+            </div>
+        </noscript>
+        <span id="top"></span>
+        <a class="sr-only" href="#content">Skip navigation</a>
+        <header class="header" role="banner">
+            <div class="wrapper">
+                <div class="branding-lg">
+                    <a class="brand-lg" href="/" title="ClubRegistration.net"><span>ClubRegistration.net</span></a>
+                </div>
+                <div class="branding-sm">
+                    <a class="brand-sm" href="/" title="ClubRegistration.net"><span>ClubRegistration.net</span></a>
+                </div>
+            </div>
+        </header>
+
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+
+
+
+<li><a href="/the-shop/index.cfm">ClubReg Store</a></li>
+
+<li>
+<li><a href="//ontrackinsurance.com/index6.aspx" rel="external">Track Insurance</a></li>
+</li>
+<li>
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Classifieds and More... <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="/classifieds/index.cfm">Classifieds</a></li>
+<li><a href="/the-shop/trackMaps.cfm">Track Maps</a></li>
+<li><a href="https://www.youtube.com/watch?t=9&v=xsMMPHMEtL0" target="_blank">Track Day Guide (video)</a></li>
+<li><a href="/racing-quotes/">Racing Quotes</a></li>
+<li><a href="/events/photos/photo_gallery.cfm">Photo Gallery</a></li>
+<li><a href="/screen-saver">Screen Saver (Auto Refreshes)</a></li>
+</ul>
+</li>
+
+
+<li>
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Membership <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="/membership/index.cfm?seriesSelected=Chicago Region PCA">Chicago Region PCA</a></li>
+<li><a href="/membership/index.cfm?seriesSelected=Just Track It">Just Track It</a></li>
+<li><a href="/membership/index.cfm?seriesSelected=PCA">Porsche Club of America</a></li>
+</ul>
+</li>
+
+<li><a href="/contact-us/">Contact Us</a></li>
+
+</ul>
+
+            
+            
+
+                
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="/driver/menuRegistrant.cfm" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
+<ul class="dropdown-menu">
+<li><a href="/driver/home.cfm">Dashboard</a></li>
+<li><a href="/driver/eventHistory.cfm">Event History</a></li>
+
+
+<li><a href="/driver/eventReminder.cfm">Event Reminders</a></li>
+<li><a href="/misc/reserved_numbers_check.cfm">Search Reserved #s</a></li>
+<li><a href="/events/photos/upload.cfm">My Photo Gallery</a></li>
+<li><a href="/driver/classifieds/index.cfm">Classifieds</a></li>
+<li><a href="/misc/faq/">FAQs</a></li>
+
+
+<li class="divider"></li>
+<li><a href="/driver/registrant_profile.cfm">Edit Profile</a></li>
+<li><a href="/driver/vehicle/vehicle_edit.cfm">Edit Vehicles</a></li>
+
+
+<li><a href="/driver/membership/membership_edit.cfm">Edit Memberships</a></li>
+
+</ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/driver/event_sign_up.cfm" class="dropdown-toggle" data-toggle="dropdown">Search for Events <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+
+<li><a href="/events/event-search.cfm">Find Event</a></li>
+
+<li><a href="/events/rosterAll.cfm">View All Rosters</a></li>
+<li class="divider"></li>
+<li><a href="/the-shop/index.cfm">Search Products</a></li>
+
+                        </ul>
+                    </li>
+
+
+
+                </ul>
+
+            
+            <ul class="nav navbar-nav navbar-right">
+
+                    <li><a href="/logout/" title="Logout">Logout <i class="fa fa-sign-out"></i></a></li>
+                
+            </ul>
+        </div>
+    </nav>
+
+        
+        <section class="content" id="content">
+
+
+<script language="javascript">
+function eventView(eventID)
+{
+self.location.href=("/events/event-details.cfm?event_id=" + eventID);
+}
+function checkFrmSearchByKeyword()
+{
+valid = true;
+CheckForMissingValue("searchText","searchByKeywordError");
+
+if (valid == true) 
+{
+document.frmSearchByKeyword.submit();
+}
+}
+function checkFrmSearchEventType()
+{
+valid = true;
+CheckForMissingValue("eventTypeSelected","eventTypeError");
+
+if (valid == true) 
+{
+document.frmSearchByEventType.submit();
+}
+}
+function checkFrmSearchByEventHost()
+{
+valid = true;
+CheckForMissingValue("eventHostSelected","eventHostError");
+
+if (valid == true) 
+{
+document.frmSearchByEventHost.submit();
+}
+}
+function eventRegister(eventID)
+{
+self.location.href=("/events/event-details.cfm?event_id=" + eventID);
+}
+function eventRoster(eventID)
+{
+self.location.href=("/events/roster.cfm?event_id=" + eventID);
+}
+function viewInsurance()
+{
+window.open("//ontrackinsurance.com/index6.aspx");
+}
+</script>
+
+
+<script language="JavaScript" src="/misc/java_date/calendar_us.js"></script>
+<link rel="stylesheet" href="/misc/java_date/calendar.css">
+
+<div class="wrapper">
+    <div class="wrap full">
+<h1>Search for Events</h1>
+
+
+
+<table class="table table-bordered table-condensed">
+<thead>
+<tr>
+<th>By Keyword</th>
+<th>By Event Type</th>
+<th>By Event Host</th>
+</tr>
+</thead>
+
+<tr>
+
+<td style="white-space: nowrap;">
+<form id="frmSearchByKeyword" name="frmSearchByKeyword" method="post" action="event-search.cfm?searchType=searchGeneral">
+
+<input id="searchText" name="searchText" type="text" placeholder="Enter keywords">
+
+
+<button id="btnSearchByKeyword" name="btnSearchByKeyword" type="button" onClick="checkFrmSearchByKeyword();" class="btn btn-alternate btn-sm btn-120">Search...</button><br>
+<div id="searchByKeywordError" class="label label-danger"></div>
+</form>
+</td>
+
+
+<td style="white-space: nowrap;">
+
+
+
+<form id="frmSearchByEventType" name="frmSearchByEventType" method="post" action="">
+<select id="eventTypeSelected" name="eventTypeSelected" size="1">
+<option value="">Select...</option>
+
+<option value="Autocross"
+
+>Autocross</option>
+
+<option value="Car Control School"
+
+>Car Control School</option>
+
+<option value="Club Race"
+
+selected
+
+>Club Race</option>
+
+<option value="Concours/Car Show"
+
+>Concours/Car Show</option>
+
+<option value="Drag Run"
+
+>Drag Run</option>
+
+<option value="Driver's Ed"
+
+>Driver's Ed</option>
+
+<option value="Event Volunteer"
+
+>Event Volunteer</option>
+
+<option value="Multi-Segment"
+
+>Multi-Segment</option>
+
+<option value="Open Lapping"
+
+>Open Lapping</option>
+
+<option value="Performance Driving School"
+
+>Performance Driving School</option>
+
+<option value="Rallye/Tour"
+
+>Rallye/Tour</option>
+
+<option value="Social"
+
+>Social</option>
+
+<option value="Tech Session"
+
+>Tech Session</option>
+
+<option value="Test and Tune"
+
+>Test and Tune</option>
+
+<option value="Time Trial"
+
+>Time Trial</option>
+
+</select>
+
+<button id="btnSearchByEventType" name="btnSearchByEventType" type="button" onClick="checkFrmSearchEventType();" class="btn btn-alternate btn-sm btn-120">Search...</button><br>
+<div id="eventTypeError" class="label label-danger"></div>
+</form>
+</td>
+
+
+<td style="white-space: nowrap;">
+
+
+
+<form id="frmSearchByEventHost" name="frmSearchByEventHost" method="post" action="">
+<select id="eventHostSelected" name="eventHostSelected" size="1">
+<option value="">Select...</option>
+
+<option value="356 Registry"
+
+>
+
+356 Registry
+</option>
+
+<option value="Absaroka Region PCA"
+
+>
+
+Absaroka Region PCA
+</option>
+
+<option value="Acadia Region PCA"
+
+>
+
+Acadia Region PCA
+</option>
+
+<option value="Alabama Region PCA"
+
+>
+
+Alabama Region PCA
+</option>
+
+<option value="Alaska Region PCA"
+
+>
+
+Alaska Region PCA
+</option>
+
+<option value="Allegheny Region PCA"
+
+>
+
+Allegheny Region PCA
+</option>
+
+<option value="Alpine Mountain Region PCA"
+
+>
+
+Alpine Mountain Region PCA
+</option>
+
+<option value="Appalachian Region PCA"
+
+>
+
+Appalachian Region PCA
+</option>
+
+<option value="Arizona Region PCA"
+
+>
+
+Arizona Region PCA
+</option>
+
+<option value="Ark La Tex Region PCA"
+
+>
+
+Ark La Tex Region PCA
+</option>
+
+<option value="Austin Schnell Fest"
+
+>
+
+Austin Schnell Fest
+</option>
+
+<option value="Auto Racing for Charity"
+
+>
+
+Auto Racing for Charity
+</option>
+
+<option value="BC Interior Region PCA"
+
+>
+
+BC Interior Region PCA
+</option>
+
+<option value="Beater Bash"
+
+>
+
+Beater Bash
+</option>
+
+<option value="Big Sky Region PCA"
+
+>
+
+Big Sky Region PCA
+</option>
+
+<option value="Blue Ridge Region PCA"
+
+>
+
+Blue Ridge Region PCA
+</option>
+
+<option value="Bluegrass Region PCA"
+
+>
+
+Bluegrass Region PCA
+</option>
+
+<option value="Bob Woodman Tires"
+
+>
+
+Bob Woodman Tires
+</option>
+
+<option value="Boxstoberfest"
+
+>
+
+Boxstoberfest
+</option>
+
+<option value="British Motoring Club"
+
+>
+
+British Motoring Club
+</option>
+
+<option value="Buckeye Chapter BMW"
+
+>
+
+Buckeye Chapter BMW
+</option>
+
+<option value="California Central Coast Region PCA"
+
+>
+
+California Central Coast Region PCA
+</option>
+
+<option value="Canada West Region PCA"
+
+>
+
+Canada West Region PCA
+</option>
+
+<option value="CanAm Tours"
+
+>
+
+CanAm Tours
+</option>
+
+<option value="Capital Z of Texas"
+
+>
+
+Capital Z of Texas
+</option>
+
+<option value="Carolinas Region PCA"
+
+>
+
+Carolinas Region PCA
+</option>
+
+<option value="Carrera of the Americas"
+
+>
+
+Carrera of the Americas
+</option>
+
+<option value="Carrera Region PCA"
+
+>
+
+Carrera Region PCA
+</option>
+
+<option value="Cascade Region PCA"
+
+>
+
+Cascade Region PCA
+</option>
+
+<option value="Cayman Club"
+
+>
+
+Cayman Club
+</option>
+
+<option value="Central Indiana Region PCA"
+
+>
+
+Central Indiana Region PCA
+</option>
+
+<option value="Central Iowa Region PCA"
+
+>
+
+Central Iowa Region PCA
+</option>
+
+<option value="Central New York Region PCA"
+
+>
+
+Central New York Region PCA
+</option>
+
+<option value="Central Pennsylvania Region PCA"
+
+>
+
+Central Pennsylvania Region PCA
+</option>
+
+<option value="Central Wisconsin Region PCA"
+
+>
+
+Central Wisconsin Region PCA
+</option>
+
+<option value="Chesapeake Region"
+
+>
+
+Chesapeake Region
+</option>
+
+<option value="Chicago Region PCA"
+
+>
+
+Chicago Region PCA
+</option>
+
+<option value="Chrono-X"
+
+>
+
+Chrono-X
+</option>
+
+<option value="Cimarron Region PCA"
+
+>
+
+Cimarron Region PCA
+</option>
+
+<option value="Cincy Sports Car"
+
+>
+
+Cincy Sports Car
+</option>
+
+<option value="Circuit Grand Bayou"
+
+>
+
+Circuit Grand Bayou
+</option>
+
+<option value="Club Apex"
+
+>
+
+Club Apex
+</option>
+
+<option value="Club de Corredores de Circuito de Puerto Rico"
+
+>
+
+Club de Corredores de Circuito de Puerto Rico
+</option>
+
+<option value="Coastal Bend Region PCA"
+
+>
+
+Coastal Bend Region PCA
+</option>
+
+<option value="Coastal Empire Region PCA"
+
+>
+
+Coastal Empire Region PCA
+</option>
+
+<option value="Connecticut Valley Region PCA"
+
+>
+
+Connecticut Valley Region PCA
+</option>
+
+<option value="Cowtown Vettes"
+
+>
+
+Cowtown Vettes
+</option>
+
+<option value="Dakota Region PCA"
+
+>
+
+Dakota Region PCA
+</option>
+
+<option value="Delaware Region PCA"
+
+>
+
+Delaware Region PCA
+</option>
+
+<option value="Diablo Region PCA"
+
+>
+
+Diablo Region PCA
+</option>
+
+<option value="Down East Region PCA"
+
+>
+
+Down East Region PCA
+</option>
+
+<option value="Eagles Canyon"
+
+>
+
+Eagles Canyon
+</option>
+
+<option value="Eastern Buckeye Region PCA"
+
+>
+
+Eastern Buckeye Region PCA
+</option>
+
+<option value="Everglades Region PCA"
+
+>
+
+Everglades Region PCA
+</option>
+
+<option value="Finger Lakes Region PCA"
+
+>
+
+Finger Lakes Region PCA
+</option>
+
+<option value="First Settlers Region PCA"
+
+>
+
+First Settlers Region PCA
+</option>
+
+<option value="Flat Out Motorsports"
+
+>
+
+Flat Out Motorsports
+</option>
+
+<option value="Florida Citrus Region PCA"
+
+>
+
+Florida Citrus Region PCA
+</option>
+
+<option value="Florida Crown Region PCA"
+
+>
+
+Florida Crown Region PCA
+</option>
+
+<option value="Florida Thoroughbred"
+
+>
+
+Florida Thoroughbred
+</option>
+
+<option value="Florida Trials Association"
+
+>
+
+Florida Trials Association
+</option>
+
+<option value="Forged Performance"
+
+>
+
+Forged Performance
+</option>
+
+<option value="Fox Valley Region PCA"
+
+>
+
+Fox Valley Region PCA
+</option>
+
+<option value="GANAR Driving Experience"
+
+>
+
+GANAR Driving Experience
+</option>
+
+<option value="Glacier Lakes Quattro Club ACNA"
+
+>
+
+Glacier Lakes Quattro Club ACNA
+</option>
+
+<option value="Gold Coast Region PCA"
+
+>
+
+Gold Coast Region PCA
+</option>
+
+<option value="Golden Empire Region PCA"
+
+>
+
+Golden Empire Region PCA
+</option>
+
+<option value="Golden Gate Region PCA"
+
+>
+
+Golden Gate Region PCA
+</option>
+
+<option value="Grand Bayou Charity Challenge"
+
+>
+
+Grand Bayou Charity Challenge
+</option>
+
+<option value="Grand Prix Region PCA"
+
+>
+
+Grand Prix Region PCA
+</option>
+
+<option value="Great Plains Region PCA"
+
+>
+
+Great Plains Region PCA
+</option>
+
+<option value="Greater Lakeland QM Council"
+
+>
+
+Greater Lakeland QM Council
+</option>
+
+<option value="Green Mountain Region PCA"
+
+>
+
+Green Mountain Region PCA
+</option>
+
+<option value="Hawaii Region PCA"
+
+>
+
+Hawaii Region PCA
+</option>
+
+<option value="Heart O Dixie Region PCA"
+
+>
+
+Heart O Dixie Region PCA
+</option>
+
+<option value="Heroes On Track"
+
+>
+
+Heroes On Track
+</option>
+
+<option value="High Desert Region PCA"
+
+>
+
+High Desert Region PCA
+</option>
+
+<option value="Hill Country Region PCA"
+
+>
+
+Hill Country Region PCA
+</option>
+
+<option value="HOD - Florida"
+
+>
+
+HOD - Florida
+</option>
+
+<option value="HOD - Great Lakes Region"
+
+>
+
+HOD - Great Lakes Region
+</option>
+
+<option value="HOD - NorCal"
+
+>
+
+HOD - NorCal
+</option>
+
+<option value="HOD - Norcal/Reno"
+
+>
+
+HOD - Norcal/Reno
+</option>
+
+<option value="HOD - Northeast Region"
+
+>
+
+HOD - Northeast Region
+</option>
+
+<option value="HOD - Pacific Northwest Region"
+
+>
+
+HOD - Pacific Northwest Region
+</option>
+
+<option value="HOD - Southern States Region"
+
+>
+
+HOD - Southern States Region
+</option>
+
+<option value="Holy City Motorsports"
+
+>
+
+Holy City Motorsports
+</option>
+
+<option value="Houston Chapter BMW"
+
+>
+
+Houston Chapter BMW
+</option>
+
+<option value="Hudson Champlain Region PCA"
+
+>
+
+Hudson Champlain Region PCA
+</option>
+
+<option value="Hudson Valley Region PCA"
+
+>
+
+Hudson Valley Region PCA
+</option>
+
+<option value="Hurricane Region PCA"
+
+>
+
+Hurricane Region PCA
+</option>
+
+<option value="Illini Chapter BMW"
+
+>
+
+Illini Chapter BMW
+</option>
+
+<option value="Inland Northwest Region PCA"
+
+>
+
+Inland Northwest Region PCA
+</option>
+
+<option value="Intermountain Region PCA"
+
+>
+
+Intermountain Region PCA
+</option>
+
+<option value="Jersey Shore Region PCA"
+
+>
+
+Jersey Shore Region PCA
+</option>
+
+<option value="Just Track It"
+
+>
+
+Just Track It
+</option>
+
+<option value="Kansas City Region PCA"
+
+>
+
+Kansas City Region PCA
+</option>
+
+<option value="Kentucky Region PCA"
+
+>
+
+Kentucky Region PCA
+</option>
+
+<option value="Keystone Region PCA"
+
+>
+
+Keystone Region PCA
+</option>
+
+<option value="Las Vegas Region PCA"
+
+>
+
+Las Vegas Region PCA
+</option>
+
+<option value="Lincoln Trail Region PCA"
+
+>
+
+Lincoln Trail Region PCA
+</option>
+
+<option value="Llano Estacado Region PCA"
+
+>
+
+Llano Estacado Region PCA
+</option>
+
+<option value="Loma Prieta Region PCA"
+
+>
+
+Loma Prieta Region PCA
+</option>
+
+<option value="Lone Star Chapter BMW"
+
+>
+
+Lone Star Chapter BMW
+</option>
+
+<option value="Lone Star Region PCA"
+
+>
+
+Lone Star Region PCA
+</option>
+
+<option value="Lone Star Region SCCA"
+
+>
+
+Lone Star Region SCCA
+</option>
+
+<option value="Longhorn Region PCA"
+
+>
+
+Longhorn Region PCA
+</option>
+
+<option value="Los Angeles Region PCA"
+
+>
+
+Los Angeles Region PCA
+</option>
+
+<option value="Lotus Owners of NY"
+
+>
+
+Lotus Owners of NY
+</option>
+
+<option value="Magnolia Region PCA"
+
+>
+
+Magnolia Region PCA
+</option>
+
+<option value="Mardi Gras Region PCA"
+
+>
+
+Mardi Gras Region PCA
+</option>
+
+<option value="Maumee Valley Region PCA"
+
+>
+
+Maumee Valley Region PCA
+</option>
+
+<option value="Maverick Region PCA"
+
+>
+
+Maverick Region PCA
+</option>
+
+<option value="MaxTrack"
+
+>
+
+MaxTrack
+</option>
+
+<option value="Metro NY PCA"
+
+>
+
+Metro NY PCA
+</option>
+
+<option value="MI Chapter ACNA"
+
+>
+
+MI Chapter ACNA
+</option>
+
+<option value="Michiana Region PCA"
+
+>
+
+Michiana Region PCA
+</option>
+
+<option value="Mid Ohio Region PCA"
+
+>
+
+Mid Ohio Region PCA
+</option>
+
+<option value="MidSouth Region PCA"
+
+>
+
+MidSouth Region PCA
+</option>
+
+<option value="Milwaukee Region PCA"
+
+>
+
+Milwaukee Region PCA
+</option>
+
+<option value="Monterey Bay Region PCA"
+
+>
+
+Monterey Bay Region PCA
+</option>
+
+<option value="Motorsports Ranch Cresson"
+
+>
+
+Motorsports Ranch Cresson
+</option>
+
+<option value="Motor-Stadt Region PCA"
+
+>
+
+Motor-Stadt Region PCA
+</option>
+
+<option value="MTI Racing"
+
+>
+
+MTI Racing
+</option>
+
+<option value="Musik-Stadt Region PCA"
+
+>
+
+Musik-Stadt Region PCA
+</option>
+
+<option value="Mustang Club of Central Iowa"
+
+>
+
+Mustang Club of Central Iowa
+</option>
+
+<option value="Niagara Region PCA"
+
+>
+
+Niagara Region PCA
+</option>
+
+<option value="Nice Lap"
+
+>
+
+Nice Lap
+</option>
+
+<option value="No Problem Raceway"
+
+>
+
+No Problem Raceway
+</option>
+
+<option value="NOLA Motorsports Park"
+
+>
+
+NOLA Motorsports Park
+</option>
+
+<option value="Nord Stern Region PCA"
+
+>
+
+Nord Stern Region PCA
+</option>
+
+<option value="North Country Region PCA"
+
+>
+
+North Country Region PCA
+</option>
+
+<option value="North Florida Region PCA"
+
+>
+
+North Florida Region PCA
+</option>
+
+<option value="Northeast Chapter ACNA"
+
+>
+
+Northeast Chapter ACNA
+</option>
+
+<option value="Northeast Region PCA"
+
+>
+
+Northeast Region PCA
+</option>
+
+<option value="Northern New Jersey Region PCA"
+
+>
+
+Northern New Jersey Region PCA
+</option>
+
+<option value="Northern Ohio Region PCA"
+
+>
+
+Northern Ohio Region PCA
+</option>
+
+<option value="Ocmulgee Region PCA"
+
+>
+
+Ocmulgee Region PCA
+</option>
+
+<option value="Ohio Valley Chapter ACNA"
+
+>
+
+Ohio Valley Chapter ACNA
+</option>
+
+<option value="Ohio Valley Region PCA"
+
+>
+
+Ohio Valley Region PCA
+</option>
+
+<option value="Olympic Peninsula Region PCA"
+
+>
+
+Olympic Peninsula Region PCA
+</option>
+
+<option value="Orange Coast Region PCA"
+
+>
+
+Orange Coast Region PCA
+</option>
+
+<option value="Oregon Region PCA"
+
+>
+
+Oregon Region PCA
+</option>
+
+<option value="Ozark Lakes Region PCA"
+
+>
+
+Ozark Lakes Region PCA
+</option>
+
+<option value="Ozark Region PCA"
+
+>
+
+Ozark Region PCA
+</option>
+
+<option value="Pacific Northwest Region PCA"
+
+>
+
+Pacific Northwest Region PCA
+</option>
+
+<option value="Palmer Motorsports Park"
+
+>
+
+Palmer Motorsports Park
+</option>
+
+<option value="Palmetto Region PCA"
+
+>
+
+Palmetto Region PCA
+</option>
+
+<option value="PBOC - Florida Region"
+
+>
+
+PBOC - Florida Region
+</option>
+
+<option value="PCA National"
+
+>
+
+PCA National
+</option>
+
+<option value="PCA Zone 01"
+
+>
+
+PCA Zone 01
+</option>
+
+<option value="PCA Zone 02"
+
+>
+
+PCA Zone 02
+</option>
+
+<option value="PCA Zone 04"
+
+>
+
+PCA Zone 04
+</option>
+
+<option value="PCA Zone 08"
+
+>
+
+PCA Zone 08
+</option>
+
+<option value="PCA Zone 12"
+
+>
+
+PCA Zone 12
+</option>
+
+<option value="Peachstate Region PCA"
+
+>
+
+Peachstate Region PCA
+</option>
+
+<option value="Performance Driving Experience"
+
+>
+
+Performance Driving Experience
+</option>
+
+<option value="Pocono Region PCA"
+
+>
+
+Pocono Region PCA
+</option>
+
+<option value="Polar Region PCA"
+
+>
+
+Polar Region PCA
+</option>
+
+<option value="Potomac Region PCA"
+
+>
+
+Potomac Region PCA
+</option>
+
+<option value="Protechnik"
+
+>
+
+Protechnik
+</option>
+
+<option value="Puerto Rico Region PCA"
+
+>
+
+Puerto Rico Region PCA
+</option>
+
+<option value="Raanspeed Auto Club"
+
+>
+
+Raanspeed Auto Club
+</option>
+
+<option value="Rally Sport Region PCA"
+
+>
+
+Rally Sport Region PCA
+</option>
+
+<option value="Red River Region PCA"
+
+>
+
+Red River Region PCA
+</option>
+
+<option value="Redwood Region PCA"
+
+>
+
+Redwood Region PCA
+</option>
+
+<option value="Rennsport Region PCA"
+
+>
+
+Rennsport Region PCA
+</option>
+
+<option value="Rezoom Motorsports"
+
+>
+
+Rezoom Motorsports
+</option>
+
+<option value="Riesentoter Region PCA"
+
+>
+
+Riesentoter Region PCA
+</option>
+
+<option value="Rio Grande Region PCA"
+
+>
+
+Rio Grande Region PCA
+</option>
+
+<option value="Riverside Region PCA"
+
+>
+
+Riverside Region PCA
+</option>
+
+<option value="Roadrunner Region PCA"
+
+>
+
+Roadrunner Region PCA
+</option>
+
+<option value="Rocky Mountain Region PCA"
+
+>
+
+Rocky Mountain Region PCA
+</option>
+
+<option value="Sacramento Valley Region PCA"
+
+>
+
+Sacramento Valley Region PCA
+</option>
+
+<option value="Saleen Club of America"
+
+>
+
+Saleen Club of America
+</option>
+
+<option value="San Diego Region PCA"
+
+>
+
+San Diego Region PCA
+</option>
+
+<option value="San Gabriel Valley Region PCA"
+
+>
+
+San Gabriel Valley Region PCA
+</option>
+
+<option value="Sandlapper Chapter BMW CCA"
+
+>
+
+Sandlapper Chapter BMW CCA
+</option>
+
+<option value="Santa Barbara Region PCA"
+
+>
+
+Santa Barbara Region PCA
+</option>
+
+<option value="Schattenbaum Region PCA"
+
+>
+
+Schattenbaum Region PCA
+</option>
+
+<option value="Sequoia Region PCA"
+
+>
+
+Sequoia Region PCA
+</option>
+
+<option value="Shasta Region PCA"
+
+>
+
+Shasta Region PCA
+</option>
+
+<option value="Shenandoah Region PCA"
+
+>
+
+Shenandoah Region PCA
+</option>
+
+<option value="Sierra Nevada Region PCA"
+
+>
+
+Sierra Nevada Region PCA
+</option>
+
+<option value="Silver Sage Region PCA"
+
+>
+
+Silver Sage Region PCA
+</option>
+
+<option value="Smoky Mountain Region PCA"
+
+>
+
+Smoky Mountain Region PCA
+</option>
+
+<option value="Sonnenschein Region PCA"
+
+>
+
+Sonnenschein Region PCA
+</option>
+
+<option value="South Shore Track Days"
+
+>
+
+South Shore Track Days
+</option>
+
+<option value="Southeast Michigan Region PCA"
+
+>
+
+Southeast Michigan Region PCA
+</option>
+
+<option value="Southern Arizona Region PCA"
+
+>
+
+Southern Arizona Region PCA
+</option>
+
+<option value="Southern Indiana Region PCA"
+
+>
+
+Southern Indiana Region PCA
+</option>
+
+<option value="Space Coast Region PCA"
+
+>
+
+Space Coast Region PCA
+</option>
+
+<option value="Sports Car Driving Experience"
+
+>
+
+Sports Car Driving Experience
+</option>
+
+<option value="St. Louis Region PCA"
+
+>
+
+St. Louis Region PCA
+</option>
+
+<option value="Strictly European Autosport"
+
+>
+
+Strictly European Autosport
+</option>
+
+<option value="Sudenvolk Region PCA"
+
+>
+
+Sudenvolk Region PCA
+</option>
+
+<option value="Suncoast Florida Region PCA"
+
+>
+
+Suncoast Florida Region PCA
+</option>
+
+<option value="SWP Performance"
+
+>
+
+SWP Performance
+</option>
+
+<option value="Tennessee Region PCA"
+
+>
+
+Tennessee Region PCA
+</option>
+
+<option value="Texas Driving Experience"
+
+>
+
+Texas Driving Experience
+</option>
+
+<option value="Texas Time Trials"
+
+>
+
+Texas Time Trials
+</option>
+
+<option value="Texas Tours"
+
+>
+
+Texas Tours
+</option>
+
+<option value="Texas World Speedway"
+
+>
+
+Texas World Speedway
+</option>
+
+<option value="Trackmasters"
+
+>
+
+Trackmasters
+</option>
+
+<option value="Tracks Unlimited Inc."
+
+>
+
+Tracks Unlimited Inc.
+</option>
+
+<option value="Trackstar Motorsports"
+
+>
+
+Trackstar Motorsports
+</option>
+
+<option value="Trillium Chapter BMW"
+
+>
+
+Trillium Chapter BMW
+</option>
+
+<option value="Turbulence Ahead"
+
+>
+
+Turbulence Ahead
+</option>
+
+<option value="Ultimate Street Car Association"
+
+>
+
+Ultimate Street Car Association
+</option>
+
+<option value="Upper Canada Region PCA"
+
+>
+
+Upper Canada Region PCA
+</option>
+
+<option value="Vancouver Island Region PCA"
+
+>
+
+Vancouver Island Region PCA
+</option>
+
+<option value="Vertical Motorsports"
+
+>
+
+Vertical Motorsports
+</option>
+
+<option value="VIP Track Days"
+
+>
+
+VIP Track Days
+</option>
+
+<option value="War Bonnet Region PCA"
+
+>
+
+War Bonnet Region PCA
+</option>
+
+<option value="West Texas Region PCA"
+
+>
+
+West Texas Region PCA
+</option>
+
+<option value="Western Michigan Region PCA"
+
+>
+
+Western Michigan Region PCA
+</option>
+
+<option value="Whiskey Bay Region PCA"
+
+>
+
+Whiskey Bay Region PCA
+</option>
+
+<option value="Wichita Region PCA"
+
+>
+
+Wichita Region PCA
+</option>
+
+<option value="Wild Rose Region PCA"
+
+>
+
+Wild Rose Region PCA
+</option>
+
+<option value="Wilderness Trail Region PCA"
+
+>
+
+Wilderness Trail Region PCA
+</option>
+
+<option value="Windy City BMW"
+
+>
+
+Windy City BMW
+</option>
+
+<option value="Woodhouse Porsche of Omaha"
+
+>
+
+Woodhouse Porsche of Omaha
+</option>
+
+<option value="YachtRodders"
+
+>
+
+YachtRodders
+</option>
+
+<option value="Yellowstone Region PCA"
+
+>
+
+Yellowstone Region PCA
+</option>
+
+<option value="Yosemite Region PCA"
+
+>
+
+Yosemite Region PCA
+</option>
+
+<option value="Z Club of Houston"
+
+>
+
+Z Club of Houston
+</option>
+
+<option value="Z Club of Texas"
+
+>
+
+Z Club of Texas
+</option>
+
+<option value="ZSPORT of San Antonio"
+
+>
+
+ZSPORT of San Antonio
+</option>
+
+</select>
+
+<button id="btnSearchByEventHost" name="btnSearchByEventHost" type="button" onClick="checkFrmSearchByEventHost();" class="btn btn-alternate btn-sm btn-120">Search...</button><br>
+<div id="eventHostError" class="label label-danger"></div>
+</form>
+</td>
+</tr>
+</table>
+
+<table class="table table-bordered table-condensed">
+<thead>
+<tr>
+<th colspan="5">
+Event Information (7 found )
+</th>
+</tr>
+</thead>
+
+
+
+<tr>
+
+<td class="text-center" style="height: 55px; vertical-align:middle;">
+
+<img src="/assets/img/logos/LogoARPCA.png" alt="" style="width: 140px;">
+
+</td>
+
+
+<td>
+<table>
+<tr>
+<td class="labels">Host</td>
+<td style="white-space: nowrap;">
+
+<a href="event-search.cfm?selected_organization=all&selected_car_club=Allegheny Region PCA&selected_event_type=all">Allegheny Region PCA</a></td>
+
+</tr>
+
+
+<tr>
+<td class="labels">Name</td>
+<td>Steel Cities Championships at Das Bürghring - Wampum, PA</td>
+</tr>
+
+<tr>
+<td class="labels">Dates</td>
+<td>
+10/13/17-10/15/17 
+</td>
+</tr>
+</table>
+</td>
+
+
+<td>
+<table>
+<tr>
+<td class="labels" style="white-space:nowrap;">Event Type</td>
+<td>Club Race</td>
+</tr>
+<tr>
+<td class="labels">Location</td>
+<td>
+
+<a href="http://pittrace.com/" target="_blank">Pittsburgh International Race Complex</a>
+
+</td>
+</tr>
+
+<tr><td class="labels">Registrar</td>
+<td>
+
+
+<a href="mailto:ClubRace@pca.org">ClubRace@pca.org</a> / (847) 272-7764
+
+</td>
+</tr>
+</table>
+</td>
+
+<td class="text-center">
+
+<a href="/the-shop/index.cfm/category/Track-Maps">
+<img src="/assets/img/trackMaps/PittsburgInternational.png" alt="Pittsburgh International" style="width: 60px;"><br>
+<small>(order map)</small>
+</a>
+
+</td>
+
+
+<td>
+
+<button id="btnRegister8530" name="btnRegister8530" type="button" onClick="eventRegister(8530);" class="btn btn-alternate btn-sm btn-block btn-120">Details/Register...</button>
+
+<button id="btnRoster8530" name="btnRoster8530" type="button" onClick="eventRoster(8530);" class="btn btn-alternate btn-sm btn-block btn-120">View Roster</button>
+
+</td>
+</tr>
+
+<tr>
+
+<td class="text-center" style="height: 55px; vertical-align:middle;">
+
+<img src="/assets/img/logos/PCA_ZONE_12.png" alt="" style="width: 140px;">
+
+</td>
+
+
+<td>
+<table>
+<tr>
+<td class="labels">Host</td>
+<td style="white-space: nowrap;">
+
+<a href="event-search.cfm?selected_organization=all&selected_car_club=PCA Zone 12&selected_event_type=all">PCA Zone 12</a></td>
+
+</tr>
+
+
+<tr>
+<td class="labels">Name</td>
+<td>Oktoberfast at Daytona 2017</td>
+</tr>
+
+<tr>
+<td class="labels">Dates</td>
+<td>
+10/27/17-10/29/17 
+</td>
+</tr>
+</table>
+</td>
+
+
+<td>
+<table>
+<tr>
+<td class="labels" style="white-space:nowrap;">Event Type</td>
+<td>Club Race</td>
+</tr>
+<tr>
+<td class="labels">Location</td>
+<td>
+
+<a href="http://daytonainternationalspeedway.com" target="_blank">Daytona International Speedway</a>
+
+</td>
+</tr>
+
+<tr><td class="labels">Registrar</td>
+<td>
+
+
+<a href="mailto:ClubRace@pca.org">ClubRace@pca.org</a> / (847) 272-7764
+
+</td>
+</tr>
+</table>
+</td>
+
+<td class="text-center">
+
+<a href="/the-shop/index.cfm/category/Track-Maps">
+<img src="/assets/img/trackMaps/Daytona6.png" alt="Daytona" style="width: 60px;"><br>
+<small>(order map)</small>
+</a>
+
+</td>
+
+
+<td>
+
+<button id="btnRegister8528" name="btnRegister8528" type="button" onClick="eventRegister(8528);" class="btn btn-alternate btn-sm btn-block btn-120">Details/Register...</button>
+
+<button id="btnRoster8528" name="btnRoster8528" type="button" onClick="eventRoster(8528);" class="btn btn-alternate btn-sm btn-block btn-120">View Roster</button>
+
+</td>
+</tr>
+
+<tr>
+
+<td class="text-center" style="height: 55px; vertical-align:middle;">
+
+<img src="/assets/img/logos/PBOCLOGO.jpg" alt="" style="height: 90px;">
+
+</td>
+
+
+<td>
+<table>
+<tr>
+<td class="labels">Host</td>
+<td style="white-space: nowrap;">
+
+<a href="event-search.cfm?selected_organization=all&selected_car_club=PBOC - Florida Region&selected_event_type=all">PBOC - Florida Region</a></td>
+
+</tr>
+
+
+<tr>
+<td class="labels">Name</td>
+<td>PBOC KRFL RACE Sebring</td>
+</tr>
+
+<tr>
+<td class="labels">Dates</td>
+<td>
+10/27/17-10/28/17 
+</td>
+</tr>
+</table>
+</td>
+
+
+<td>
+<table>
+<tr>
+<td class="labels" style="white-space:nowrap;">Event Type</td>
+<td>Club Race</td>
+</tr>
+<tr>
+<td class="labels">Location</td>
+<td>
+
+<a href="http://www.PBOCFlorida.com" target="_blank">Sebring, FL</a>
+
+</td>
+</tr>
+
+<tr><td class="labels">Registrar</td>
+<td>
+
+
+<a href="mailto:JSchwarzmann@cfl.rr.com">JSchwarzmann@cfl.rr.com</a>
+
+<br>407-804-0892 
+</td>
+</tr>
+</table>
+</td>
+
+<td class="text-center">
+
+<a href="/the-shop/index.cfm/category/Track-Maps">
+<img src="/assets/img/trackMaps/Sebring.png" alt="Sebring" style="width: 60px;"><br>
+<small>(order map)</small>
+</a>
+
+</td>
+
+
+<td>
+
+<button id="btnRegister8416" name="btnRegister8416" type="button" onClick="eventRegister(8416);" class="btn btn-alternate btn-sm btn-block btn-120">Details/Register...</button>
+
+<button id="btnRoster8416" name="btnRoster8416" type="button" onClick="eventRoster(8416);" class="btn btn-alternate btn-sm btn-block btn-120">View Roster</button>
+
+</td>
+</tr>
+
+<tr>
+
+<td class="text-center" style="height: 55px; vertical-align:middle;">
+
+<img src="/assets/img/logos/logoSanDiegoPCA.png" alt="" style="width: 140px;">
+
+</td>
+
+
+<td>
+<table>
+<tr>
+<td class="labels">Host</td>
+<td style="white-space: nowrap;">
+
+<a href="event-search.cfm?selected_organization=all&selected_car_club=San Diego Region PCA&selected_event_type=all">San Diego Region PCA</a></td>
+
+</tr>
+
+
+<tr>
+<td class="labels">Name</td>
+<td>Buttonwillow Double Crown 2017</td>
+</tr>
+
+<tr>
+<td class="labels">Dates</td>
+<td>
+11/11/17-11/12/17 
+</td>
+</tr>
+</table>
+</td>
+
+
+<td>
+<table>
+<tr>
+<td class="labels" style="white-space:nowrap;">Event Type</td>
+<td>Club Race</td>
+</tr>
+<tr>
+<td class="labels">Location</td>
+<td>
+
+<a href="http://www.buttonwillowraceway.com" target="_blank">Buttonwillow Raceway Park - Buttonwillow, CA</a>
+
+</td>
+</tr>
+
+<tr><td class="labels">Registrar</td>
+<td>
+
+
+<a href="mailto:ClubRace@pca.org">ClubRace@pca.org</a> / (847) 272-7764
+
+</td>
+</tr>
+</table>
+</td>
+
+<td class="text-center">
+
+<a href="/the-shop/index.cfm/category/Track-Maps">
+<img src="/assets/img/trackMaps/ButtonWillow.png" alt="Button Willow" style="width: 60px;"><br>
+<small>(order map)</small>
+</a>
+
+</td>
+
+
+<td>
+
+<button id="btnRegister8539" name="btnRegister8539" type="button" onClick="eventRegister(8539);" class="btn btn-alternate btn-sm btn-block btn-120">Details/Register...</button>
+
+<button id="btnRoster8539" name="btnRoster8539" type="button" onClick="eventRoster(8539);" class="btn btn-alternate btn-sm btn-block btn-120">View Roster</button>
+
+</td>
+</tr>
+
+<tr>
+
+<td class="text-center" style="height: 55px; vertical-align:middle;">
+
+<img src="/assets/img/logos/logoMaverickPCA.jpg" alt="" style="height: 90px;">
+
+</td>
+
+
+<td>
+<table>
+<tr>
+<td class="labels">Host</td>
+<td style="white-space: nowrap;">
+
+<a href="event-search.cfm?selected_organization=all&selected_car_club=Maverick Region PCA&selected_event_type=all">Maverick Region PCA</a></td>
+
+</tr>
+
+
+<tr>
+<td class="labels">Name</td>
+<td>Texas Showdown 2017</td>
+</tr>
+
+<tr>
+<td class="labels">Dates</td>
+<td>
+11/11/17-11/12/17 
+</td>
+</tr>
+</table>
+</td>
+
+
+<td>
+<table>
+<tr>
+<td class="labels" style="white-space:nowrap;">Event Type</td>
+<td>Club Race</td>
+</tr>
+<tr>
+<td class="labels">Location</td>
+<td>
+
+<a href="http://www.motorsportranch.com/" target="_blank">Motorsport Ranch - Cresson, TX</a>
+
+</td>
+</tr>
+
+<tr><td class="labels">Registrar</td>
+<td>
+
+
+<a href="mailto:ClubRace@pca.org">ClubRace@pca.org</a> / (847) 272-7764
+
+</td>
+</tr>
+</table>
+</td>
+
+<td class="text-center">
+
+<a href="/the-shop/index.cfm/category/Track-Maps">
+<img src="/assets/img/trackMaps/MSR_Cresson.png" alt="MSR Cresson 3.1" style="width: 60px;"><br>
+<small>(order map)</small>
+</a>
+
+</td>
+
+
+<td>
+
+<button id="btnRegister8529" name="btnRegister8529" type="button" onClick="eventRegister(8529);" class="btn btn-alternate btn-sm btn-block btn-120">Details/Register...</button>
+
+<button id="btnRoster8529" name="btnRoster8529" type="button" onClick="eventRoster(8529);" class="btn btn-alternate btn-sm btn-block btn-120">View Roster</button>
+
+</td>
+</tr>
+
+<tr>
+
+<td class="text-center" style="height: 55px; vertical-align:middle;">
+
+<img src="/assets/img/logos/PBOCLOGO.jpg" alt="" style="height: 90px;">
+
+</td>
+
+
+<td>
+<table>
+<tr>
+<td class="labels">Host</td>
+<td style="white-space: nowrap;">
+
+<a href="event-search.cfm?selected_organization=all&selected_car_club=PBOC - Florida Region&selected_event_type=all">PBOC - Florida Region</a></td>
+
+</tr>
+
+
+<tr>
+<td class="labels">Name</td>
+<td>PBOC Races at Barber</td>
+</tr>
+
+<tr>
+<td class="labels">Dates</td>
+<td>
+11/18/17-11/19/17 
+</td>
+</tr>
+</table>
+</td>
+
+
+<td>
+<table>
+<tr>
+<td class="labels" style="white-space:nowrap;">Event Type</td>
+<td>Club Race</td>
+</tr>
+<tr>
+<td class="labels">Location</td>
+<td>
+
+<a href="http://www.PBOCFlorida.com" target="_blank">Barber</a>
+
+</td>
+</tr>
+
+<tr><td class="labels">Registrar</td>
+<td>
+
+
+<a href="mailto:JSchwarzmann@cfl.rr.com">JSchwarzmann@cfl.rr.com</a>
+
+<br>407-804-0892 
+</td>
+</tr>
+</table>
+</td>
+
+<td class="text-center">
+
+<a href="/the-shop/index.cfm/category/Track-Maps">
+<img src="/assets/img/trackMaps/Barber_MSP.png" alt="Barber Motorsports Park" style="width: 60px;"><br>
+<small>(order map)</small>
+</a>
+
+</td>
+
+
+<td>
+
+<button id="btnRegister8537" name="btnRegister8537" type="button" onClick="eventRegister(8537);" class="btn btn-alternate btn-sm btn-block btn-120">Details/Register...</button>
+
+<button id="btnRoster8537" name="btnRoster8537" type="button" onClick="eventRoster(8537);" class="btn btn-alternate btn-sm btn-block btn-120">View Roster</button>
+
+</td>
+</tr>
+
+<tr>
+
+<td class="text-center" style="height: 55px; vertical-align:middle;">
+
+<img src="/assets/img/logos/PBOCLOGO.jpg" alt="" style="height: 90px;">
+
+</td>
+
+
+<td>
+<table>
+<tr>
+<td class="labels">Host</td>
+<td style="white-space: nowrap;">
+
+<a href="event-search.cfm?selected_organization=all&selected_car_club=PBOC - Florida Region&selected_event_type=all">PBOC - Florida Region</a></td>
+
+</tr>
+
+
+<tr>
+<td class="labels">Name</td>
+<td>PBOC WINTERFEST™ 2018  Sebring RACES</td>
+</tr>
+
+<tr>
+<td class="labels">Dates</td>
+<td>
+01/17/18-01/21/18 
+</td>
+</tr>
+</table>
+</td>
+
+
+<td>
+<table>
+<tr>
+<td class="labels" style="white-space:nowrap;">Event Type</td>
+<td>Club Race</td>
+</tr>
+<tr>
+<td class="labels">Location</td>
+<td>
+
+<a href="http://www.PBOCFlorida.com" target="_blank">Sebring</a>
+
+</td>
+</tr>
+
+<tr><td class="labels">Registrar</td>
+<td>
+
+
+<a href="mailto:JSchwarzmann@cfl.rr.com">JSchwarzmann@cfl.rr.com</a>
+
+<br>407-804-0892 
+</td>
+</tr>
+</table>
+</td>
+
+<td class="text-center">
+
+<a href="/the-shop/index.cfm/category/Track-Maps">
+<img src="/assets/img/trackMaps/Sebring.png" alt="Sebring" style="width: 60px;"><br>
+<small>(order map)</small>
+</a>
+
+</td>
+
+
+<td>
+
+<button id="btnRegister8586" name="btnRegister8586" type="button" onClick="eventRegister(8586);" class="btn btn-alternate btn-sm btn-block btn-120">Details/Register...</button>
+
+<button id="btnRoster8586" name="btnRoster8586" type="button" onClick="eventRoster(8586);" class="btn btn-alternate btn-sm btn-block btn-120">View Roster</button>
+
+</td>
+</tr>
+
+</table>
+
+
+<div class="wrap full text-center">
+
+<div class="sponsors-image text-center">
+
+
+<small><em>ClubRegistration.net sponsor</em></small>
+
+<a href="http://www.competitionMotorsport.com" target="_blank">
+
+<img src="https://clubregistration.net/assets/img/sponsors/competitionMotorsport%2Epng" alt="Competition Motorsport" style="width: 350px;">
+
+</a>
+
+<p class="alert alert-info text-center" style="width: 312px;">All the top motorsport brands. The best service in the business. At the lowest prices in the nation.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+
+        </section>
+<footer class="footer" role="contentinfo">
+<div class="wrapper">
+
+
+<div class="text-center">
+
+<a href="/racing-quotes">
+<strong><em>You know you're a racer if&hellip;</em></strong>
+</a>
+<em>You see pool noodles and remember your roll cage.</em>
+
+</div>
+<br>
+
+<div class="text-center" style="padding-bottom: 10px;">
+
+<table style="margin: 0 auto;">
+<tr>
+ 
+<td style="text-align: center; vertical-align: top; padding-right: 10px;">
+
+<a href="//clubregistration.net/the-shop/index.cfm/productid/998">
+<img class="product-image" src="//clubregistration.net/assets/img/products/motorphoriaCOTA.png" alt="Track Map Earrings" style="width: 100px;">
+</a>
+
+</td>
+
+<td style="text-align: left; vertical-align: top; width: 600px;">
+
+<a href="https://clubregistration.net/the-shop/index.cfm/productid/998"><strong>Track Map Earrings</strong></a>&nbsp;($28.00)
+<br>
+<em>Wire earrings hand bent into the shape of your favorite track. Clear jewel marks the start/finish line.<br><br>The track dangles approximately 2.5" from the top of the hook. Available in Gold or Silver tone wire.<br><br>Only ships to United States.</em>
+
+</td>
+</tr>
+</table>
+
+</div>
+
+
+<hr>
+
+<div class="legal">
+<ul>
+<li>Copyright &copy; 2017 ClubRegistration.net LLC. All rights reserved.</li>
+<li><a href="/privacy/" title="Privacy Policy">Privacy Policy</a></li>
+<li>Office: 512.273.5016</li>
+</ul>
+</div>
+<small class="facebook">
+<a href="//www.facebook.com/ClubRegistration" rel="external" title="Follow us on Facebook!"><i class="fa fa-facebook-square fa-3x"></i></a>
+</small>
+</div>
+</footer>
+        <script src="/assets/js/bootstrap.min.js?v=3.0.0"></script>
+        <script src="/assets/js/holder.js?v=2.0.0"></script>
+        <script src="/assets/js/retina.js?v=0.0.2"></script>
+        <script src="/assets/js/jquery.smooth-scroll.min.js?v=1.4.11"></script>
+        <script src="/assets/js/scripts.js"></script>
+        <script src="/assets/js/common.js"></script>
+<script src="/assets/js/libs/DataTables-1.9.4/media/js/jquery.dataTables.min.js?v=1.9.4"></script>
+    </body>
+</html>
+EOF
+
+return $content;
+}
+
+1;

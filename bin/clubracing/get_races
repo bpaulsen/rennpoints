@@ -1,0 +1,15 @@
+#!/usr/bin/perl -w
+
+use warnings;
+use strict;
+use RennPoints::ClubRacing;
+use Data::Dumper;
+
+my $identifier = shift;
+
+my $clubracing = RennPoints::ClubRacing->new();
+my @matches = grep { $_->{track} eq $identifier || $_->{description} eq $identifier } @{$clubracing->events};
+
+foreach my $event ( @matches ) {
+    print join( "\n", @{$event->{event}->races} ), "\n";
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">    
+    <title>Best Lap Times</title>
+    <LINK href="../content.css" rel="stylesheet">
+    
+    <TMPL_IF NAME="google_lat">
+      <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyCN3SBvLjNi16RN6PZdFwfO7Rd6vGUwimU&amp;sensor=false"
+              type="text/javascript"></script>
+      <script type="text/javascript">
+	function createMarker(point,html) {
+          // ======== Add a "directions" link ======
+          html += '<br> <a href="http://maps.google.com/maps?saddr=&daddr=' + point.toUrlValue() + '" target ="_blank">Directions to here<\/a>';
+      
+          var marker = new GMarker(point);
+          GEvent.addListener(marker, "click", function() {
+            marker.openInfoWindowHtml(html);
+          });
+          return marker;
+	}
+      
+	function initialize() {
+	   if (GBrowserIsCompatible()) {
+	      var map = new GMap2(document.getElementById("map_canvas"));
+	      var point = new GLatLng(<TMPL_VAR NAME="google_lat">, <TMPL_VAR NAME="google_lng">);
+	      map.setCenter(point, <TMPL_VAR NAME="google_zoom">);
+	      map.setUIToDefault();
+	      map.setMapType(G_SATELLITE_MAP);
+
+	      var marker = createMarker(point,'<div style="width:125px">');
+	      map.addOverlay(marker);
+	   }
+	}
+      </script>
+    </TMPL_IF>
+  </head>
+  <body <TMPL_IF NAME="google_lat">onload="initialize()" onunload="GUnload()"</TMPL_IF>>
+    <TMPL_INCLUDE NAME="../navbar.html">
+
+      <div id="initialform">
+       <img src="../pca_club_racing2.png" width="390" height="120" alt="PCA club racing"/>
+      	
+	<form action=".">
+	  This page shows previous lap time records of the competitors who are attending your next race<br>
+	  Track:&nbsp;<TMPL_VAR NAME="track_popup">   <TMPL_IF NAME="race_popup">Race:&nbsp;<TMPL_VAR NAME="race_popup"></TMPL_IF><br>
+	    <TMPL_IF NAME="enddate">
+	      Dates: <TMPL_VAR NAME="startdate"> - <TMPL_VAR NAME="enddate"><br>
+		  <TMPL_IF NAME="registration_open">
+		    Not registered for the race?  <a href="http://www.clubregistration.net/events/register.cfm?event_id=<TMPL_VAR NAME="clubregid">">Sign up here</a>
+		    <TMPL_ELSE>
+		      <TMPL_IF NAME="registration_date">
+			Registration opens on <TMPL_VAR NAME="registration_date"> at 9 PM Central Time
+			  <TMPL_ELSE>
+			    Registration dates have not been set yet.
+		      </TMPL_IF>
+		  </TMPL_IF>
+		  <br>
+	    </TMPL_IF>
+	    <br>
+	</form>
+      </div>
+
+      <TMPL_IF NAME="event">
+
+	<table class="columnstable">
+	  <tr>
+	    <td>
+	      <div id="content" style="padding-top:0">
+		<TMPL_IF NAME="race">
+		  <table class="data">
+		    <TMPL_IF NAME="racers">
+		      <tr>
+			<th colspan="5"><TMPL_VAR NAME="racers"> racers</th>
+		      </tr>
+		    </TMPL_IF>
+		    
+		    <tr>
+		      <th>Name</th>
+		      <th>Class</th>
+		      <th>Car</th>
+		      <th>Lap Time</th>
+		      <th>Date</th>
+		    </tr>
+		    
+		    <TMPL_LOOP NAME="results">
+		      <tr class="<TMPL_IF NAME="__odd__">odd<TMPL_ELSE>even</TMPL_IF>">
+			<td>&nbsp;<a href="../driverhistory/?racer=<TMPL_VAR NAME="racerid">"><TMPL_VAR NAME="racername"></a>&nbsp;</td>
+			<td>&nbsp;<TMPL_VAR NAME="racerclass">&nbsp;</td>
+			<td align="right">&nbsp;<TMPL_VAR NAME="racercar">&nbsp;</td>
+			<td align="right">&nbsp;<TMPL_VAR NAME="besttime">&nbsp;</td>
+			<td>&nbsp;<TMPL_IF NAME="resulturl"><a href="<TMPL_VAR NAME="resulturl">&amp;perClass=1"><TMPL_VAR NAME="resultdate"></a><TMPL_ELSE><TMPL_IF NAME="besttime"><a href="../predictions?track=<TMPL_VAR NAME="track">&amp;class=<TMPL_VAR NAME="racerclass">&amp;racer=<TMPL_VAR NAME="racerid">">Prediction</a><TMPL_ELSE>&nbsp;</TMPL_IF></TMPL_IF>&nbsp;</td>
+		      </tr>
+		    </TMPL_LOOP>
+		  </table>
+		  <TMPL_ELSE>
+		    <table class="data">
+		      <TMPL_IF NAME="racers">
+			<tr>
+			  <th colspan="5"><TMPL_VAR NAME="racers"> racers</th>
+			</tr>
+		      </TMPL_IF>
+		      
+		      <tr>
+			<th>Name</th>
+			<th>Class</th>
+			<th>Lap Time</th>
+			<th>Date</th>
+		      </tr>
+		      <TMPL_LOOP NAME="results">
+			<tr class="classname">
+			  <td colspan="4">
+			    <table class="classname">
+			      <tr>
+				<td class="c0">Class: <TMPL_VAR NAME="class"></td>
+				<td class="c1"><TMPL_IF NAME="classRecord">Class Record: <TMPL_VAR NAME="classRecord"><TMPL_ELSE>No class record</TMPL_IF></td>
+				<td class="c2"><TMPL_VAR NAME="racers"> racers</td>
+			      </tr>
+			    </table>
+			  </td>
+			</tr>
+			<TMPL_LOOP NAME="classResults">
+			  <tr class="racer">
+			    <td colspan="4">
+			      <table class="racer">
+				<tr>
+				  <td class="r0">Racer: <a href="../driverhistory/?racer=<TMPL_VAR NAME="racerid">"><TMPL_VAR NAME="racername"></a></td>
+				  <td class="r1"><TMPL_VAR NAME="racercar"></td>
+				</tr>
+			      </table>
+			    </td>
+			  </tr>
+			  <TMPL_LOOP NAME="racerResults">
+			    <tr class="<TMPL_IF NAME="__odd__">odd<TMPL_ELSE>even</TMPL_IF>">
+			      <td class="rr0"><TMPL_VAR NAME="resultname"></td>
+			      <td><TMPL_VAR NAME="resultclass"></td>
+			      <td class="rr1"><TMPL_VAR NAME="resulttime"></td>
+			      <td><TMPL_IF NAME="resulturl"><a href="<TMPL_VAR NAME="resulturl">&amp;perClass=1"><TMPL_VAR NAME="resultdate"></a><TMPL_ELSE><a href="../predictions?track=<TMPL_VAR NAME="track">&amp;class=<TMPL_VAR NAME="racerclass">&amp;racer=<TMPL_VAR NAME="racerid">">Prediction</a></TMPL_IF></td>
+			    </tr>
+			  </TMPL_LOOP>
+			</TMPL_LOOP>
+		      </TMPL_LOOP>
+		    </table>
+		</TMPL_IF>
+		
+	      </div>
+	    </td>
+	    
+	    <TMPL_IF NAME="google_lat">
+	      <td>
+		<div id="map_canvas" style="width: <TMPL_VAR NAME="google_width">px; height: <TMPL_VAR NAME="google_height">"></div>
+	      </td>
+	    </TMPL_IF>
+	  </tr>
+	</table>
+      </TMPL_IF>
+  </body>
+</html>
+

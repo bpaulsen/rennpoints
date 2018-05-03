@@ -1,0 +1,12 @@
+#!/usr/bin/perl -w
+
+use warnings;
+use strict;
+use RennPoints::ClubRegistration::Event;
+use Data::Dumper;
+
+my $id = shift;
+
+my $clubreg = RennPoints::ClubRegistration::Event->new( id => $id );
+#print Dumper($clubreg->races);
+print Dumper($clubreg->participants);

@@ -1,0 +1,15 @@
+#!/usr/bin/perl -w
+
+use warnings;
+use strict;
+use RennPoints::MyLaps::Event;
+use Data::Dumper;
+
+my $id = shift;
+
+my $event = RennPoints::MyLaps::Event->new(id => $id);
+my $races = $event->races;
+
+if ( $races ) {
+    print Dumper( $races );
+}

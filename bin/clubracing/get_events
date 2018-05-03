@@ -1,0 +1,11 @@
+#!/usr/bin/perl -w
+
+use warnings;
+use strict;
+use RennPoints::ClubRacing;
+use Data::Dumper;
+
+my $clubracing = RennPoints::ClubRacing->new();
+foreach my $event ( @{$clubracing->events} ) {
+    print join( " : ", $event->{track}, $event->{date}, $event->{name}, $event->{description}), "\n";
+}

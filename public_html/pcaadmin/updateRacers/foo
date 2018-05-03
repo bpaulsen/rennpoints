@@ -1,0 +1,10 @@
+                 [% labels.import( { name.racer_id = name.clubreg_name } ) %]
+              [% values = ( 0 ) %]
+                 [% values.push( name.racer_id ) %]
+	                         Values = [ values ],
+                                 Labels = { labels },
+                               )
+              [% labels = { "0" = "Please Choose One" } %]
+              [% FOREACH name = racer.matches %]
+              [% END %]
+                                 Labels = { labels },

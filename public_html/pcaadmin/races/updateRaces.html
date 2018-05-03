@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">    
+    <title>Update Races from MyLaps</title>
+    <LINK href="../../content.css" rel="stylesheet">
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript">
+      function toggleChecked() {
+        $(".racecheck").attr("checked", $("#mastercheck").attr("checked") == "checked" ? true : false );
+      }
+    </script>
+  </head>
+  <body>
+    [% USE CGI %]
+    [% INCLUDE '../navbar.html'
+       BASEURL  = '../'
+       racestab = 1
+    %]
+
+      <div id="content">
+	<form action="." method="post">
+	  [%- eventlist = [ 0 ] -%]
+	  [%- eventvalues = { "0" => "Choose an Event"} -%]
+          [%- FOREACH event = EVENTS -%]
+              [%- eventlist.push(event.keys.first) -%]
+              [%- eventvalues.import(event) -%]
+	  [%- END -%]
+	  [%- CGI.popup_menu( Name     => "event",
+	                      Values   => eventlist,
+	                      Labels   => eventvalues,
+	                      Default  => 0,
+                              OnChange => "submit()",
+	                    ) 
+	  -%]
+	</form>
+	[% IF RACES.size %]
+
+	<form action="." method="post">
+	  [% CGI.hidden( Name => "event" ) %]
+	  [%- sessionlabels = [ 1, "Practice", 2, "Qualifying", 3, "Sprint Race", 4, "Enduro Race", 5, "Night Race", 6, "Fun Race" ] -%]
+	  [%- sessionhash = sessionlabels.hash -%]
+	  [%- pointslabels = [ 1, "Non-Points Scoring", 2, "Regular", 3, "Featured" ] -%]
+	  [%- pointshash = pointslabels.hash -%]
+	  
+	  <table class="data">
+	    <tr>
+	      <th>Date</th>
+	      <th>Session</th>
+	      <th>Description</th>
+	      <th>Type</th>
+	      <th>Track</th>
+	      <th>
+		[%- CGI.checkbox( Name    => "checkall",
+		                  Label   => "",
+		                  Id      => "mastercheck",
+		                  OnClick => "toggleChecked()",
+                                )
+                -%]&nbsp;Status</th>
+	    </tr>
+            [%- FOREACH race = RACES -%]
+  	       [%- count = loop.count %]
+	      <tr class="[% loop.parity %]">
+		<td>
+		  [%- CGI.textfield( Name    => "date_$count",
+		                     Default => race.DATE,
+		                     Size    => 22,
+		                   )
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.popup_menu( Name   => "session_$count",
+		                     Values  => [ 1, 2, 3, 4, 5, 6 ],
+		                     Labels  => sessionhash,
+		                     Default => race.SESSION,
+		                   ) 
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.textfield( Name    => "description_$count",
+		                     Default => race.DESCRIPTION,
+		                     Size    => 30,
+		                   )
+		  -%]
+		</td>
+		<td>
+		  [%- IF race.SESSION >=3 && race.SESSION <= 4 -%]
+                    [%- CGI.popup_menu( Name   => "points_$count",
+		                       Values  => [ 1, 2, 3 ],
+		                       Labels  => pointshash,
+		                       Default => race.POINTS,
+		                     ) 
+ 		    -%]
+                  [%- ELSE -%]
+		    &nbsp;
+		    [% CGI.hidden( Name => "points_$count", Default => race.POINTS ) %]
+		  [%- END -%]
+		</td>
+		<td>
+		  [%- CGI.popup_menu( Name   => "track_$count",
+		                     Values => TRACKS.sort,
+		                     Labels => TRACKS,
+		                     Default => race.TRACK,
+		                   ) 
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.checkbox( Name  => "check_$count",
+		                    Label => "",
+		                    Class => "racecheck",
+                                  )
+		  -%]&nbsp;<a href="[% race.URL %]">[% race.STATUS %]</a>
+		  [%- CGI.hidden( Name    => "url_$count", 
+                                  Default => race.URL,
+                                )
+		  -%]
+		  [%- CGI.hidden( Name    => "status_$count", 
+                                  Default => race.STATUSTYPE,
+                                )
+		  -%]
+		  [%- CGI.hidden( Name    => "id_$count", 
+                                  Default => race.ID,
+                                )
+		  -%]
+		</td>
+	      </tr>
+	    [%- END %]
+	  </table>
+	  <br>
+	  [% CGI.hidden( Name => "race_count", Default => RACES.size ) %]
+	  <input type="submit" value="Update RennPoints">
+	  [% CGI.hidden( Name => "rm", Default => "update_races" ) %]
+	  [% END %]
+	</form>
+      </div>
+  </body>
+</html>

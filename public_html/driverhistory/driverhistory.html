@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">    
+    <title>RennPoints Driver History<TMPL_IF NAME="racer_name"> of <TMPL_VAR NAME="racer_name"></TMPL_IF></title>
+    <LINK href="../content.css" rel="stylesheet">
+<!--    <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAsD--IdwR2f35flh0j6JiBRQvMhMNuDozJJK4KV4TBkjtLZVOVBQwIbuDg0wc-WciAZOuMaw8rMqoRg"></script> -->
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/themes/base/jquery-ui.css" type="text/css" media="all">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready( function() {
+      $( "#racers" ).autocomplete({
+        delay: 100,
+        minLength: 2,
+        source: "driversearch.pl",
+        select: function(event, ui) { 
+                   $("#racers").val( ui.item.value );
+                   $("#searchform").submit(); 
+                }
+      });
+      } );
+    </script>
+  </head>
+  <body>
+    <TMPL_INCLUDE NAME="../navbar.html">
+
+      <div id="initialform">
+       <img src="../pca_club_racing2.png" width="390" height="120" alt="PCA club racing"/>
+	<form method="get" id="searchform" action=".">
+	  <strong>Search for a racer:</strong> <TMPL_VAR NAME="searchfield">
+	</form>
+      </div>
+      <div id="content">
+	<TMPL_IF NAME="racer_name">
+	  <h2>Driver history for <TMPL_VAR NAME="racer_name"></h2>
+	  <TMPL_ELSE>
+	    <TMPL_IF NAME="searchmatches">
+	      Your search matched the following.  Please choose one<br>
+	      <table class="data">
+		<tr><th>Name</th></tr>
+		
+		<TMPL_LOOP NAME="searchmatches">
+		  <tr class="<TMPL_IF NAME="__odd__">odd<TMPL_ELSE>even</TMPL_IF>">
+		    <td><a href="?racer=<TMPL_VAR NAME="racer_id">&amp;search=<TMPL_VAR NAME="search" ESCAPE="URL">"><TMPL_VAR NAME="fullname"></a></td>
+		  </tr>
+		</TMPL_LOOP>
+	      </table>
+	      <TMPL_ELSE>
+		<TMPL_IF NAME="search">
+		  No matches found.  Please search again.
+		</TMPL_IF>
+	    </TMPL_IF>
+	</TMPL_IF>
+	
+	<TMPL_IF NAME="racer">
+	  <a href="../predictions/?class=&amp;track=0&amp;racer=<TMPL_VAR NAME="racer">">See predictions of lap times at various tracks</a>
+	</TMPL_IF>
+	
+	<TMPL_IF NAME="soloresults">
+	  <br>
+	  <br>
+	  <strong>Fastest Lap Times as a solo driver</strong><br>
+	  <table class="data">
+	    <tr>
+	      <th>Track</th>
+	      <th>Name</th>
+	      <th>Class</th>
+	      <th>Current<br>Class</th>
+	      <th>Lap Time</th>
+	      <th>Class<br>Record</th>
+	      <th>Percentage<br>of Record</th>
+	      <th>Date</th>
+	      <th>Number of<br>other racers</th>
+	    </tr>
+	    
+	    <TMPL_LOOP NAME="soloresults">
+	      <tr class="<TMPL_IF NAME="__odd__">odd<TMPL_ELSE>even</TMPL_IF>">
+		<td><TMPL_VAR NAME="short_name"></td>
+		<td><TMPL_VAR NAME="full_name"></td>
+		<td><TMPL_VAR NAME="class"></td>
+		<td><TMPL_VAR NAME="current_class"></td>
+		<td><TMPL_VAR NAME="best_lap_time"></td>
+		<td><TMPL_VAR NAME="class_record"></td>
+		<td><TMPL_VAR NAME="percentage"></td>
+		<td><a href="<TMPL_VAR NAME="mylaps_url">&amp;perClass=1"><TMPL_VAR NAME="date"></a></td>
+		<td><TMPL_VAR NAME="racers"></td>
+	      </tr>
+	    </TMPL_LOOP>
+	  </table>
+	</TMPL_IF>
+	
+	<TMPL_IF NAME="codriverresults">
+	  <br>
+	  <br>
+	  <strong>Fastest Lap Times with a co-driver</strong><br>
+	  <table class="data">
+	    <tr>
+	      <th>Track</th>
+	      <th>Name</th>
+	      <th>Class</th>
+	      <th>Current<br>Class</th>
+	      <th>Lap Time</th>
+	      <th>Class<br>Record</th>
+	      <th>Percentage<br>of Record</th>
+	      <th>Date</th>
+	      <th>Number of<br>other racers</th>
+	    </tr>
+	    <TMPL_LOOP NAME="codriverresults">
+	      <tr class="<TMPL_IF NAME="__odd__">odd<TMPL_ELSE>even</TMPL_IF>">
+		<td><TMPL_VAR NAME="short_name"></td>
+		<td><TMPL_VAR NAME="full_name"></td>
+		<td><TMPL_VAR NAME="class"></td>
+		<td><TMPL_VAR NAME="current_class"></td>
+		<td><TMPL_VAR NAME="best_lap_time"></td>
+		<td><TMPL_VAR NAME="class_record"></td>
+		<td><TMPL_VAR NAME="percentage"></td>
+		<td><a href="<TMPL_VAR NAME="mylaps_url">&amp;perClass=1"><TMPL_VAR NAME="date"></a></td>
+		<td><TMPL_VAR NAME="racers"></td>
+	      </tr>
+	    </TMPL_LOOP>
+	  </table>
+	</TMPL_IF>
+	
+	<TMPL_IF NAME="raceresults">
+	  <br>
+	  <br>
+	  <strong>Race Results Summary</strong><br>
+	  <table class="data">
+	    <tr>
+	      <th>Number of Races</th>
+	      <th>Class Wins</th>
+	      <th>Class Podiums</th>
+	      <th>Group Wins</th>
+	      <th>Group Podiums</th>
+	    </tr>
+	    <tr>
+	      <td><TMPL_VAR NAME="numraces"></td>
+	      <td><TMPL_VAR NAME="classwins"> (<TMPL_VAR NAME="classwinpercentage">%)</td>
+	      <td><TMPL_VAR NAME="classpodiums"> (<TMPL_VAR NAME="classpodiumpercentage">%)</td>
+	      <td><TMPL_VAR NAME="groupwins"> (<TMPL_VAR NAME="groupwinpercentage">%)</td>
+	      <td><TMPL_VAR NAME="grouppodiums"> (<TMPL_VAR NAME="grouppodiumpercentage">%)</td>
+	    </tr>
+	  </table>
+	  <br>
+	  <br>
+	  <strong>Race Results Details</strong><br>
+	  <table class="data">
+	    <tr>
+	      <th>Date</th>
+	      <th>Name</th>
+	      <th>Track</th>
+	      <th>Race</th>
+	      <th>Class</th>
+	      <th>Best Lap</th>
+	      <th>Overall<br>Position</th>
+	      <th>Position<br>in Class</th>
+	    </tr>
+	    <TMPL_LOOP NAME="raceresults">
+	      <tr class="<TMPL_IF NAME="__odd__">odd<TMPL_ELSE>even</TMPL_IF>">
+		<td><TMPL_VAR NAME="date"></td>
+		<td><TMPL_VAR NAME="full_name"></td>
+		<td><TMPL_VAR NAME="short_name"></td>
+		<td><a href="<TMPL_VAR NAME="mylaps_url">&amp;perClass=1"><TMPL_VAR NAME="description"></a></td>
+		<td><TMPL_VAR NAME="class"></td>
+		<td><TMPL_VAR NAME="best_lap_time"></td>
+		<td><TMPL_VAR NAME="position_on_results_page"></td>
+		<td><TMPL_VAR NAME="position_in_class"></td>
+	      </tr>
+	    </TMPL_LOOP>
+	  </table>
+	</TMPL_IF>
+      </div>
+  </body>
+</html>

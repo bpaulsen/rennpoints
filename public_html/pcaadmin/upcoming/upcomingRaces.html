@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">    
+    <title>Upcoming Races</title>
+    <LINK href="../../content.css" rel="stylesheet">
+  </head>
+  <body>
+    [% USE CGI %]
+    [% INCLUDE '../navbar.html'
+       BASEURL     = '../'
+       upcomingtab = 1
+    %]
+
+      <div id="content">
+	<form action="." method="post">
+	  Here are the upcoming races from clubregistration.net<br><br>
+
+	  <table class="data">
+	    <tr>
+	      <th>ID</th>
+	      <th>Location</th>
+	      <th>Registration</th>
+	      <th>Start Date</th>
+	      <th>End Date</th>
+	      <th>Track Name</th>
+	      <th>City</th>
+	      <th>State</th>
+	      <th>Previous Events</th>
+	      <th>Update</th>
+	    </tr>
+            [%- FOREACH event = EVENTS -%]
+	    [%- count = loop.count %]
+	      <tr class="[% loop.parity %]">
+		<td>
+		  [%- CGI.textfield( Name    => "id_$count",
+		                     Default => event.ID,
+		                     Size    => 4,
+		                   )
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.textfield( Name    => "location_$count",
+		                     Default => event.LOCATION,
+		                     Size    => 60,
+		                   )
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.textfield( Name    => "registration_$count",
+		                     Default => event.REGISTRATION,
+		                     Size    => 10,
+		                   )
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.textfield( Name    => "startdate_$count",
+		                     Default => event.STARTDATE,
+		                     Size    => 8,
+		                   )
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.textfield( Name    => "enddate_$count",
+		                     Default => event.ENDDATE,
+		                     Size    => 8,
+		                   )
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.popup_menu( Name   => "trackid_$count",
+		                     Values => TRACKS.sort,
+		                     Labels => TRACKS,
+		                     Default => event.TRACKID,
+		                   ) 
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.textfield( Name    => "city_$count",
+		                     Default => event.CITY,
+		                     Size    => 12,
+		                   )
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.textfield( Name    => "state_$count",
+		                     Default => event.STATE,
+		                     Size    => 4,
+		                   )
+		  -%]
+		</td>
+		<td>[% event.EVENTCOUNT %]</td>
+		<td>
+		  [%- CGI.checkbox( Name    => "check_$count",
+		                    Label   => "",
+		                    Checked => event.UPDATE,
+                                  )
+		  -%]&nbsp;[% event.UPDATE %]
+		</td>
+	      </tr>
+	    [%- END %]
+	  </table>
+	  <br>
+	  [% CGI.hidden( Name => "event_count", Default => EVENTS.size ) %]
+	  [% CGI.hidden( Name => "rm", Default => "update_clubreg" ) %]
+	  <input type="submit" value="Update RennPoints">
+	</form>
+      </div>
+  </body>
+</html>

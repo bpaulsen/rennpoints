@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">    
+    <title>Update Racers from MyLaps</title>
+    <LINK href="../../content.css" rel="stylesheet">
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript">
+      function toggleChecked() {
+        $(".racecheck").attr("checked", $("#mastercheck").attr("checked") == "checked" ? true : false );
+      }
+    </script>
+  </head>
+  <body>
+    [% USE CGI %]
+    [% USE HTML %]
+    [% INCLUDE '../navbar.html'
+       BASEURL  = '../'
+       racerstab = 1
+    %]
+    <form method="GET" action=".">
+      [%- eventlist = [ 0 ] -%]
+      [%- eventvalues = { "0" => "Choose an Event"} -%]
+      [%- FOREACH event = EVENTS -%]
+          [%- eventlist.push(event.keys.first) -%]
+          [%- eventvalues.import(event) -%]
+      [%- END -%]
+      [%- CGI.popup_menu( Name     => "event",
+	                  Values   => eventlist,
+	                  Labels   => eventvalues,
+	                  Default  => 0,
+                          OnChange => "submit()",
+	                ) 
+      -%]
+    </form>
+    [% COUNT %] racer entries have been mapped<br>
+
+    [% IF RACERS.size %]
+    <form method="POST" action=".">
+      [% CGI.hidden( Name => "event" ) %]
+      [% CGI.hidden( Name => "rm", Default => "update_racers_with_transponder" ) %]
+      [% USE racerLookup = url( 'racerLookup.pl' ) %]
+      [% USE addRacer = url( '.', rm="new_racer" ) %]
+
+      <table class="data" border="1" cellspacing="0">
+	<thead>
+	  <tr class="header">
+	    <th>Racer</th>
+	    <th>Mylaps Name</th>
+	    <th>Save Event ID</th>
+	    <th>Codriver?</th>
+	    <th>New Racer?</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  [% event = CGI.param('event') %]
+          [%- FOREACH racer = RACERS -%]
+              [% labels = { "0" = "Please Choose One" } %]
+              [% ids = [ 0 ] %]
+              [%- FOREACH name = racer.matches -%]
+                 [%- ids.push( name.racer_id ) -%]
+                 [%- labels.import( { ${name.racer_id} = name.clubreg_name } ) -%]
+              [%- END -%]
+	  <tr class="[% loop.parity %]">
+	    <td>
+	      [% CGI.popup_menu( Name   = "0~${racer.transponder}~${racer.full_name}",
+	                         Values = ids,
+                                 Labels = labels,
+	                       )
+	      %]
+	    </td>
+	    <td><a href="[% racerLookup( eventid=CGI.param('event'), name=racer.full_name ) %]">[% HTML.escape( racer.full_name ) %]</a></td>
+	    <td>
+	      [% CGI.popup_menu( Name   = "EVENT_${racer.full_name}",
+	                         Values = [ 0, 1 ],
+	                         Labels = { "0" => "No",
+	                                    "1" => "Yes",
+	                                  },
+	                         Default = ( ( !racer.full_name ) ? 1 : 0 ),
+ 	                       )
+	      -%]
+	    </td>
+
+	    <td>[%- IF racer.codriver -%]
+	          [% CGI.popup_menu( Name   = "1~${racer.transponder}~${racer.full_name}",
+	                             Values = ids,
+                                     Labels = labels,
+	                           )
+	          %]
+	        [% END %]
+	    </td>
+	    <td>
+	      <a href="[% addRacer( event=CGI.param('event'), name=racer.full_name ) %]">Add [% HTML.escape( racer.full_name ) %]</a></td>
+	    </td>
+	  </tr>
+	  [%- END -%]
+	</tbody>
+      </table>
+      <INPUT type="submit" name="processresults" value="Process">
+    </form>
+    [% END %]
+
+  </body>
+</html>
+

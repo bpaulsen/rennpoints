@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">    
+    <title>Premiere Events For [% year %]</title>
+    <LINK href="../../content.css" rel="stylesheet">
+  </head>
+  <body>
+    [% USE HTML %]
+    [% INCLUDE '../navbar.html'
+       BASEURL     = '../'
+       premieretab = 1
+    %]
+
+      <div id="content">
+	<form action=".">
+	  Here are the premiere events for [% year %]<br><br>
+
+	  <table class="data">
+	    <tr>
+	      <th>Track ID</th>
+	      <th>Track</th>
+	      <th>Region</th>
+	      <th>Participants</th>
+	      <th>Previous Events</th>
+	      <th>Type</th>
+	    </tr>
+            [%- FOREACH event = EVENTS %]
+	      <tr class="[% loop.parity %]">
+		<td>[% event.track_id %]</td>
+		<td>[% HTML.escape(event.track.name) %]</td>
+		<td>[% HTML.escape(event.track.region.name) %]</td>
+		<td>[% event.get_column("participants") %]</td>
+		<td>[% event.get_column("previous_events") %]</td>
+		<td>[% IF event.event_type == 2 %]Premiere[% ELSIF event.event_type == 3 %]National[% END %]</td>
+	      </tr>
+	    [%- END %]
+	  </table>
+	  <br>
+	  <input type="hidden" name="update" value="1">
+	  <input type="submit" value="Update RennPoints">
+	</form>
+      </div>
+  </body>
+</html>

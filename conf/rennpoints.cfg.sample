@@ -1,0 +1,37 @@
+<PCA>
+  url             https://www.pca.org/race-results
+  base            https://www.pca.org
+  race_files_base https://www.pca.org/sites/default/files/race-results
+  zip_directory   ** directory for race results **
+</PCA>
+
+<ClubRegistration>
+  url      http://clubregistration.net
+  user     ** put your clubregistration user name here **
+  password ** put your clubregistration password here **
+</ClubRegistration>
+
+<DBI>
+  <readonly>
+    user     pca_read_only
+    password ** pca_read_only password **
+  </readonly>
+  <writeable>
+    user     pca_admin
+    password ** pca_admin password **
+  </writeable>
+  host     localhost
+  database clubrace
+  port     3306
+</DBI>
+
+<ClubRacing>
+  url             http://pcaclubracing.org/results
+</ClubRacing>
+
+<MyLaps>
+  list_events_url       https://speedhive.mylaps.com/Organizations/
+  list_races_url        https://speedhive.mylaps.com/Events/
+  list_participants_url https://speedhive.mylaps.com/Sessions/
+</MyLaps>
+

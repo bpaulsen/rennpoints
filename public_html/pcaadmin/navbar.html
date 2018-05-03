@@ -1,0 +1,46 @@
+    <div id="banner">
+      <h1>RennPoints.com</h1>
+
+      <ul>
+	<li
+            [%- IF upcomingtab -%]
+                 class="selected"
+            [%- END -%]><a href="[% BASEURL %]upcoming/">Upcoming Races</a></li>
+	<li
+            [%- IF eventstab -%]
+                 class="selected"
+            [%- END -%]><a href="[% BASEURL %]events/">Update Events</a></li>
+	<li
+            [%- IF racestab -%]
+                 class="selected"
+            [%- END -%]><a href="[% BASEURL %]races/">Update Races</a></li>
+	<li
+            [%- IF racerstab -%]
+                 class="selected"
+            [%- END -%]><a href="[% BASEURL %]updateRacers/">Update Racers</a></li>
+	<li
+            [%- IF dqtab -%]
+                 class="selected"
+            [%- END -%]><a href="[% BASEURL %]dq/">Update DQ</a></li>
+	<li
+            [%- IF premieretab -%]
+                 class="selected"
+            [%- END -%]><a href="[% BASEURL %]premiere/">Premiere Events</a></li>
+	<li
+            [%- IF uploadthirteentab -%]
+                 class="selected"
+            [%- END -%]><a href="[% BASEURL %]thirteen/">Upload 13/13</a></li>
+	<li
+            [%- IF mapthirteentab -%]
+                 class="selected"
+            [%- END -%]><a href="[% BASEURL %]updateThirteen/">Update 13/13</a></li>
+	<li
+            [%- IF uploadregionstab -%]
+                 class="selected"
+            [%- END -%]><a href="[% BASEURL %]racerRegions/">Upload Regions</a></li>
+	<li
+            [%- IF mapregionstab -%]
+                 class="selected"
+            [%- END -%]><a href="[% BASEURL %]updateRegions/">Map Racers to Regions</a></li>
+      </ul>
+    </div>

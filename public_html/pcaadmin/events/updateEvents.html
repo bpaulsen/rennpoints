@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">    
+    <title>Update Events from MyLaps</title>
+    <LINK href="../../content.css" rel="stylesheet">
+  </head>
+  <body>
+    [% USE CGI %]
+    [% USE HTML %]
+    [% INCLUDE '../navbar.html'
+       BASEURL     = '../'
+       eventstab = 1
+    %]
+
+      <div id="content">
+	<form action="." method="post">
+	  Here are the new events from MyLaps<br><br>
+
+	  <table class="data">
+	    <tr>
+	      <th>ClubRegID</th>
+	      <th>Type</th>
+	      <th>Description</th>
+	      <th>Track</th>
+	      <th>PCA URL</th>
+	      <th>Start Date</th>
+	      <th>Status</th>
+	    </tr>
+            [%- FOREACH event = EVENTS -%]
+	    [%- count = loop.count %]
+	      <tr class="[% loop.parity %]">
+		<td>
+		  [%- CGI.textfield( Name    => "clubregid_$count",
+		                     Default => event.CLUBREGID,
+		                     Size    => 12,
+		                   )
+		  -%]
+		</td>
+		<td>
+		  [%- typelabels = [ 1, "Regular", 2, "Premiere", 3, "National" ] -%]
+		  [%- CGI.popup_menu( Name   => "type_$count",
+		                     Values => [ 1, 2, 3 ],
+		                     Labels => typelabels.hash,
+		                     Default => event.TYPE,
+		                   ) 
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.textfield( Name    => "description_$count",
+		                     Default => event.DESCRIPTION,
+		                     Size    => 60,
+		                   )
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.popup_menu( Name   => "track_$count",
+		                     Values => TRACKS.sort,
+		                     Labels => TRACKS,
+		                     Default => event.TRACKID,
+		                   ) 
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.popup_menu( Name   => "pca_$count",
+		                     Values => PCAURLS.sort,
+		                     Labels => PCAURLS,
+		                     Default => event.PCAURL,
+		                   ) 
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.textfield( Name    => "date_$count",
+		                     Default => event.DATE,
+		                     Size    => 12,
+		                   )
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.checkbox( Name  => "check_$count",
+		                    Label => ""
+                                  )
+		  -%]&nbsp;<a href="[% event.URL %]">[% event.STATUS %]</a>
+		  [%- CGI.hidden( Name    => "url_$count", 
+                                  Default => event.URL,
+                                )
+		  -%]
+		  [%- CGI.hidden( Name    => "status_$count", 
+                                  Default => event.STATUSTYPE,
+                                )
+		  -%]
+		  [%- CGI.hidden( Name    => "id_$count", 
+                                  Default => event.ID,
+                                )
+		  -%]
+		</td>
+	      </tr>
+	    [%- END %]
+	  </table>
+	  <br>
+	  [% CGI.hidden( Name => "event_count", Default => EVENTS.size ) %]
+	  [% CGI.hidden( Name => "rm", Default => "update_event" ) %]
+	  <input type="submit" value="Update RennPoints">
+	</form>
+      </div>
+  </body>
+</html>

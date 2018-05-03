@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">    
+    <title>RennPoints Results</title>
+    <link href="../content.css" rel="stylesheet">
+  </head>
+  <body>
+    [% USE CGI %]
+    [% USE HTML %]
+    [% INCLUDE '../navbar2.html'
+       BASEURL     = '../'
+       standingstab = 1
+    %]
+
+    <div id="content">
+      <img src="../pca_club_racing2.png" width="390" height="120" alt="PCA club racing"/>
+      <form action=".">
+	  [%- yearChoice = YEAR -%]
+	  <span class="nowrap">
+	    Class: 
+   	    [%- CLASSES.unshift( "All Classes" ) -%]
+	    [%- CGI.popup_menu( Name     => "class",
+	                        Values   => CLASSES,
+	                        Default  => "All Classes",
+                                OnChange => "submit()",
+	                      ) 
+	    %]
+	  </span>
+
+	  [% IF yearChoice < 2012 %]
+	  <span class="nowrap">
+	    Region:
+	    [%- regionlist = REGIONS.sort -%]
+	    [%- regionlist.unshift( 0 ) -%]
+	    [%- REGIONS.import( { "0" = 'National' } ) -%]
+	    [%- CGI.popup_menu( Name     => "region",
+	                        Values   => regionlist,
+	                        Labels   => REGIONS,
+	                        Default  => 0,
+                                OnChange => "submit()",
+	                      ) 
+	    %]
+	  </span>
+         [% ELSE %]
+	  <span class="nowrap">
+	    Zone:
+	    [%- zonevalues = { "0" = 'National' } -%]
+	    [%- ZONES.unshift( 0 ) -%]
+	    [%- CGI.popup_menu( Name     => "zone",
+	                        Values   => ZONES.unique.nsort,
+                                Labels   => zonevalues,
+	                        Default  => 0,
+                                OnChange => "submit()",
+	                      ) 
+	    %]
+	  </span>
+         [% END %]
+
+	  <span class="nowrap">
+	    Year:
+	    [%- CGI.popup_menu( Name     => "year",
+	                        Values   => YEARS,
+	                        Default  => YEARS.first(),
+                                OnChange => "submit()",
+	                      ) 
+	    %]
+	  </span>
+	  <span class="nowrap">
+	    [%- CGI.checkbox( Name     => "eligible",
+                              Value    => '1',
+	                      label    => "Eligible-Only",
+                              OnChange => "submit()",
+	                    ) 
+	    %]
+	  </span>
+	  <br>
+	  Note: Points calculation method can be found <a href="../rules">here</a><br>
+      </form>
+	<table class="columnstable">
+	  <tr>
+	    <td>
+	      <table class="data">
+		<thead>
+		  <tr>
+		    <th>Name</th>
+		    [% IF yearChoice >= 2012 %]<th>Zone</th>[% END %]
+		    [% IF yearChoice >= 2012 %]<th>Region</th>[% END %]
+		    <th>Race Points</th>
+		    <th>Best 8</th>
+		    <th>Event Points</th>
+		    <th>Total</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  [%- classChoice = CLASS || "All Classes" -%]
+		  [%- FOREACH class = RESULTS -%]
+   		      [%- IF classChoice == "All Classes" || class.racerclass == classChoice %]
+		  <tr class="racer">
+		    <td colspan="7"><strong>Class: [% class.racerclass %]</strong></td>
+		  </tr>
+		          [%- FOREACH racer = class.racers -%]
+   		              [%- IF classChoice != "All Classes" || loop.count <= 3 %]
+		  <tr class="[% loop.parity %]">
+		    <td><a href="?id=[% racer.racerid %]&amp;racerclass=[% racer.racerclass %]&amp;year=[% YEAR | uri %]&amp;region=[% REGION | uri %]&amp;class=[% classChoice | uri %]">[% HTML.escape(racer.name) %]</a></td>
+		    [% IF yearChoice >= 2012 %]<td>[% racer.zone %]</td>[% END %]
+		    [% IF yearChoice >= 2012 %]<td>[% racer.region %]</td>[% END %]
+		    <td>[% racer.totalrace %]</td>
+		    <td>[% racer.best %]</td>
+		    <td>[% racer.eventpoints %]</td>
+		    <td class="r4">[% racer.total %]</td>
+		  </tr>
+		              [%- END -%]
+		          [%- END -%]
+		       [%- END -%]
+		  [%- END %]
+		</tbody>
+	      </table>
+	    </td>
+	    <td>
+	      [%- IF INDIVIDUAL_RESULTS -%]
+ 	          [%- showNames = 0 -%]
+	          [%- namesHash = {} -%]
+ 	          [%- FOREACH result = INDIVIDUAL_RESULTS -%]
+	              [%- name = result.name -%]
+	              [%- namesHash.import( { $name = 1 } ) -%]
+                  [%- END -%]
+                  [%- IF namesHash.size > 1 -%]
+                      [%- showNames = 1 -%]
+                  [%- END %]
+		<table class="data">
+		  <thead>
+		    <tr>
+		      [%- IF showNames -%]<th>Name</th>[%- END %]
+		      <th>Track</th>
+		      <th><a href="?class=[% CLASS | uri %]&amp;racerclass=[% RACERCLASS | uri %]&amp;id=[% ID | uri %]&amp;year=[% YEAR | uri %]&amp;region=[% REGION %]&amp;sortby=date">Date</a></th>
+		      <th>Race</th>
+		      [%- IF yearChoice < 2012 %]<th>Event Type</th>[%- END %]
+		      <th>Position</th>
+		      <th>Position<br>Points</th>
+		      <th>Bonus<br>Points</th>
+		      <th><a href="?class=[% CLASS | uri %]&amp;racerclass=[% RACERCLASS | uri %]&amp;id=[% ID | uri %]&amp;year=[% YEAR | uri %]&amp;region=[% REGION | uri %]&amp;sortby=points">Total<br>Points</a></th>
+		    </tr>
+		  </thead>
+		  <tbody>
+ 	            [%- FOREACH result = INDIVIDUAL_RESULTS -%]
+		    <tr class="[% loop.parity %]">
+		      [%- IF showNames -%]<td>[% HTML.escape(result.name) %]</td>[%- END %]
+		      <td>[% HTML.escape( result.event ) %]</td>
+		      <td>[% result.date %]</td>
+		      <td><a href="[% result.url %]&amp;perClass=1">[% HTML.escape( result.race ) %]</a></td>
+		      [%- IF yearChoice < 2012 %]<td>[% result.eventtype %]</td>[%- END %]
+		      <td>[% result.position %]</td>
+		      <td>[% result.positionpoints %]</td>
+		      <td>[% result.bonuspoints %]</td>
+		      <td>[% result.points %]</td>
+		    </tr>
+                    [%- END %]
+		  </tbody>
+		</table>
+		* = Featured Race
+		<br>
+		<br>
+		<a href="../driverhistory/?racer=[% ID | uri %]">See detailed history on [% HTML.escape( RACER_NAME ) %]</a>
+		<hr>
+		  Scoring is as follows:
+		<ul>
+		  [% IF yearChoice < 2012 %]
+		  <li> Position Points: 1st=10 points, 2nd=7, 3rd=5, 4th=4, 5th=3, 6th=2, 7th=1
+		  <li> Feature Race Multiplier
+		    <ul>
+		      <li> Regular and Premier Events: 150% multiplier for position points
+		      <li> National Events: 200% multiplier for position points
+		      <li> Note: Non-featured races for national events have a 150% multiplier for position points
+		      <li> After multiplication, position points are rounded up if rounding is required
+		    </ul>
+		  <li> Bonus Points: 1 point for each in-class car that finishes a race that a driver beats (maximum of 10 points per race).  Any multiplier does NOT apply to bonus points.
+		  <li> Event Participation Points: 5 points if a driver finishes a race at an event.  (maximum of 25 points per season).  These points are not shown on this section but are shown in the section that lists all drivers.
+		  <li> Note: Regular events will have only 2 races count for points.  Any additional races are fun races and no points will be scored for fun races
+		  <li> Premier and national events will have 3 races that count for points.
+		  <li> DQ'd drivers forfeit all points for an event (including event participation points)
+		  [% ELSE %]
+		  <li>Position Points: 1st=10 points, 2nd=7, 3rd=5, 4th=4, 5th=3, 6th=2, 7th=1
+		  <li>Bonus Points: 1 point for each in-class car that finishes a race that a driver beats (maximum of 10 points per race).
+		  <li>Note: Cars with multiple drivers in an enduro will split the position and bonus points
+		  <li>Event Participation Points: 5 points if a driver starts a race at an event.  (maximum of 25 points per season).  These points are not shown on this section but are shown in the section that lists all drivers.
+		  <li>Note: Only 2 races at each event count for points.  Any additional races are fun races and no points will be scored for fun races.
+  		  [%- END -%]
+		</ul>
+		[%- END -%]
+	    </td>
+	  </tr>
+	</table>
+      </div>
+  </body>
+</html>
+
