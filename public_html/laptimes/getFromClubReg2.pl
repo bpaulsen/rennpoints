@@ -61,7 +61,7 @@ sub getRaces {
 
     my @results;
     foreach my $name ( $viewOption->value_names() ) {
-	next unless $name =~ /(sprint|enduro|Race|primary\s+driver\s+weekend\s+package)/ix;
+	next unless $name =~ /(sprint|spriint|sholar|enduro|Race|primary\s+driver\s+weekend\s+package)/ix;
 	$viewOption->value($name);
 	my $value = $viewOption->value();
 
