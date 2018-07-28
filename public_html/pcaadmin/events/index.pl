@@ -86,7 +86,7 @@ sub get_events {
     }
 
     @events = grep { $_->{DATE} gt '2006-01-01' } @events; # show only events after 2006
-    @events = grep { $_->{ID} != 850335 && $_->{ID} != 76417 && $_->{ID} != 1461941 } @events; # skip erroneous events in mylaps
+    @events = grep { $_->{ID} != 850335 && $_->{ID} != 76417 && $_->{ID} != 1461941 && $_->{ID} != 1518795 } @events; # skip erroneous events in mylaps
     @events = sort { $b->{STATUSTYPE} <=> $a->{STATUSTYPE} || $b->{DATE} cmp $a->{DATE} } @events;
     @events = @events[0..10];
 
