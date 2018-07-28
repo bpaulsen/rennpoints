@@ -20,7 +20,7 @@ sub error_page : ErrorRunmode {
 	);
 }
 
-sub cgiapp_init {
+sub cgiapp_prerun {
     my $self = shift;
 
     # Configure the template
