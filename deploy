@@ -3,9 +3,9 @@
 use strict;
 use warnings;
 
-my $www_dir = "/var/www/html/rennpoints";
+my $www_dir = "/var/www/html/rennpoints2";
 my $lib_dir = "/usr/src/rennpoints";
 
-#system( "rsync -a --delete public_html/. $www_dir" );
+system( "rsync -a --delete public_html/. $www_dir" );
 system( "rsync -a --delete lib $lib_dir" );
 system( "rsync -a --delete bin $lib_dir" );
