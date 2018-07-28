@@ -60,7 +60,7 @@
               [% ids = [ 0 ] %]
               [%- FOREACH name = racer.matches -%]
                  [%- ids.push( name.racer_id ) -%]
-                 [%- labels.import( { ${name.racer_id} = name.clubreg_name } ) -%]
+                 [%- labels.import( { ${name.racer_id} = "${name.clubreg_name} ${name.racer_id}" } ) -%]
               [%- END -%]
 	  <tr class="[% loop.parity %]">
 	    <td>
