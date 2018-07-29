@@ -106,7 +106,7 @@
 	      </td>
 	      <td><a href="/driverhistory/?racer=[% record.racer_id %]">[% HTML.escape( record.racer ) %]</a></td>
 	      <td align="right">[% record.laptime %]</td>
-	      <td><a href="[% record.url %]&amp;perClass=1">[% HTML.escape( record.date ) %]</a></td>
+	      <td><a href="https://speedhive.mylaps.com/Sessions/[% record.id %]#byClass">[% HTML.escape( record.date ) %]</a></td>
 	      <td>[% HTML.escape( record.session_type ) %]</td>
 	    </tr>
 	    [% END %]

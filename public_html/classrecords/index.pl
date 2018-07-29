@@ -73,8 +73,8 @@ sub getRecordHistory {
 
     my $query = <<"EOF";
 select *
-from ( select r.date, S.full_name AS 'racer', r.mylaps_url AS 'url', S.current_class AS 'class', S.best_lap_time AS 'rawtime',
-              t.short_name AS 'track', ST.type AS 'session_type', r.track_id as 'trackid', S.racer_id
+from ( select r.date, S.full_name AS 'racer', S.current_class AS 'class', S.best_lap_time AS 'rawtime',
+              t.short_name AS 'track', ST.type AS 'session_type', r.track_id as 'trackid', S.racer_id, r.mylaps_id AS 'id'
        from results S, race r, track t, session_types ST
        where r.track_id = ?
        and r.race_id = S.race_id
@@ -114,8 +114,8 @@ sub getFastestTimes {
     my $session = $ARGS{SESSION} || 0;
 
     my $query = <<"EOF";
-select r.date, S.full_name AS 'racer', r.mylaps_url AS 'url', S.current_class AS 'class', S.best_lap_time AS 'rawtime',
-       t.short_name AS 'track', st.type AS 'session_type', r.track_id as 'trackid', S.racer_id
+select r.date, S.full_name AS 'racer', S.current_class AS 'class', S.best_lap_time AS 'rawtime',
+       t.short_name AS 'track', st.type AS 'session_type', r.track_id as 'trackid', S.racer_id, r.mylaps_id AS 'id'
 from results S, race r, session_types st, track t
 where r.track_id = ?
 and S.current_class = ?
@@ -148,20 +148,21 @@ sub getFastestRacers {
 
     my $query = <<"EOF";
 select * from
-(select r.date, S.full_name AS 'racer', r.mylaps_url AS 'url', S.current_class AS 'class', min(S.best_lap_time) AS 'rawtime',
- t.short_name AS 'track', st.type AS 'session_type', r.track_id as 'trackid', S.racer_id,S.coracer_id
-from results S, race r, session_types st, track t
-where r.track_id = ?
-and S.current_class = ?
-and S.best_lap_time > 40
-and S.status != 3
-and S.class_record_eligible = 1
-and S.race_id = r.race_id
-and t.track_id = r.track_id
-and r.session_type = st.session_type
-and S.racer_id is not null
-AND ( ? = 0 OR ( ? = 7 AND r.session_type BETWEEN 3 AND 5 ) OR r.session_type = ? )
-group by S.racer_id, S.coracer_id ) as X
+( select r.date, S.full_name AS 'racer', S.current_class AS 'class', S.best_lap_time AS 'rawtime',
+  t.short_name AS 'track', st.type AS 'session_type', r.track_id as 'trackid', S.racer_id,S.coracer_id, r.mylaps_id AS 'id'
+  from results S, race r, session_types st, track t
+  where r.track_id = ?
+  and S.current_class = ?
+  and S.best_lap_time > 40
+  and S.status != 3
+  and S.class_record_eligible = 1
+  and S.race_id = r.race_id
+  and t.track_id = r.track_id
+  and r.session_type = st.session_type
+  and S.racer_id is not null
+  AND ( ? = 0 OR ( ? = 7 AND r.session_type BETWEEN 3 AND 5 ) OR r.session_type = ? )
+  order by S.racer_id, S.coracer_id, S.best_lap_time ) AS X
+group by X.racer_id, X.coracer_id
 order by X.rawtime
 limit 0,10;
 EOF
