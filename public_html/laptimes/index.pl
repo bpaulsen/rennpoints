@@ -16,6 +16,7 @@ use HTTP::BrowserDetect;
 use Data::Dumper;
 use Storable;
 use CGI;
+use RennPoints::Config;
 
 printPage();
 
@@ -102,11 +103,14 @@ sub printPage {
 	                );
 
 	if ( $google_lat ) {
+	    my $config = RennPoints::Config->new( context => 'GoogleMaps' );
+
 	    $template->param( google_lat    => $google_lat,
 			      google_lng    => $google_lng,
 			      google_zoom   => $google_zoom,
 			      google_width  => $google_width,
 			      google_height => $google_height,
+			      google_key    => $config->get("key"),
  		            );
 	}
 
@@ -145,7 +149,8 @@ sub getRacersTimes {
     else {
 	my $file_ts = (stat $file)[9];
 	if ( time - $file_ts > 3600 ) {
-	    system( "./getFromClubReg2.pl >> clubreg/clubreg.out 2>&1" );
+#	    system( "./getFromClubReg2.pl >> clubreg/clubreg.out 2>&1" );
+	    system( "./getFromClubReg2.pl" );
 	}
     }
     warn scalar(localtime) . " : done getting data from clubregistration.net for $clubregid\n";
@@ -162,7 +167,7 @@ sub getRacersTimes {
 
     foreach my $i ( @rows ) {
 	if ( $#$i > 8 ) {
-	    shift @$i;
+#	    shift @$i;
 	    foreach my $j ( @$i ) {
 		my $name = $j->[0];
 		my $car = $j->[1];

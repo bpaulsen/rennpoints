@@ -29,6 +29,10 @@
   url             http://pcaclubracing.org/results
 </ClubRacing>
 
+<GoogleMaps>
+  key             *** put in your google maps key here ***
+</GoogleMaps>
+
 <MyLaps>
   list_events_url       https://speedhive.mylaps.com/Organizations/
   list_races_url        https://speedhive.mylaps.com/Events/
