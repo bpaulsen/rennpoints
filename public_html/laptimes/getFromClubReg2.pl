@@ -11,6 +11,7 @@ use Data::Dumper;
 use Storable;
 use JSON;
 use IO::Socket::SSL qw();
+use RennPoints::Config;
 
 IO::Socket::SSL::set_ctx_defaults(
      SSL_verify_mode => IO::Socket::SSL::SSL_VERIFY_NONE,
@@ -47,9 +48,10 @@ sub getRaces {
 
     my $response = $ua->request( GET $BASEURL );
     my ( $form ) = HTML::Form->parse( $response );
+    my $config = RennPoints::Config->new( context => 'ClubRegistration' );
 
-    $form->param( "username" => "*******" );
-    $form->param( "password" => "*******" );
+    $form->param( "username" => $config->get("user") );
+    $form->param( "password" => $config->get("password" ) );
     my $tmp_response = $ua->request( $form->click( "btn_login" ) );
     # print $tmp_response->as_string, "\n";
 
