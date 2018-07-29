@@ -35,37 +35,8 @@ sub getDetailedClassRecords {
     my $session = $ARGS{SESSION} || 0;
 
     my $query = <<"EOF";
-select  t.short_name, S.current_class, T.best_time, S.full_name, DATE(R.date) as 'date', R.mylaps_url
-from results S, race R, track t,
-  ( select R1.track_id, S1.current_class, min(S1.best_lap_time) as 'best_time'
-    from race R1, results S1
-    where R1.race_id = S1.race_id
-    and S1.best_lap_time > 40
-    and S1.current_class not like '%EX'
-    and S1.current_class not like 'GT4CS%'
-    and S1.current_class not like 'V%4%'
-    and char_length(S1.current_class) > 0
-    and S1.class_record_eligible = 1
-    and R1.track_id != 56
-    and ( ? = 0 OR R1.track_id = ? )
-    and ( ? = '' OR S1.current_class = ? )
-    and S1.status != 3
-    group by R1.track_id, S1.current_class
-  ) as T
-WHERE S.best_lap_time > 40
-AND S.current_class = T.current_class
-AND S.race_id = R.race_id
-AND R.track_id = T.track_id
-AND S.class_record_eligible = 1
-AND S.best_lap_time = T.best_time
-AND R.track_id = t.track_id
-AND S.status != 3
-order by t.name, char_length(S.current_class), S.current_class
-EOF
-
-$query = <<"EOF";
 SELECT * 
-FROM ( SELECT  T1.short_name, S1.current_class, S1.best_lap_time, S1.full_name, DATE(R1.date) as 'date', R1.mylaps_url, R1.track_id, ST.type, S1.racer_id
+FROM ( SELECT  T1.short_name, S1.current_class, S1.best_lap_time, S1.full_name, DATE(R1.date) as 'date', R1.mylaps_url, R1.track_id, ST.type, S1.racer_id, R1.mylaps_id
        FROM    race R1, results S1, track T1, session_types ST
        WHERE   R1.race_id = S1.race_id
        AND     R1.track_id = T1.track_id
@@ -98,6 +69,7 @@ EOF
                           trackid => $_->[6],
 			  session_type => $_->[7],
 			  racer_id => $_->[8],
+			  id       => $_->[9],
 	} } @$data;
 
     return \@results;
