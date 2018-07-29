@@ -1,0 +1,1219 @@
+
+<!DOCTYPE html>
+<html>
+<head prefix="og:http://ogp.me/ns#">
+  <meta charset="utf-8" />
+  <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  
+
+<meta name="apple-itunes-app" content="app-id=988412583" app-argument="" />
+<meta name="google-play-app" content="app-id=com.mylaps.speedhive">
+<title>Event results and Practice Sessions of PCA Club Racing</title>
+<meta property="og:title" content="Event results and Practice Sessions of PCA Club Racing" />
+<meta name="description" content="Explore all event results and practice sessions, leaderboards, lap times, lapcharts, comparisons, speed and more data of PCA Club Racing. Based on official MYLAPS transponder data – MYLAPS Speedhive.">
+<meta name="og:description" content="Explore all event results and practice sessions, leaderboards, lap times, lapcharts, comparisons, speed and more data of PCA Club Racing. Based on official MYLAPS transponder data – MYLAPS Speedhive.">
+<meta property="og:image" content="https://speedhive.mylaps.com/Images/images/share.jpg" />
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@mylaps">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#f7941e">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="msapplication-TileColor" content="#f7941e">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+<meta name="msapplication-config" content="/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+  
+  <link href="https://speedhive.azureedge.net/Content/css?1.0.0.27580" rel="stylesheet"/>
+<script>(function() {
+                var loadFallback,
+                    len = document.styleSheets.length;
+                for (var i = 0; i < len; i++) {
+                    var sheet = document.styleSheets[i];
+                    if (sheet && sheet.href && sheet.href.indexOf('https://speedhive.azureedge.net/Content/css?1.0.0.27580') !== -1) {
+                        var meta = document.createElement('meta');
+                        meta.className = 'sr-only';
+                        document.head.appendChild(meta);
+                        var value = window.getComputedStyle(meta).getPropertyValue('width');
+                        document.head.removeChild(meta);
+                        if (value !== '1px') {
+                            if(document.readyState === 'complete') {
+                                var head  = document.getElementsByTagName('head')[0];
+                                var link  = document.createElement('link');
+                                link.rel  = 'stylesheet';
+                                link.type = 'text/css';
+                                link.href = '/Content/css?1.0.0.27580';
+                                head.appendChild(link);
+                                return true;
+                            } else {
+                                document.write('<link href="/Content/css?1.0.0.27580" rel="stylesheet" type="text/css" />');
+                            }
+                        }
+                    }
+                }
+                return true;
+            }())||document.write('<script src="/Content/css"><\/script>');</script>
+
+  
+    <link href="https://speedhive.azureedge.net/Content/flags?1.0.0.27580" rel="stylesheet"/>
+<script>(function() {
+                var loadFallback,
+                    len = document.styleSheets.length;
+                for (var i = 0; i < len; i++) {
+                    var sheet = document.styleSheets[i];
+                    if (sheet && sheet.href && sheet.href.indexOf('https://speedhive.azureedge.net/Content/flags?1.0.0.27580') !== -1) {
+                        var meta = document.createElement('meta');
+                        meta.className = 'ico-flag-ad';
+                        document.head.appendChild(meta);
+                        var value = window.getComputedStyle(meta).getPropertyValue('background-position');
+                        document.head.removeChild(meta);
+                        if (value !== '0 0') {
+                            if(document.readyState === 'complete') {
+                                var head  = document.getElementsByTagName('head')[0];
+                                var link  = document.createElement('link');
+                                link.rel  = 'stylesheet';
+                                link.type = 'text/css';
+                                link.href = '/Content/flags?1.0.0.27580';
+                                head.appendChild(link);
+                                return true;
+                            } else {
+                                document.write('<link href="/Content/flags?1.0.0.27580" rel="stylesheet" type="text/css" />');
+                            }
+                        }
+                    }
+                }
+                return true;
+            }())||document.write('<script src="/Content/flags"><\/script>');</script>
+
+    <link href="https://speedhive.azureedge.net/Content/organization?1.0.0.27580" rel="stylesheet"/>
+<script>(function() {
+                var loadFallback,
+                    len = document.styleSheets.length;
+                for (var i = 0; i < len; i++) {
+                    var sheet = document.styleSheets[i];
+                    if (sheet && sheet.href && sheet.href.indexOf('https://speedhive.azureedge.net/Content/organization?1.0.0.27580') !== -1) {
+                        var meta = document.createElement('meta');
+                        meta.className = 'organization row-event row-event-ico';
+                        document.head.appendChild(meta);
+                        var value = window.getComputedStyle(meta).getPropertyValue('width');
+                        document.head.removeChild(meta);
+                        if (value !== '58px') {
+                            if(document.readyState === 'complete') {
+                                var head  = document.getElementsByTagName('head')[0];
+                                var link  = document.createElement('link');
+                                link.rel  = 'stylesheet';
+                                link.type = 'text/css';
+                                link.href = '/Content/organization?1.0.0.27580';
+                                head.appendChild(link);
+                                return true;
+                            } else {
+                                document.write('<link href="/Content/organization?1.0.0.27580" rel="stylesheet" type="text/css" />');
+                            }
+                        }
+                    }
+                }
+                return true;
+            }())||document.write('<script src="/Content/organization"><\/script>');</script>
+
+
+  <script src="https://speedhive.azureedge.net/bundles/scripts?1.0.0.27580"></script>
+<script>(window.$)||document.write('<script src="/bundles/scripts"><\/script>');</script>
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+</head>
+<body class="page-organizations page-organizations-details">
+  <div class="page-container">
+    
+<div class="header">
+    <div class="top-menu">
+        <div class="top-search clearfix">
+            <form id="searchform" action="/Events/Search" method="POST">
+                <div class="searchbar">
+                    <span class="ico ico-magnify-off"></span>
+                    <input class="event-search-on-page-not-found" type="text" placeholder="Search for event results" value="" name="searchterm">
+                    <button type="submit" value="SEARCH" id="submit-search">SEARCH</button>
+                </div>
+            </form>
+        </div><!-- top-search -->
+        <ul class="nav nav-tabs">
+            <li role="presentation">
+                <a href="/app">DOWNLOAD APP</a>
+            </li>
+            <li role="presentation">
+                <a href="https://speedhiveshop.mylaps.com" target="_blank">SHOP</a>
+            </li>
+            <li role="presentation">
+                <a href="https://speedhiveblog.mylaps.com/" target="_blank">BLOG</a>
+            </li>
+            <li role="presentation">
+                <a href="/x2link">X2 LINK</a>
+            </li>
+            <li role="presentation">
+                <a href="https://www.mylaps.com">MYLAPS.COM</a>
+            </li>
+            <li role="presentation" class="dropdown dropdown-language">
+                <button class="btn btn-menu dropdown-toggle" type="button" id="languageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="ico ico-arrow-down-white"></span>
+                    <span class="selectedLanguage">ENG</span>
+                </button>
+                <ul id="language-change" class="dropdown-menu" aria-labelledby="languageDropdown">
+                    <li>
+                        <a href="#" data-language="en">ENGLISH</a>
+                    </li>
+                    <li>
+                        <a href="#" data-language="nl">NEDERLANDS</a>
+                    </li>
+                    <li>
+                        <a href="#" data-language="ja">日本語</a>
+                    </li>
+                </ul>
+            </li>
+                <li role="presentation" class="dropdown dropdown-profile">
+                    <button class="btn btn-menu dropdown-toggle" type="button" id="dropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span class="ico ico-arrow-down-white"></span>
+                            <span class="userName">BRIAN PAULSEN</span>
+                            <div id="hexGrid">
+                                <div class="hex">
+                                    <div class="hexIn" href="#">
+                                        <img src="/Images/MYLAPS-GA-9d67660a95684131bab6244c838a73d1/2" width="30" height="40">
+                                    </div>
+                                </div>
+                            </div>
+                    </button>
+                    <ul class="dropdown-menu profileDropDown" aria-labelledby="dropdownProfile">
+                        <li>
+
+                            <a href="/profile?tab=3">MY PROFILE</a>
+                        </li>
+                        
+                        <li>
+                            <form action="https://speedhive.mylaps.com/Account/LogOff" method="post" id="logoutForm">
+                                <input name="__RequestVerificationToken" type="hidden" value="TMNWjdFaCVW-6bTyXaJ5gE1CqncUIYMGXRr7o5yO1qgEjKNuuenW0Zse6VKMsZ85iJTD98xbs7rJw4HvK8tWvGwQQpU1UirzJFtF7Rqc9B__xthA26oV0a_VGdvVrU2S0" />
+                                <input type="submit" style="background: #282f39 none repeat scroll 0 0;border-left:2px transparent; border-color: #282f39;" value="LOGOUT" class="btn btn-primary logout" />
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+        </ul>
+    </div><!-- top-menu -->
+    <nav class="navbar nav-menu mainNav">
+        <div class="">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed main-menu-open" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="ico-burger-menu"></span>
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="header-logo" onclick="CallEventsWithCleardSearchTerm();">
+                    <img src="/Images/images/mylaps_speedhive_logo.png" alt="MyLaps" height="50" width="432" />
+                </a>
+                <div class="left-arrow-div">
+                    <a class="ico ico-arrow-left-gray" href="" onclick="history.go(-1); return false;"></a>
+                </div>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav nav-tabs nav-menu-inner">
+                    <li role="presentation">
+                        <a href="/" id="search-result-layout">
+                            <p class="nav-elem">ALL EVENT RESULTS</p>
+                        </a>
+                        <span class="ico ico-nav-active"></span>
+                    </li>
+                    <li role="presentation">
+                        <a href="/Practice">
+                            <p class="nav-elem">ALL PRACTICE</p>
+                        </a>
+                        <span class="ico ico-nav-active"></span>
+                    </li>
+                    <li role="presentation">
+                        <a href="/profile?tab=3">
+                            <p class="nav-elem">My Profile</p>
+                        </a>
+                        <span class="ico ico-nav-active"></span>
+                    </li>
+                    <li role="presentation">
+                        <a href="/LiveTiming">
+                            <p class="nav-elem" style="text-transform: uppercase;">Live Timing</p>
+                        </a>
+                        <span class="ico ico-nav-active"></span>
+                    </li>
+                    <li role="presentation" class="upMenu">
+                        <a href="https://www.mylaps.com" target="_blank">MYLAPS.COM</a>
+                    </li>
+                    <li role="presentation" class="upMenu">
+                        <a href="/app">DOWNLOAD APP</a>
+                    </li>
+                    <li role="presentation" class="upMenu">
+                        <a href="https://speedhiveshop.mylaps.com" target="_blank">SHOP</a>
+                    </li>
+                    <li role="presentation" class="upMenu">
+                      <a href="https://speedhiveblog.mylaps.com/" target="_blank">BLOG</a>
+                    </li>
+                    <li role="presentation" class="upMenu">
+                        <a href="/x2link">X2 LINK</a>
+                    </li>
+                    <li id="language-change" role="presentation" class="upMenu">
+                        <a class="english" href="#" data-language="en">ENGLISH</a>
+                        <a class="dutch" href="#" data-language="nl">NEDERLANDS</a>
+                        <a class="japan" href="#" data-language="ja">日本語</a>
+                    </li>
+                            <li role="presentation" class="upMenu">
+                                <a class="profile-info-responsive">
+                                    <div id="hexGrid">
+                                        <div class="hex">
+                                            <div class="hexIn" href="#">
+                                                <img src="/Images/MYLAPS-GA-9d67660a95684131bab6244c838a73d1/2" width="30" height="40">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="userName">BRIAN PAULSEN</span>
+                                </a>
+                            </li>
+                        <li role="presentation" class="upMenu">
+
+                            <a href="/profile?tab=3">MY PROFILE</a>
+                        </li>
+                        <li role="presentation" class="upMenu">
+                            <form action="https://speedhive.mylaps.com/Account/LogOff" method="post" id="logoutForm">
+                                <input name="__RequestVerificationToken" type="hidden" value="WNxymQ3YkEwJ363_AZOnDZt7koxEjuc0G3JzBQiQ1VpQE8dkCe1Yoxj0XNGtKLNzGlrBYv_hqYQArk-orMG9wvs2kO6zL9gCl00QozWw9KXCqNI8n7FF-Zgn5SDzwiGD0" />
+                                <input type="submit" style="color: #94979c; background: #282f39 none repeat scroll 0 0; border-left: 2px transparent; border-color: #282f39;" value="LOGOUT" class="btn btn-primary logout" />
+                                </form>
+                        </li>
+                        <li role="presentation" class="upMenu loggedin">
+                            <div class="links-container">
+                                <div class="links-second-row social-link clearfix">
+    <div class="row">
+
+            <a class="social ico-facebook" href="https://www.facebook.com/mylapsspeedhive"></a>
+            <a class="social ico-yahoo" href="https://www.youtube.com/channel/UCgd-KMnDXno6s_SHN_w1GxQ"></a>
+    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                </ul><!-- nav-menu-inner -->
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</div><!-- header -->
+    <div class="body-content" id="js_print">
+      
+
+
+<div id="breadcrumb" class="container">
+  <div class="row">
+    <div class="col-xs-12 breadcrumb-social">
+      <ul class="col-lg-9 col-md-7 col-sm-7 col-xs-9 breadcrumb breadcrumb-title">
+        <li class="active">
+          <a href="#" class="mobile-arrow"><img class="mobile-arrow" src="/Images/assets/ico-arrow-left-blue.png"></a>
+          
+
+        <a href="/" title="Home">Home</a>
+            <img src="/Images/assets/ico-arrow-right.png" style="width: 16px; height: 16px; margin-bottom: 5px;">
+
+        <a href="/Events/5427" title="Event Details">Event Details</a>
+            <img src="/Images/assets/ico-arrow-right.png" style="width: 16px; height: 16px; margin-bottom: 5px;">
+
+        <a href="/Sessions/1565177" title="Riesentoter Stuttgart Challenge - 2018 Monticello Motor Club">Riesentoter Stuttgart Challenge - 2018 Monticello Motor Club</a>
+            <img src="/Images/assets/ico-arrow-right.png" style="width: 16px; height: 16px; margin-bottom: 5px;">
+
+    PCA Club Racing
+
+        </li>
+      </ul>
+      <div class="col-lg-3 col-md-5 col-sm-5 col-xs-3 social-container">
+        <button type="button" class="navbar-toggle collapsed social-dropdown" data-toggle="collapse" data-target=".social-toggle"></button>
+        <div class="navbar-collapse collapse social-toggle" tabindex="-1">
+          <a class="social-button facebook-icon" href="#"><span class="ico-breadcrumb-facebook"></span><span>Facebook</span></a>
+          <a class="social-button twitter-icon" href="#"><span class="ico-breadcrumb-twitter"></span><span>Twitter</span></a>
+          <a class="social-button arrow-icon email-icon" href="#"><span class="ico-breadcrumb-email"></span><span>Email</span></a>
+          <a href="" class="sendEmail" id="sendEmail"></a>
+          <a href="" class="sendTweet hide" id="sendTweet"></a>
+          <a class="print" href="javascript:window.print()">
+            <div class="social-button print-icon"><span class="ico-breadcrumb-print"></span></div>
+            <span class="print-text">Print</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var cookie = new MyCookie();
+  var cookieConsentStatus = cookie.readCookie("cookieconsent_status");
+
+  if (!cookieConsentStatus || cookieConsentStatus != "deny") {
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '573827446116530',
+        xfbml: true,
+        version: 'v2.5'
+      });
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  }
+</script>
+<script>
+  var cookie = new MyCookie();
+  var cookieConsentStatus = cookie.readCookie("cookieconsent_status");
+
+  if (!cookieConsentStatus || cookieConsentStatus != "deny") {
+    window.twttr = (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function (f) {
+        t._e.push(f);
+      };
+
+      return t;
+    }(document, "script", "twitter-wjs"));
+  }
+</script>
+<script>
+  $(document).ready(function () {
+    $('.facebook-icon').on('click', function () {
+      if (!$('body').hasClass('page-sessions-laptimes')) {
+        FB.ui({
+          method: 'share',
+          href: window.location.href,
+        }, function (response) { });
+      }
+    });
+
+    function unescapeHtml(unsafe) {
+      return unsafe
+        .replace(/&/g, "%26")
+        .replace("?", "%3F");
+
+    }
+
+    $('.email-icon').on('click', function () {
+      var current_title = $(document).attr('title');
+      var current_url = encodeURI(window.location.href);
+      current_url = unescapeHtml(current_url);
+      if (!$('body').hasClass('page-sessions-laptimes')) {
+        var pathname = window.location.href;
+        $('#sendEmail').attr('href', 'mailto:?Subject=' + current_title + '&body=' + current_title + ' ' + current_url);
+        $('#sendEmail')[0].click();
+      }
+    });
+    $('.twitter-icon').on('click', function () {
+      var current_url = encodeURI(window.location.href);
+      current_url = unescapeHtml(current_url);
+      if (!$('body').hasClass('page-sessions-laptimes')) {
+        var pathname = window.location.href;
+        $('#sendTweet').attr('href', 'https://twitter.com/intent/tweet?text=' + document.title + '&url=' + current_url);
+        $('#sendTweet')[0].click();
+      }
+    });
+  });
+</script><div class="container organization">
+    <div class="sticky-header-global">
+        <div class="sticky-header-global-text">Organization</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12" id="organization-header">
+            <div class="organization-header-info">
+                <div class="organization-header-wrapper">
+                    <div class="organization-title">
+                        <h1>PCA Club Racing</h1>
+                    </div>
+                    <div class="organization-location">
+                        <div class="organization-city">Plano<span>,&nbsp;</span></div>
+                        <div class="organization-country">United States</div>
+                        <a href="http://http://www.pca.org/clubrace/" class="link">http://www.pca.org/clubrace/</a>
+                    </div>
+                </div>
+                <div class="other-information-container">
+                    <a href="/Organizations/5427/Championships" class="link">Championships</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="organization-info-container">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12" id="organization-events-container">
+                    <a href="/Events/1565177" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">Riesentoter Stuttgart Challenge - 2018 Monticello Motor Club</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">7/13/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1550174" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">Rumble at the Oak Tree - 2018 VIRginia International Raceway</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">6/22/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1554627" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">PCA-GPR Carrera GT at MPH - 2018 Motorsport Park Hastings</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">6/16/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1543109" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">Porsche Clash @ The Glen - 2018 Watkins Glen International</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">6/1/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1541941" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">PCA-GGR Duel in the Desert - 2018 Buttonwillow Raceway Park</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">5/18/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1531124" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">The 72 Hours of Barber - 2018 Barber Motorsports Park</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">5/18/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1523104" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">PCA Club Race - 2018 Utah Motorsports Campus</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">5/4/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1518795" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">Porsches In The Heartland - 2018 Heartland Motorsports Park</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">4/28/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1517489" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">Rennen Der Meister - 2018 Mid-Ohio Sports Car Course</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">4/27/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1515243" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">Twin Sprint Rumble - 2018 Lime Rock Park</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">4/20/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1515627" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">California Festival of Speed - 2018 Auto Club Speedway</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">4/20/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1509544" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">Peachstate 225 - 2018 Road Atlanta</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">4/6/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1504609" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">GGR Spring Classic - 2018 Thunderhill Raceway Park</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">3/24/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1504611" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">PCA Mardi Gras Cup  - 2018 NOLA Motorsports Park</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">3/23/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1497732" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">Carrera of the Americas - 2018 Circuit of the Americas</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">3/2/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1492366" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">48 Hours at Sebring - 2018 Sebring International Raceway</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">2/2/2018</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1480750" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">Buttonwillow Double Crown - 2017 Buttonwillow Raceway Park</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">11/11/2017</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1480458" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">Maverick Region Club Race - 2017 Motorsport Ranch</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">11/11/2017</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1480744" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">OktoberFast @ Daytona - 2017 Daytona International Speedway</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">10/27/2017</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1473437" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">Das Burghring - 2017 Pittsburgh&#160;International&#160;Race&#160;Complex</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">10/13/2017</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1471064" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">OKtoberfast - 2017 Hallett Motor Racing Circuit</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">10/7/2017</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1468477" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">Willow Springs Club Race - 2017 Willow Springs International Raceway</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">9/30/2017</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1471207" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">Potomac Club Race - 2017 Summit Point Motorsports Park</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">9/22/2017</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1461941" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">Intermountain Region Club Race Day 1 (Long course) - 2017 Utah Motorsports Campus</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">9/16/2017</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+    <a href="/Events/1461943" class="row-event">
+        <div class="row-event-ico">
+            <span class="ico ico-car"></span>
+        </div>
+        <div class="row-event-flag">
+            <span class="ico ico-flag-us"></span>
+        </div>
+        <div class="row-event-title">
+            <span class="eventTitle">Intermountain Region Club Race Day 2 (Short course) - 2017 Utah Motorsports Campus</span>
+        </div>
+        <div class="row-arrow">
+            <div class="row-event-date">9/16/2017</div>
+            <span class="ico ico-arrow-right-gray"></span>
+        </div>
+    </a>
+
+                <div class="row-event load-more">
+                    Older Results
+                </div>
+            </div>
+            <div class="=col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <aside class="ad-right-top">
+<p style="text-align: center;">
+   <a href="https://speedhiveshop.mylaps.com/?utm_source=speedhive%20site&utm_medium=banner&utm_campaign=X2%20transponders"><img alt="" src="https://www.mylaps.com/app/uploads/2017/09/X2-tx-banner-Speedhive-home-final.png" style="width: 360px;" /></a></p>
+
+
+                </aside>
+                <aside class="ad-right-bottom">
+<div class="ad-data" id="blog-ad-data">
+     <span style="color:#94979b;font-size:14px;text-transform:uppercase;">Speedhive Blog</span>
+     <h3 class="ad-title" style="color:#00bed4;font-size:18px;line-height:26px;margin-top:6px;">
+     	  </h3>
+	 <p class="ad-content" style="line-height:20px;">
+	     </p>
+	    <div style="text-align: center;">
+	    	 <a class="blog-link" href="" style="background-color: #00bed4; size: 16px; font-weight: bold; color: #20252c; font-family: 'Open Sans Condensed', sans-serif; padding: 3px 20px; border-radius: 1px;" target="_blank">Read more</a>
+		    <div style="text-align: center;">
+		    	 		    <p>
+								 </p>
+									</div>
+									</div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $.get("https://speedhiveblog.mylaps.com/wp-json/wp/v2/posts?per_page=1&context=embed", function (data) {
+        $("#blog-ad-data .ad-title").html(data[0].title.rendered);
+        $("#blog-ad-data .ad-content").html(data[0].excerpt.rendered);
+        $("#blog-ad-data a.blog-link").attr("href", data[0].link + "?utm_source=Speedhive%20site&utm_medium=banner&utm_campaign=Speedhive%20Blog");
+      });
+    });
+  </script>
+
+                </aside><!-- ad-right-bottom -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="notice-wide">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+
+
+<div class="pic-side">
+     <img alt="" src="/Images/images/pic-ad-wide.jpg" /></div>
+<div class="data-inner">
+     <p>
+	 </p>
+	<h3>
+		<strong>LIVE TIMING AND OFFICIAL RACE RESULTS </strong></h3>
+		<p>
+			The MYLAPS Speedhive app gives you quick access to the official results of motorized<br />
+			    sport eventsand with live timing specttors and fans can follow  races all over the world</p>
+			    <ul>
+				<li>
+						View live race data </li>
+						     <li>
+								Get quick and easy mobile access to your personal event results</li>
+								    <li>
+										Connect to your personal MYLAPS account and Transponder</li>
+											<li>
+													See the history of all your personal event results</li>
+													    <li>
+															Compare your lap times with other racers in one graph</li>
+																<li>
+																  Analyze where you won and lost compared to your opponents</li>
+																  </ul>
+																  <div class="button-group">
+																       <a class="button button-appstore" href="https://itunes.apple.com/us/app/mylaps-speedhive/id988412583?mt=8#"> </a> <a class="button button-googleplay" href="https://play.google.com/store/apps/details?id=com.mylaps.speedhive"> </a></div>
+																       <div class="button-group">
+																       	     </div>
+</div>
+<p>
+	 </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="transl" style="display:none">
+    <div class="website" data-translation="Website"></div>
+</div>
+
+
+    </div>
+    
+    
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center social-link">
+    <div class="row">
+
+            <a class="social ico-facebook" href="https://www.facebook.com/mylapsspeedhive"></a>
+            <a class="social ico-yahoo" href="https://www.youtube.com/channel/UCgd-KMnDXno6s_SHN_w1GxQ"></a>
+    </div>
+
+            </div>
+        </div>
+        <div class="row">
+
+
+    <div class="col-lg-15 col-md-15 col-sm-6 col-xs-12 footer-column">
+        <p>
+	<strong>About Speedhive</strong></p>
+<p>
+	MYLAPS Speedhive offers you better insights into your race performance in order to help you track, compare, share and increase your progress.<br />
+	<a href="/en/Home/AboutUs"><span style="color:#00BED4;">Read More</span></a></p>
+
+    </div>
+    <div class="col-lg-15 col-md-15 col-sm-6 col-xs-12 footer-column">
+        <p>
+	<strong>About MYLAPS</strong></p>
+<p>
+	We invented automatic sports timing. Thousands of events that previously used stopwatches and thumbs to keep track of results now rely on MYLAPS technology.<br />
+	<a href="https://www.mylaps.com/about-us/" target="_blank"><span style="color:#00bed4;">Read more</span></a></p>
+
+    </div>
+    <div class="col-lg-15 col-md-15 col-sm-6 col-xs-12 footer-column">
+        <p>
+	<strong>Download app </strong></p>
+<p>
+	The MYLAPS Speedhive app gives you quick access to the official results of motorized events.<br />
+	<a href="/en/home/download"><span style="color:#00BED4;">Read More</span></a></p>
+
+    </div>
+    <div class="col-lg-15 col-md-15 col-sm-6 col-xs-12 footer-column">
+        <p>
+	<strong>FAQ</strong></p>
+<p>
+	Search through our most frequently asked questions and find an answer to your question.<br />
+	<a href="/en/Home/FaqPage"><span style="color:#00BED4;">Read More</span></a></p>
+
+    </div>
+    <div class="col-lg-15 col-md-15 col-sm-6 col-xs-12 footer-column">
+        <p>
+	<strong>Links</strong></p>
+<p>
+	<a href="/en/Home/ContactUs"><span style="color:#00BED4;">Contact Us</span></a><br />
+	<a href="https://speedhiveshop.mylaps.com/?lang=english" target="_blank"><span style="color:#00BED4;">MYLAPS Store</span></a><br />
+	<a href="https://organization.mylaps.com/#_ga=1.24772730.1741333028.1448035948" target="_blank"><span style="color:#00BED4;">Organization login</span></a><br />
+	<a href="https://mylaps.us6.list-manage.com/subscribe/post?u=fdd72bdedadf9b83d2967a5c8&id=ba4c9ca923" target="_blank"><span style="color:#00BED4;">Subscribe to our newsletter </span></a><br />
+	<a href="https://www.mylaps.com" target="_blank"><span style="color: rgb(0, 190, 212);">MYLAPS.com</span></a><br />
+	<a href="https://speedhive.mylaps.com/privacypolicy" target="_blank"><span style="color: rgb(0, 190, 212);">Privacy policy</span></a><br />
+	 </p>
+<p>
+	<br />
+	 </p>
+<p>
+	 </p>
+
+    </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="footer-logo">
+                </div>
+                <div class="copyright">
+                    <p>&#169; MYLAPS 2018</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer><!-- footer -->
+  </div>
+  <script type="text/javascript">
+    var url = window.location.pathname;
+    var lang = url.split('/');
+  </script>
+  <script src="https://speedhive.azureedge.net/bundles/smartbanner?1.0.0.27580"></script>
+<script>($.smartbanner)||document.write('<script src="/bundles/smartbanner"><\/script>');</script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script type='text/javascript'>
+  window.addEventListener("load", function () {
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#e4e4e4",
+          "text": "#20252c"
+        },
+        "button": {
+          "background": "#50c7cd",
+          "text": "#20252c"
+        }
+      },
+      "type": "opt-out",
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on our website.",
+        "dismiss": "Accept",
+        "deny": "Decline",
+        "link": "Learn more",
+        "href": "https://speedhive.mylaps.com/cookiepolicy"
+      },
+      onPopupOpen: function (status) {
+        // before option has been selected
+        console.log('onPopupOpen');
+        var type = this.options.type;
+        var didConsent = this.hasConsented();
+        if (type == 'opt-in' && didConsent) {
+          disableCookies();
+        }
+        if (type == 'opt-out') {
+          // enable cookies until disabled
+          useCookies();
+        }
+      },
+      onInitialise: function (status) {
+        // after option has been selected
+        console.log('onInitialise');
+        var type = this.options.type;
+        var didConsent = this.hasConsented();
+        if (type == 'opt-in' && didConsent) {
+          useCookies();
+        }
+        if (type == 'opt-out') {
+          if (!didConsent) {
+            disableCookies();
+          } else {
+            useCookies();
+          }
+        }
+      },
+
+      onStatusChange: function (status, chosenBefore) {
+        var type = this.options.type;
+        var didConsent = this.hasConsented();
+        if (type == 'opt-in' && didConsent) {
+          useCookies();
+        }
+        if (type == 'opt-out' && !didConsent) {
+          disableCookies();
+        }
+      },
+
+      onRevokeChoice: function () {
+        var type = this.options.type;
+        if (type == 'opt-in') {
+          disableCookies();
+        }
+        if (type == 'opt-out') {
+          useCookies();
+        }
+      }
+    });
+  });
+  function useCookies() {
+    console.log('use cookies');
+    ga('create', 'UA-886036-34');
+    ga('send', 'pageview');
+
+    /* <![CDATA[ */
+    var google_conversion_id = 866216927;
+    var google_custom_params = window.google_tag_params;
+    var google_remarketing_only = true;
+    /* ]]> */
+
+    var googleAdsScript = document.createElement("script");
+    googleAdsScript.src = "//www.googleadservices.com/pagead/conversion.js";
+    document.head.appendChild(googleAdsScript);
+  }
+  function disableCookies() {
+    console.log('disable cookies');
+  }
+</script>
+  
+    <script>
+        $(document).ready(function() {
+            $('.load-more').click(loadMoreEvents);
+        });
+        var page = 0,
+            elemsPerPage = 25,
+            loading = false;
+
+        function loadMoreEvents() {
+            if (!loading) {
+                loading = true;
+                $.post(
+                    '/Organizations/5427/LoadMoreEvents',
+                    {   id : 5427,
+                        count : elemsPerPage,
+                        offset: (++page)*elemsPerPage
+                    }
+                ).done(function(data){
+                    if (data) {
+                        data = data.trim();
+                        $('.load-more').before(data);
+                    } else {
+                        $('.load-more').hide();
+                    }
+                    loading = false;
+                });   
+            }
+        }
+    </script>
+
+      <!-- Google Tag Manager -->
+  <noscript>
+    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-N3RH8Z"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <script>
+    var cookie = new MyCookie();
+    var cookieConsentStatus = cookie.readCookie("cookieconsent_status");
+
+    if (!cookieConsentStatus || cookieConsentStatus != "deny") {
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+          'gtm.start':
+              new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-N3RH8Z');
+    }
+
+  </script>
+    <!-- End Google Tag Manager -->
+
+<!-- Google Analytics -->
+<script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+      m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-108462-6', 'auto');
+  //ga('send', 'pageview');
+  var cookie = new MyCookie();
+  var selectedSport = cookie.readCookie("home-event-type");
+
+  ga('send', {
+    hitType: 'event',
+    eventCategory: 'User ID',
+    eventAction: 'Sport',
+    eventLabel: selectedSport || "all"
+  });
+
+  $(".all-tab,.mx-tab,.karting-tab,.car-tab,.rc-tab").on('click', function () {
+    var selectedSport = $(this).find("a").data('sport-type');
+    ga('send', {
+      hitType: 'event',
+      eventCategory: 'User ID',
+      eventAction: 'Filter Sport',
+      eventLabel: selectedSport || "all"
+    });
+  });
+  $(".allresults-tab, .byclass-tab, .lapchartTab, .compare-tab").on('click', function () {
+    var mode = $(this).attr("aria-controls");
+    ga('send', {
+      hitType: 'event',
+      eventCategory: 'Event Results',
+      eventAction: 'Session Tabs',
+      eventLabel: mode || "all"
+    });
+  });
+</script>
+<!-- End Google Analytics -->
+
+  <noscript>
+    <div style="display:inline;">
+      <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/866216927/?guid=ON&script=0" />
+    </div>
+  </noscript>
+
+</body>
+</html>

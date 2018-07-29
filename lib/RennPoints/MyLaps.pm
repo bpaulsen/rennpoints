@@ -12,6 +12,8 @@ sub _build_events {
     my $self = shift;
 
     my $content = $self->content;
+    $content =~ s/.*?<div class="container organization">//so;
+
     my @events;
     while ( $content =~ m{<a href="/Events/(\d+)".*?<span class="eventTitle">(.*?)</span>.*?<div class="row-event-date">(.*?)</div>}sgo ) {
         push @events, { id => $1,

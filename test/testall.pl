@@ -1,5 +1,6 @@
 #!/usr/bin/perl -w
 
+use lib "../lib";
 use File::Spec qw(rel2abs);
 use Cwd qw(abs_path);
 use File::Basename qw(dirname);
