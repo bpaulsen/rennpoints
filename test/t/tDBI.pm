@@ -17,7 +17,7 @@ sub test_readable {
     isa_ok my $dbh = RennPoints::DBI::getDBConnection( 0 ), 'DBI::db';
 
     my ( $user ) = $dbh->selectrow_array( "SELECT CURRENT_USER()" );
-    like $user, qr/_read_only/, 'Test that user ends in _read_only';
+    like $user, qr/_read_only|user/, 'Test that user ends in _read_only or user';
 }
 
 1;
