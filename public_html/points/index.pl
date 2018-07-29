@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use base 'CGIBase';
-use RennPoints qw( getClasses myLapsURL );
+use RennPoints qw( getClasses );
 use List::Util qw( sum );
 use Cache::File;
 
@@ -361,7 +361,6 @@ SELECT r.full_name,
             ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND r2.status = 1 AND r2.position_in_class > r.position_in_class ) )
        END / CASE WHEN a.date > '20120101' AND r.coracer_id > 0 THEN 2 ELSE 1 END AS 'bonuspoints',
        DATE(a.date),
-       a.mylaps_url,
        CEIL( ( CASE WHEN EXISTS ( SELECT 1 FROM results r2, race a2 WHERE r2.race_id = a2.race_id AND a2.event_id = a.event_id AND r.class=r2.class AND r.racer_id = r2.racer_id
                                   AND r2.status = 3 AND a2.session_type IN (3,4,5) ) THEN 0
             ELSE IFNULL( ( SELECT CEILING(p.points
@@ -381,7 +380,8 @@ SELECT r.full_name,
             WHEN a.points_type_2 = 1 OR a.points_type_2 = 4 THEN 0
             ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND r2.status = 1 AND r2.position_in_class > r.position_in_class ) )
           END
-       ) / CASE WHEN a.date > '20120101' AND r.coracer_id > 0 THEN 2 ELSE 1 END ) AS 'points'
+       ) / CASE WHEN a.date > '20120101' AND r.coracer_id > 0 THEN 2 ELSE 1 END ) AS 'points',
+       a.mylaps_id AS 'id'
 FROM   results r, race a, event e, track t, event_types ty
 WHERE  t.track_id = e.track_id 
 AND    r.race_id = a.race_id 
@@ -418,7 +418,6 @@ SELECT r.full_name,
             ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND r2.status = 1 AND r2.position_in_class > r.position_in_class ) )
        END / CASE WHEN a.date > '20120101' AND r.coracer_id > 0 THEN 2 ELSE 1 END AS 'bonuspoints',
        DATE(a.date),
-       a.mylaps_url,
        FLOOR( ( CASE WHEN EXISTS ( SELECT 1 FROM results r2, race a2 WHERE r2.race_id = a2.race_id AND a2.event_id = a.event_id AND r.class=r2.class AND r.racer_id = r2.racer_id AND r2.status = 3 AND a2.session_type IN (3,4,5) ) THEN 0
             ELSE IFNULL( ( SELECT CEILING(p.points
                                   *  CASE WHEN a.points_type_2 = 1                              THEN 0
@@ -436,7 +435,8 @@ SELECT r.full_name,
             WHEN a.points_type_2 = 1 OR a.points_type_2 = 4 THEN 0
             ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND r2.status = 1 AND r2.position_in_class > r.position_in_class ) )
           END
-       ) / CASE WHEN a.date > '20120101' AND r.coracer_id > 0 THEN 2 ELSE 1 END ) AS 'points'
+       ) / CASE WHEN a.date > '20120101' AND r.coracer_id > 0 THEN 2 ELSE 1 END ) AS 'points',
+       a.mylaps_id AS 'id'
 FROM   results r, race a, event e, track t, event_types ty
 WHERE  t.track_id = e.track_id 
 AND    r.race_id = a.race_id 
@@ -483,7 +483,8 @@ EOF
 	}
 
 	push @totals, { "name" => $i->[0],
-			"points" => $i->[11],
+			"points" => $i->[10],
+			"id" => $i->[11],
 			"event" => $i->[2],
 			"race"=> $i->[3],
 			"position" => $position,
@@ -491,7 +492,6 @@ EOF
 			"bonuspoints" => formatPoints($i->[8]),
 			"positionpoints" => formatPoints($i->[1]),
 			"date" => $i->[9],
-			"url" => myLapsURL($i->[10]),
 	};
     }
 

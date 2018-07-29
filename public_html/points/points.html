@@ -148,7 +148,7 @@
 		      [%- IF showNames -%]<td>[% HTML.escape(result.name) %]</td>[%- END %]
 		      <td>[% HTML.escape( result.event ) %]</td>
 		      <td>[% result.date %]</td>
-		      <td><a href="[% result.url %]&amp;perClass=1">[% HTML.escape( result.race ) %]</a></td>
+		      <td><a href="https://speedhive.mylaps.com/Sessions/[% result.id %]#byClass">[% HTML.escape( result.race ) %]</a></td>
 		      [%- IF yearChoice < 2012 %]<td>[% result.eventtype %]</td>[%- END %]
 		      <td>[% result.position %]</td>
 		      <td>[% result.positionpoints %]</td>
