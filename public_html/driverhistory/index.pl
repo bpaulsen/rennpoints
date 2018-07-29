@@ -2,7 +2,7 @@
 
 use warnings;
 use strict;
-use RennPoints qw( getDBConnection formatTime searchForRacer myLapsURL );
+use RennPoints qw( getDBConnection formatTime searchForRacer );
 use HTML::Template;
 use CGI;
 use List::Util qw(sum);
@@ -94,7 +94,7 @@ sub getBestLapTimes {
     return if !$id;
 
     my $query = <<"EOF";
-select X2.*, S3.class, S3.full_name, DATE(R3.date) as 'date', R3.mylaps_url, S3.race_id
+select X2.*, S3.class, S3.full_name, DATE(R3.date) as 'date', S3.race_id, R3.mylaps_id AS 'id'
 from results S3, race R3,
    ( select min(S2.best_lap_time) as 'class_record',
      X.track_id,
@@ -140,7 +140,6 @@ EOF
 	$i->{class_record} = formatTime( $i->{class_record} );
 	$i->{best_lap_time} = formatTime( $i->{best_lap_time} );
 	$i->{percentage} = sprintf( "%1.1f", $i->{percentage} );
-	$i->{mylaps_url} = myLapsURL( $i->{mylaps_url} );
     }
 
     return \@results;
@@ -153,7 +152,7 @@ sub getRaceResults {
     return if !$id;
 
     my $query = <<"EOF";
-SELECT T.short_name, DATE(R.date) as 'date', R.session_type, R.description, R.mylaps_url, S.full_name, S.position_on_results_page, 
+SELECT T.short_name, DATE(R.date) as 'date', R.session_type, R.description, S.full_name, S.position_on_results_page, R.mylaps_id AS 'id',
        S.position_in_class, S.class, S.best_lap_time, S.status, 
        ( SELECT COUNT(*) FROM results S2 WHERE S2.race_id = S.race_id AND S2.class = S.class AND S2.status <= 2 ) as 'class_size',
        ( SELECT COUNT(*) FROM results S2 WHERE S2.race_id = S.race_id AND S2.status <= 2 ) as 'race_size'
@@ -170,7 +169,6 @@ EOF
     my $data = $dbh->selectall_arrayref( $query, { Slice => {} }, $id, $id );
 
     foreach my $i ( @$data ) {
-	$i->{mylaps_url} = myLapsURL( $i->{mylaps_url} );
 	$i->{ best_lap_time } = $i->{best_lap_time} < 30 ?  "" : formatTime( $i->{ best_lap_time } );
 	if ( $i->{status} == 2 ) {
 	    $i->{ position_on_results_page } = "DNF";
