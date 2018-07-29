@@ -4,7 +4,7 @@ use warnings;
 use strict;
 
 use base 'CGIBase';
-use RennPoints qw( formatTime getDetailedClassRecords getTracks getClasses myLapsURL );
+use RennPoints qw( formatTime getDetailedClassRecords getTracks getClasses );
 
 __PACKAGE__->new()->run();
 
@@ -96,7 +96,6 @@ EOF
     foreach my $i ( @$data ) {
 	if ( $i->{ rawtime } < $besttime ) {
 	    $i->{ laptime } = formatTime( $i->{ rawtime } );
-	    $i->{url} = myLapsURL( $i->{url} );
 	    $besttime = $i->{ rawtime };
 	    push @results, $i;
 	}
@@ -133,7 +132,6 @@ EOF
     my $data = $dbh->selectall_arrayref( $query, { Slice => {}}, $trackid, $class, $session, $session, $session );
     foreach my $i ( @$data ) {
 	$i->{ laptime } = formatTime( $i->{ rawtime } );
-	$i->{url} = myLapsURL( $i->{url} );
     }
 
     return $data;
@@ -170,7 +168,6 @@ EOF
     my $data = $dbh->selectall_arrayref( $query, { Slice => {}}, $trackid, $class, $session, $session, $session );
     foreach my $i ( @$data ) {
 	$i->{ laptime } = formatTime( $i->{ rawtime } );
-	$i->{url} = myLapsURL( $i->{url} );
     }
 
     return $data;
