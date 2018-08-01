@@ -22,7 +22,6 @@ sub _build_participants {
     my $self = shift;
     my $content = $self->content;
 
-#    my $te = HTML::TableExtract->new( headers => [ 'Pos', 'PIC', 'No.', 'Name', 'Class', 'Laps', 'Diff', 'Gap', 'Best Tm', 'In Lap', 'Description', 'Color', 'Region' ],
     my $te = HTML::TableExtract->new( headers => [ 'Pos', 'PIC', 'No.', 'Name', 'Class', 'Region' ],
 				      slice_columns => 0,
 	                            );
