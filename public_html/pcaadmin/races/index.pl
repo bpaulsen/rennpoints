@@ -38,14 +38,14 @@ sub update_races : Runmode {
     foreach my $i ( 1 .. $count ) {
 	next if !$cgi->param( "check_$i" );
 
-	my %info = ( DESCRIPTION => $cgi->param( "description_$i" ),
-		     TRACK => $cgi->param( "track_$i" ),
-		     DATE => $cgi->param( "date_$i" ),
-		     URL => $cgi->param( "url_$i" ),
-		     ID => $cgi->param( "id_$i" ),
-		     EVENT => $cgi->param( "event" ),
-		     SESSION => $cgi->param( "session_$i" ),
-		     POINTS => $cgi->param( "points_$i" ),
+	my %info = ( DESCRIPTION => scalar($cgi->param( "description_$i" )),
+		     TRACK => scalar($cgi->param( "track_$i" )),
+		     DATE => scalar($cgi->param( "date_$i" )),
+		     URL => scalar($cgi->param( "url_$i" )),
+		     ID => scalar($cgi->param( "id_$i" )),
+		     EVENT => scalar($cgi->param( "event" )),
+		     SESSION => scalar($cgi->param( "session_$i" )),
+		     POINTS => scalar($cgi->param( "points_$i" )),
 	           );
 
 	my ( $count ) = $dbh->selectrow_array( "SELECT COUNT(*) FROM race WHERE mylaps_id = ?", {}, $info{ID} );
@@ -62,7 +62,7 @@ sub update_races : Runmode {
     my $event = $cgi->param("event");
     print STDERR "./parseMyLaps.pl $event 2>&1 /dev/null\n";
     # system( "./parseMyLaps.pl $event 2>&1 /dev/null" );
-    system( "./parseMyLaps.pl $event" );
+    system( "./parseMyLaps.pl", $event );
 
     # system( "./parseMyLaps.pl $event 2>&1 /var/log/httpd/error_log" );
 

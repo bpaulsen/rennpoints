@@ -22,32 +22,61 @@ sub _build_participants {
     my $self = shift;
     my $content = $self->content;
 
-    my $te = HTML::TableExtract->new( headers => [ 'Pos', 'PIC', 'No.', 'Name', 'Class', 'Laps', 'Diff', 'Gap', 'Best Tm', 'In Lap', 'Description', 'Color', 'Region' ] );
+#    my $te = HTML::TableExtract->new( headers => [ 'Pos', 'PIC', 'No.', 'Name', 'Class', 'Laps', 'Diff', 'Gap', 'Best Tm', 'In Lap', 'Description', 'Color', 'Region' ],
+    my $te = HTML::TableExtract->new( headers => [ 'Pos', 'PIC', 'No.', 'Name', 'Class', 'Region' ],
+				      slice_columns => 0,
+	                            );
     $te->parse( $content );
 
     my @participants;
     foreach my $ts ( $te->tables ) {
+	my %headers = create_header_map( $ts->hrow );
 	foreach my $row ( $ts->rows ) {
 	    next if !defined $row->[0];
-	    my ( $pos, $pic, $car_num, $name, $class, $laps, $diff, $gap, $best_time, $best_lap, $description, $color, $region ) = @$row;
 
-	    push @participants, { overall_position => $pos,
-				  class_position   => $pic,
-				  car_number       => $car_num,
-				  name             => $name,
-				  class            => $class,
-				  laps             => $laps,
-				  overall_time_difference => bestLapTime( $diff ),
-				  best_time        => bestLapTime($best_time),
-				  best_lap_number  => $best_lap,
-				  color            => $color,
-				  description      => $description,
-				  region           => $region,
+	    push @participants, { overall_position => get_column(\%headers, $row, 'Pos' ),
+				  class_position   => get_column(\%headers, $row, 'PIC' ),
+				  car_number       => get_column(\%headers, $row, 'No.' ),
+				  name             => get_column(\%headers, $row, 'Name' ),
+				  class            => get_column(\%headers, $row, 'Class' ),
+				  laps             => get_column(\%headers, $row, 'Laps' ),
+				  overall_time_difference => bestLapTime( get_column(\%headers, $row, 'Diff' ) ),
+				  best_time        => bestLapTime( get_column(\%headers, $row, 'Best Tm' ) ),
+				  best_lap_number  => get_column(\%headers, $row, 'In Lap' ),
+				  color            => get_column(\%headers, $row, 'Color' ),
+				  description      => get_column(\%headers, $row, 'Description' ),
+				  region           => get_column(\%headers, $row, 'Region' ),
 	    };
 	}
     }
 
     return \@participants;
+}
+
+sub get_column {
+    my $map = shift;
+    my $row = shift;
+    my @fields = @_;
+
+    foreach my $field ( @fields ) {
+	if ( exists($map->{$field}) ) {
+	    return $row->[$map->{$field}];
+	}
+    }
+
+    return undef;
+}
+
+sub create_header_map {
+    my @headers = @_;
+
+    my %map;
+    my $count = 0;
+    foreach my $header ( @headers ) {
+	$map{$header} = $count++;
+    }
+
+    return %map;
 }
 
 sub bestLapTime {
