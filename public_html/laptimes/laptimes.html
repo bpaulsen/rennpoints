@@ -6,7 +6,32 @@
     <LINK href="../content.css" rel="stylesheet">
     
     <TMPL_IF NAME="google_lat">
-      <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<TMPL_VAR NAME="google_key">&amp;sensor=false"
+      <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCN3SBvLjNi16RN6PZdFwfO7Rd6vGUwimU"
+              type="text/javascript"></script>
+      <style type="text/css">
+	html, body, #map { height: 100%; margin: 0; }
+      </style>
+      <script type="text/javascript">
+	function initialize() {
+	  var map = new google.maps.Map(
+            document.getElementById('map'), {
+             center: new google.maps.LatLng(<TMPL_VAR NAME="google_lat">, <TMPL_VAR NAME="google_lng">),
+             zoom: <TMPL_VAR NAME="google_zoom">,
+             mapTypeId: google.maps.MapTypeId.HYBRID
+	}); 
+
+	var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(<TMPL_VAR NAME="google_lat">, <TMPL_VAR NAME="google_lng">),
+          map: map
+	});
+
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+      </script>
+    </TMPL_IF>
+
+    <TMPL_IF NAME="google2_lat">
+      <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAsD--IdwR2f35flh0j6JiBRQvMhMNuDozJJK4KV4TBkjtLZVOVBQwIbuDg0wc-WciAZOuMaw8rMqoRg&amp;sensor=false"
               type="text/javascript"></script>
       <script type="text/javascript">
 	function createMarker(point,html) {
@@ -148,7 +173,7 @@
 	    
 	    <TMPL_IF NAME="google_lat">
 	      <td>
-		<div id="map_canvas" style="width: <TMPL_VAR NAME="google_width">px; height: <TMPL_VAR NAME="google_height">"></div>
+		<div id="map" style="width: <TMPL_VAR NAME="google_width">px; height: <TMPL_VAR NAME="google_height">"></div>
 	      </td>
 	    </TMPL_IF>
 	  </tr>
