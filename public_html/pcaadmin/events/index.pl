@@ -144,7 +144,7 @@ sub upsertMyLapsEvent {
     my $dbh = $ARGS{DBH} || $self->dbh();
     my $status = $ARGS{STATUSTYPE};
 
-    deleteMyLapsEvent( %ARGS, DBH => $dbh ) if $status == 2;
+    $self->deleteMyLapsEvent( %ARGS, DBH => $dbh ) if $status == 2;
 
     my ( $count ) = $dbh->selectrow_array( "select count(*) from event where mylaps_url = ?", {}, $ARGS{URL} );
 
