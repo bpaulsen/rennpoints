@@ -90,7 +90,7 @@ sub participants {
     my @results;
     foreach my $name ( $viewOption->value_names() ) {
 	print STDERR "name = $name\n" if $self->debug;
-        next unless $name =~ /(sprint|spriint|sholar|enduro|Race)/ix;
+        next unless $name =~ /(sprint|spriint|sholar|enduro|Race|primary\s+driver\s+weekend\s+package)/ix;
         $viewOption->value($name);
         my $value = $viewOption->value();
 
