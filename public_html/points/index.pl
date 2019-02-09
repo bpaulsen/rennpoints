@@ -279,8 +279,9 @@ EOF
 	foreach my $j ( keys %{$points{$i}} ) {
 	    my @list = sort { $b <=> $a } @{$points{$i}->{$j}};
 	    my $total = sum( @list );
-	    my $listsize = $#list >= 7 ? 7 : $#list;
-	    my $best = sum( @list[0..$listsize] );
+	    my $top_races = $year >= 2019 ? 13 : 8;
+	    my $listsize = @list >= $top_races ? $top_races : @list;
+	    my $best = sum( @list[0..$listsize-1] );
 
 	    my @events = grep { $event{$i}->{$j}->{$_} >= 0 } keys %{$event{$i}->{$j}};
 	    my $eventpoints = 5 * ( 1 + $#events );
