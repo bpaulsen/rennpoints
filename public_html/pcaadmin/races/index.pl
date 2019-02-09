@@ -86,7 +86,7 @@ sub getRaces {
     my $self = shift;
     my $event_id = shift || return;
 
-    my ( $mylapsid, $track ) = $self->dbh->selectrow_array( "SELECT mylaps_id, track_id FROM event WHERE event_id = ?", {}, $event_id );
+    my ( $mylapsid, $track, $year ) = $self->dbh->selectrow_array( "SELECT mylaps_id, track_id, year(date) FROM event WHERE event_id = ?", {}, $event_id );
     my $event = RennPoints::MyLaps::Event->new(id => $mylapsid);
     my $races = $event->races;
 
@@ -120,9 +120,13 @@ sub getRaces {
 	@sprints = sort { $b->{datetime} cmp $a->{datetime} } @sprints;
 	if ( @sprints ) {
 	    $points_races{$sprints[0]->{session}} = 2;
+
+	    if ( @sprints > 1 ) {
+		$points_races{$sprints[1]->{session}} = 2;
+	    }
 	}
-	if ( !@enduros && @sprints > 1 ) {
-	    $points_races{$sprints[1]->{session}} = 2;
+	if ( !@enduros && @sprints > 2 ) {
+	    $points_races{$sprints[2]->{session}} = 2;
 	}
     }
 
