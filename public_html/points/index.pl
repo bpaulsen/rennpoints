@@ -297,6 +297,7 @@ EOF
 			    "zone" => $zones{$j},
 			    "eligible_for_championship" => ( $year < 2013 ? 1
 							     : $year == 2013 && $number_of_races{$j}->{$i} >= 6 ? 1
+							     : $year >= 2019 && $number_of_races{$j}->{$i} >= 7 ? 1 
 							     : $year >= 2014 && $number_of_races{$j}->{$i} >= 5 ? 1 
 							     : 0 
 							   ),
