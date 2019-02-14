@@ -151,7 +151,7 @@ SELECT r.racer_id,
                                    )                
                      FROM   position_points p WHERE p.position_in_class = r.position_in_class), 0 )
             + CASE WHEN a.points_type_2 = 1 OR a.points_type_2 = 4 OR r.status != 1 THEN 0
-                   ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND r2.status = 1 AND r2.position_in_class > r.position_in_class ) )
+                   ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND ( r2.status = 1 OR a.date > '20190101' ) AND ( r2.position_in_class > r.position_in_class OR r2.position_in_class = 0 ) ) )
               END
        END / CASE WHEN a.date > '20120101' AND r.coracer_id > 0 THEN 2 ELSE 1 END ) AS 'points',
        a.event_id,
@@ -190,7 +190,7 @@ SELECT r.coracer_id AS 'racer_id',
                                    )                
                      FROM   position_points p WHERE p.position_in_class = r.position_in_class), 0 )
             + CASE WHEN a.points_type_2 = 1 OR a.points_type_2 = 4 OR r.status != 1 THEN 0
-                   ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND r2.status = 1 AND r2.position_in_class > r.position_in_class ) )
+                   ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND ( r2.status = 1 OR a.date > '20190101' ) AND ( r2.position_in_class > r.position_in_class OR r2.position_in_class = 0 ) ) )
               END
        END / 2 ) AS 'points',
        a.event_id,
@@ -360,7 +360,7 @@ SELECT r.full_name,
        CASE WHEN EXISTS ( SELECT 1 FROM results r2, race a2 WHERE r2.race_id = a2.race_id AND a2.event_id = a.event_id AND r.class=r2.class AND r.racer_id = r2.racer_id
                           AND r2.status = 3 AND a2.session_type IN (3,4,5) ) THEN 0
             WHEN a.points_type_2 = 1 OR a.points_type_2 = 4 THEN 0
-            ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND r2.status = 1 AND r2.position_in_class > r.position_in_class ) )
+            ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND ( r2.status = 1 OR a.date > '20190101' ) AND ( r2.position_in_class > r.position_in_class OR r2.position_in_class = 0 ) ) )
        END / CASE WHEN a.date > '20120101' AND r.coracer_id > 0 THEN 2 ELSE 1 END AS 'bonuspoints',
        DATE(a.date),
        CEIL( ( CASE WHEN EXISTS ( SELECT 1 FROM results r2, race a2 WHERE r2.race_id = a2.race_id AND a2.event_id = a.event_id AND r.class=r2.class AND r.racer_id = r2.racer_id
@@ -380,7 +380,7 @@ SELECT r.full_name,
           CASE WHEN EXISTS ( SELECT 1 FROM results r2, race a2 WHERE r2.race_id = a2.race_id AND a2.event_id = a.event_id AND r.class=r2.class AND r.racer_id = r2.racer_id 
                              AND r2.status = 3 AND a2.session_type IN (3,4,5) ) THEN 0
             WHEN a.points_type_2 = 1 OR a.points_type_2 = 4 THEN 0
-            ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND r2.status = 1 AND r2.position_in_class > r.position_in_class ) )
+            ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND ( r2.status = 1 OR a.date > '20190101' ) AND ( r2.position_in_class > r.position_in_class OR r2.position_in_class = 0 ) ) )
           END
        ) / CASE WHEN a.date > '20120101' AND r.coracer_id > 0 THEN 2 ELSE 1 END ) AS 'points',
        a.mylaps_id AS 'id'
@@ -417,7 +417,7 @@ SELECT r.full_name,
        ty.description,
        CASE WHEN EXISTS ( SELECT 1 FROM results r2, race a2 WHERE r2.race_id = a2.race_id AND a2.event_id = a.event_id AND r.class=r2.class AND r.racer_id = r2.racer_id AND r2.status = 3 AND a2.session_type IN (3,4,5,6) ) THEN 0
             WHEN a.points_type_2 = 1 OR a.points_type_2 = 4 THEN 0
-            ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND r2.status = 1 AND r2.position_in_class > r.position_in_class ) )
+            ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND ( r2.status = 1 OR a.date > '20190101' ) AND ( r2.position_in_class > r.position_in_class OR r2.position_in_class = 0 ) ) )
        END / CASE WHEN a.date > '20120101' AND r.coracer_id > 0 THEN 2 ELSE 1 END AS 'bonuspoints',
        DATE(a.date),
        FLOOR( ( CASE WHEN EXISTS ( SELECT 1 FROM results r2, race a2 WHERE r2.race_id = a2.race_id AND a2.event_id = a.event_id AND r.class=r2.class AND r.racer_id = r2.racer_id AND r2.status = 3 AND a2.session_type IN (3,4,5) ) THEN 0
@@ -435,7 +435,7 @@ SELECT r.full_name,
            +
           CASE WHEN EXISTS ( SELECT 1 FROM results r2, race a2 WHERE r2.race_id = a2.race_id AND a2.event_id = a.event_id AND r.class=r2.class AND r.racer_id = r2.racer_id AND r2.status = 3 AND a2.session_type IN (3,4,5,6) ) THEN 0
             WHEN a.points_type_2 = 1 OR a.points_type_2 = 4 THEN 0
-            ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND r2.status = 1 AND r2.position_in_class > r.position_in_class ) )
+            ELSE LEAST( 10, ( SELECT COUNT(*) FROM results r2 WHERE r.race_id = r2.race_id AND r.class = r2.class AND ( r2.status = 1 OR a.date > '20190101' ) AND ( r2.position_in_class > r.position_in_class OR r2.position_in_class = 0 ) ) )
           END
        ) / CASE WHEN a.date > '20120101' AND r.coracer_id > 0 THEN 2 ELSE 1 END ) AS 'points',
        a.mylaps_id AS 'id'
