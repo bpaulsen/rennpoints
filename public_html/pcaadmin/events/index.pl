@@ -74,6 +74,7 @@ sub get_events {
 	    $event->{ TYPE } = $mylaps_event->{ event_type };
 	    $event->{ TRACKID } = $mylaps_event->{ track_id } if $event->{TRACKID} == 19 && $mylaps_event->{track_id} == 75; # Mid-Ohio
 	    $event->{ TRACKID } = $mylaps_event->{ track_id } if $event->{TRACKID} == 89 && $mylaps_event->{track_id} == 96; # NOLA
+	    $event->{ TRACKID } = $mylaps_event->{ track_id } if $event->{TRACKID} ==  1 && $mylaps_event->{track_id} == 89; # NOLA
 	    $event->{ TRACKID } = $mylaps_event->{ track_id } if $event->{TRACKID} == 68 && $mylaps_event->{track_id} == 77; # NJMP
 	    $event->{ TRACKID } = $mylaps_event->{ track_id } if $event->{TRACKID} == 87 && $mylaps_event->{track_id} == 14; # Gingerman
 	    $event->{ TRACKID } = $mylaps_event->{ track_id } if $mylaps_event->{track_id} == 86; # Mazda Laguna Seca
