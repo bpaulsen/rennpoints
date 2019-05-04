@@ -20,21 +20,31 @@ sub _build_races {
 
     my @sessions;
     my @group_html = split /<div class="row-event">/, $content;
-    foreach my $session ( @group_html[1..$#group_html] ) {
-        my ( $group ) = $session =~ m{<div class="row-session-title">\s+<h3>(.*?)</h3>}go;
-        $group =~ s/^\d+:\s+//o;
+    shift @group_html;
+    foreach my $group ( @group_html ) {
+        my ( $group_name ) = $group =~ m{<div class="row-session-title">\s+<h3>(.*?)</h3>}go;
+        $group_name =~ s/^\d+:\s+//o;
 
-        while ( $session =~ m{<a href="/Sessions/(\d+)".*?<span class="ico ico-(.*?)"></span>.*?<div class="row-event-name">(.*?)</div>.*?<div class="row-event-date">(\d+)\s*(\w\w\w)</div>.*?<div class="row-event-time">(.*?)</div>}sgo ) {
-	    next if $2 eq 'qualify-merge';
+	foreach my $session ( split /<\/a>/, $group ) {
+	    my ($id) = $session =~ m{"/Sessions/(\d+)"}sgo;
+	    next if !$id;
 
-            push @sessions, { id => $1,
-			      type => $2,
-			      group => $group,
-                              session => join( " - ", $group, $3 ),
-                              datetime => join( " ", join( "-", $year, $MONTHS{$5}, $4 ), $6 ),
-                          };
-        }
+	    my ($type) = $session =~ m{span\s+class="ico\s+ico-(.*?)">};
+	    next if $type eq 'qualify-merge';
+
+	    my ($name) = $session =~ m{<div class="row-event-name">(.*?)</div>}sgo;
+	    my ($day, $month ) = $session =~ m{<div class="row-event-date">(\d+)\s*(\w{3})</div>}sgo;
+	    my ($time ) = $session =~ m{<div class="row-event-time">(.*?)</div>}sgo;
+
+            push @sessions, { id => $id,
+			      type => $type,
+			      group => $group_name,
+                              session => join( " - ", $group_name, $name ),
+                              datetime => join( " ", join( "-", $year, $MONTHS{$month}, $day ), $time ),
+	                    };
+	}
     }
+
     return \@sessions;
 }
 
