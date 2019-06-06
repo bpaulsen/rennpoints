@@ -72,11 +72,16 @@ sub get_events {
 	else {
 	    $event->{ PCAURL } = $mylaps_event->{ pca_url };
 	    $event->{ TYPE } = $mylaps_event->{ event_type };
-	    $event->{ TRACKID } = $mylaps_event->{ track_id } if $event->{TRACKID} == 19 && $mylaps_event->{track_id} == 75; # Mid-Ohio
-	    $event->{ TRACKID } = $mylaps_event->{ track_id } if $event->{TRACKID} == 89 && $mylaps_event->{track_id} == 96; # NOLA
-	    $event->{ TRACKID } = $mylaps_event->{ track_id } if $event->{TRACKID} ==  1 && $mylaps_event->{track_id} == 89; # NOLA
-	    $event->{ TRACKID } = $mylaps_event->{ track_id } if $event->{TRACKID} == 68 && $mylaps_event->{track_id} == 77; # NJMP
-	    $event->{ TRACKID } = $mylaps_event->{ track_id } if $event->{TRACKID} == 87 && $mylaps_event->{track_id} == 14; # Gingerman
+
+	    my %track_remap = ( 103 => 62, # Buttonwillow #13
+				104 => 62, # Buttonwillow CCW
+				75 => 19, # Mid-Ohio
+				96 => 89, # NOLA
+				77 => 68, # NJMP
+				14 => 87, # Gingerman
+		);
+				
+	    $event->{ TRACKID } = $mylaps_event->{ track_id } if $track_remap{$mylaps_event->{track_id}} && $event->{TRACKID} == $track_remap{$mylaps_event->{track_id}};
 	    $event->{ TRACKID } = $mylaps_event->{ track_id } if $mylaps_event->{track_id} == 86; # Mazda Laguna Seca
 	    if ( $mylaps_event->{ mylaps_id } != $event->{ID} || $event->{TRACKID} != $mylaps_event->{track_id}) {
 		$event->{ TRACKID } = $mylaps_event->{ track_id };
