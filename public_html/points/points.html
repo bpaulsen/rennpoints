@@ -179,12 +179,18 @@
 		  <li> Note: Regular events will have only 2 races count for points.  Any additional races are fun races and no points will be scored for fun races
 		  <li> Premier and national events will have 3 races that count for points.
 		  <li> DQ'd drivers forfeit all points for an event (including event participation points)
-		  [% ELSE %]
+		  [% ELSIF yearChoice < 2019 %]
 		  <li>Position Points: 1st=10 points, 2nd=7, 3rd=5, 4th=4, 5th=3, 6th=2, 7th=1
 		  <li>Bonus Points: 1 point for each in-class car that finishes a race that a driver beats (maximum of 10 points per race).
 		  <li>Note: Cars with multiple drivers in an enduro will split the position and bonus points
 		  <li>Event Participation Points: 5 points if a driver starts a race at an event.  (maximum of 25 points per season).  These points are not shown on this section but are shown in the section that lists all drivers.
 		  <li>Note: Only 2 races at each event count for points.  Any additional races are fun races and no points will be scored for fun races.
+		  [% ELSE %]
+		  <li>Position Points: 1st=10 points, 2nd=7, 3rd=5, 4th=4, 5th=3, 6th=2, 7th=1
+		  <li>Bonus Points: 1 point for each in-class car that starts a race that a driver beats (maximum of 10 points per race).
+		  <li>Note: Cars with multiple drivers in an enduro will split the position and bonus points
+		  <li>Event Participation Points: 5 points if a driver starts a race at an event.  (maximum of 25 points per season).  These points are not shown on this section but are shown in the section that lists all drivers.
+		  <li>Note: Only 3 races at each event count for points.  Any additional races are fun races and no points will be scored for fun races.
   		  [%- END -%]
 		</ul>
 		[%- END -%]
