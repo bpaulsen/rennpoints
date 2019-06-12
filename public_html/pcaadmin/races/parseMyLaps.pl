@@ -22,6 +22,11 @@ sub populateFromMyLaps {
 
     my $dbh = getDBConnection(1);
 
+    my %CLASS_REMAP = ( 'GTC6C' => 'GTC6',
+			'GTC7C' => 'GTC7',
+			'GTD1C' => 'GTD',
+	              );
+
     my $race_list = $dbh->selectall_arrayref( "SELECT distinct r.race_id, mylaps_id, session_type FROM race r WHERE event_id = ?", { Slice => {} }, $event );
 
     foreach my $race ( @$race_list ) {
@@ -51,6 +56,10 @@ sub populateFromMyLaps {
 	    my $status = lc($result->{status}) eq "dnf" ? 2
 		: lc($result->{status}) eq "dq"  ? 3
 		: 1;
+
+	    if ( $CLASS_REMAP{$class} ) {
+		$class = $CLASS_REMAP{$class};	
+	    }
 
 	    my ( $count ) = $dbh->selectrow_array( "SELECT count(*) FROM results WHERE race_id = ? AND position_on_results_page = ?", {}, $race->{race_id}, $position );
 	    if ( $count ) {
