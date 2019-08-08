@@ -441,6 +441,7 @@ EOF
 
     foreach my $i ( @$times ) {
 	$i->[4] = myLapsURL( $i->[4] ) if $i->[4];
+	# $i->[4] = "https://speedhive.mylaps.com/Sessions/$i->[4]" if $i->[4];
 	$i->[6] = 0;
     }
 

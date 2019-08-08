@@ -114,7 +114,7 @@
 			<td>&nbsp;<TMPL_VAR NAME="racerclass">&nbsp;</td>
 			<td align="right">&nbsp;<TMPL_VAR NAME="racercar">&nbsp;</td>
 			<td align="right">&nbsp;<TMPL_VAR NAME="besttime">&nbsp;</td>
-			<td>&nbsp;<TMPL_IF NAME="resulturl"><a href="<TMPL_VAR NAME="resulturl">&amp;perClass=1"><TMPL_VAR NAME="resultdate"></a><TMPL_ELSE><TMPL_IF NAME="besttime"><a href="../predictions?track=<TMPL_VAR NAME="track">&amp;class=<TMPL_VAR NAME="racerclass">&amp;racer=<TMPL_VAR NAME="racerid">">Prediction</a><TMPL_ELSE>&nbsp;</TMPL_IF></TMPL_IF>&nbsp;</td>
+			<td>&nbsp;<TMPL_IF NAME="resulturl"><a href="<TMPL_VAR NAME="resulturl">#byClass"><TMPL_VAR NAME="resultdate"></a><TMPL_ELSE><TMPL_IF NAME="besttime"><a href="../predictions?track=<TMPL_VAR NAME="track">&amp;class=<TMPL_VAR NAME="racerclass">&amp;racer=<TMPL_VAR NAME="racerid">">Prediction</a><TMPL_ELSE>&nbsp;</TMPL_IF></TMPL_IF>&nbsp;</td>
 		      </tr>
 		    </TMPL_LOOP>
 		  </table>
@@ -160,7 +160,7 @@
 			      <td class="rr0"><TMPL_VAR NAME="resultname"></td>
 			      <td><TMPL_VAR NAME="resultclass"></td>
 			      <td class="rr1"><TMPL_VAR NAME="resulttime"></td>
-			      <td><TMPL_IF NAME="resulturl"><a href="<TMPL_VAR NAME="resulturl">&amp;perClass=1"><TMPL_VAR NAME="resultdate"></a><TMPL_ELSE><a href="../predictions?track=<TMPL_VAR NAME="track">&amp;class=<TMPL_VAR NAME="racerclass">&amp;racer=<TMPL_VAR NAME="racerid">">Prediction</a></TMPL_IF></td>
+			      <td><TMPL_IF NAME="resulturl"><a href="<TMPL_VAR NAME="resulturl">#byClass"><TMPL_VAR NAME="resultdate"></a><TMPL_ELSE><a href="../predictions?track=<TMPL_VAR NAME="track">&amp;class=<TMPL_VAR NAME="racerclass">&amp;racer=<TMPL_VAR NAME="racerid">">Prediction</a></TMPL_IF></td>
 			    </tr>
 			  </TMPL_LOOP>
 			</TMPL_LOOP>

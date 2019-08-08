@@ -598,7 +598,8 @@ sub myLapsURL {
     my $url = shift;
 
     my ( $mylaps ) = $url =~ /(\d+)$/xo;
-    $mylaps = "http://www.mylaps.com/en/classification/$mylaps";
+    # $mylaps = "http://www.mylaps.com/en/classification/$mylaps";
+    $mylaps = "https://speedhive.mylaps.com/Sessions/$mylaps";
 
     return $mylaps;
 }
