@@ -297,6 +297,7 @@ sub getRacersTimes {
 		    my $number = $j->[4];
 		    next if $name eq "Shire, Susan";
 		    next if $name =~ /Wait\s+List/ix;
+		    next unless $pca_race eq $race;
 		    next if $seen{$number}++;
 
 		    $full_class =~ s/\s(\d+)$/$1/x;
@@ -311,7 +312,6 @@ sub getRacersTimes {
 		    next if !$name || !$class;
 		    $car =~ s/\&nbsp\;<a.*//x;
 
-		    next unless $pca_race eq $race;
 		    my ( $classresult ) = grep { $_->{class} eq $class } @results;
 
 		    if ( !$classresult ) {
