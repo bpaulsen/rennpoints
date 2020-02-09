@@ -33,7 +33,15 @@ sub _build_races {
     my $content = $self->content;
 
     my @results;
-    while ( $content =~ m{<table>.*?Host.*?<a.*?>([^<]+)<.*?Name.*?<td>(.*?)</td>.*?Dates.*?(\d\d/\d\d/\d\d)-(\d\d/\d\d/\d\d).*?Event\sType.*?Club\sRace.*?Location.*?<a\shref.*?>(.*?)</a>.*?Registrar.*?<a\shref.*?>(.*?)</a>.*?eventRoster\((\d+)\)}sgx ) {
+    while ( $content =~ m{<table>
+                            .*?<td.*?>\s*Host.*?<td.*?>(.*?)</td>
+                            .*?<td.*?>\s*Name.*?<td.*?>(.*?)</td>
+                            .*?Dates.*?(\d\d/\d\d/\d\d)-(\d\d/\d\d/\d\d)
+                            .*?Event\sType.*?Club\sRace
+                            .*?Location.*?<a\shref.*?>(.*?)</a>
+                            .*?Registrar.*?<a\shref.*?>(.*?)</a>
+                            .*?eventRoster\((\d+)\)
+                         }sgx ) {
         my $match = { HOST => $1,
                       NAME => $2,
                       STARTDATE => $3,
@@ -42,6 +50,8 @@ sub _build_races {
                       REGISTRAR => $6,
                       ID => $7,
         };
+
+	print STDERR "'$match->{HOST}' '$match->{NAME}' '$match->{STARTDATE}' '$match->{ENDDATE}' '$match->{LOCATION}' '$match->{REGISTRAR}' '$match->{ID}'\n" if $self->debug;
 
         next unless $match->{REGISTRAR} =~ /pca\.org/i;
 

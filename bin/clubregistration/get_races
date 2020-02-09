@@ -5,7 +5,7 @@ use strict;
 use RennPoints::ClubRegistration;
 use Data::Dumper;
 
-my $DEBUG = 0;
+my $DEBUG = shift || 0;
 
 my $clubreg = RennPoints::ClubRegistration->new( debug => $DEBUG );
 my $races = $clubreg->races;
