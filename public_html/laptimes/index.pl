@@ -3,18 +3,13 @@
 use warnings;
 use strict;
 use RennPoints qw( getDBConnection getAllClassRecords getLapTimePrediction formatTime insertRacerIntoDB myLapsURL );
-use LWP::UserAgent;
-use HTTP::Cookies;
-use HTML::Form;
-use HTTP::Request::Common qw(GET);
+use RennPoints::ClubRegistration::Event;
 use HTML::Template;
-use HTML::TableExtract;
 use Carp qw(croak);
 use Cache::File;
 use List::Util qw( sum first );
 use HTTP::BrowserDetect;
 use Data::Dumper;
-use Storable;
 use CGI;
 use RennPoints::Config;
 
@@ -136,71 +131,27 @@ sub getRacersTimes {
     my $race = shift;
     my $ignorecache = shift;
 
-    # my ( $url ) = $dbh->selectrow_array("SELECT url FROM clubreg_urls WHERE track_id = ? AND date > CURDATE()", {}, $trackid );
-    my ( $trackid ) = $dbh->selectrow_array("SELECT track_id FROM clubreg_urls WHERE clubreg_id = ? AND end_date >= CURDATE()", {}, $clubregid );
+    my @rows = getParticipants($clubregid);
 
-    my @rows;
-    warn scalar(localtime) . " : getting data from clubregistration.net for $clubregid\n";
-    my $file = "clubreg/$clubregid.racers";
-    if ( !-f $file ) {
-	# system( "./getFromClubReg2.pl >> clubreg/clubreg.out 2>&1" );
-        system( "./getFromClubReg2.pl" );
-    }
-    else {
-	my $file_ts = (stat $file)[9];
-	if ( time - $file_ts > 3600 ) {
-#	    system( "./getFromClubReg2.pl >> clubreg/clubreg.out 2>&1" );
-	    system( "./getFromClubReg2.pl" );
-	}
-    }
-    warn scalar(localtime) . " : done getting data from clubregistration.net for $clubregid\n";
-    return if !-f $file;
-    warn scalar(localtime) . " : retrieving from file for $clubregid\n";
-    
-    my $data = retrieve $file;
-    @rows = @$data;
+    my ( $trackid ) = $dbh->selectrow_array("SELECT track_id FROM clubreg_urls WHERE clubreg_id = ? AND end_date >= CURDATE()", {}, $clubregid );
 
     my %classes;
     my $classRecords = getAllClassRecords( $dbh );
     my %races;
     my @races;
 
-    foreach my $i ( @rows ) {
-	if ( $#$i > 8 ) {
-#	    shift @$i;
-	    foreach my $j ( @$i ) {
-		my $name = $j->[0];
-		my $car = $j->[1];
-		my $full_class = $j->[2];
-		my $pca_race = $j->[3];
-		my $number = $j->[4];
-		next if $name eq "Shire, Susan";
-		next if $name =~ /Wait\s+List/ix;
-		my $type = "";
+    foreach my $row ( @rows ) {
+	my $name       = $row->{name};
+	my $car        = $row->{car};
+	my $class      = $row->{class};
+	my $pca_race   = $row->{race};
+	my $number     = $row->{number};
 
-		$type = "Stock" if $full_class =~ /Stock/x;
-		$type = "Prepared" if $full_class =~ /Prepared/x;
-		$full_class =~ s/\s(\d+)$/$1/x;
-		$full_class =~ s/^(?:GT|Stock|Prepared|Modified|Spec|GTC)\s+//x;
-		$full_class =~ s/^GT\-/GT/x;
-		$full_class =~ s/^\s*\-\s*//x;
-		my ( $class ) = $full_class =~ /^(\w+)/x;
-		
-		next if !$name || !$class;
-		$car =~ s/P[o0]rsche\s*//xi;
-		if ( length($class) == 1 ) {
-		    $car = $type . " " . $car;
-		}
-
-		$car =~ s/\&nbsp\;<a.*//x;
-
-		if ( ( $pca_race && lc($pca_race) ne "unassigned" ) ) {
-		    push @races, $pca_race if !$races{$pca_race}++;
-		}
-
-		$classes{$class}->{$name} = $car;
-	    }
+	if ( ( $pca_race && lc($pca_race) ne "unassigned" ) ) {
+	    push @races, $pca_race if !$races{$pca_race}++;
 	}
+
+	$classes{$class}->{$name} = $car;
     }
     my $cache = Cache::File->new( cache_root => "/tmp/rennpoints",
 				  lock_level => Cache::File::LOCK_LOCAL(),
@@ -216,6 +167,7 @@ sub getRacersTimes {
 	$ignorecache = 1;
     }
 
+    my $data;
     if ( !$ignorecache && $ENV{SCRIPT_FILENAME} ) {
 	$data = $cache->thaw($valuekey);
     }
@@ -286,53 +238,36 @@ sub getRacersTimes {
     if ( $race && $races{$race} ) {
 	my @newresults;
 	my %seen;
-	foreach my $i ( @rows ) {
-	    if ( $#$i > 8 ) {
-		shift @$i;
-		foreach my $j ( @$i ) {
-		    my $name = $j->[0];
-		    my $car = $j->[1];
-		    my $full_class = $j->[2];
-		    my $pca_race = $j->[3];
-		    my $number = $j->[4];
-		    next if $name eq "Shire, Susan";
-		    next if $name =~ /Wait\s+List/ix;
-		    next unless $pca_race eq $race;
-		    next if $seen{$number}++;
+	foreach my $row ( @rows ) {
+	    my $name       = $row->{name};
+	    my $car        = $row->{car};
+	    my $class      = $row->{class};
+	    my $pca_race   = $row->{race};
+	    my $number     = $row->{number};
 
-		    $full_class =~ s/\s(\d+)$/$1/x;
-		    $full_class =~ s/^(?:GT|Stock|Prepared|Modified|Spec|GTC)\s+//x;
-		    $full_class =~ s/^GT\-/GT/x;
-		    $full_class =~ s/^\s*\-\s*//x;
+	    next unless $pca_race eq $race;
+	    next if $seen{$number}++;
+	    next if !$name || !$class;
 
-		    my ( $class ) = $full_class =~ /^(\w+)/x;
+	    my ( $classresult ) = grep { $_->{class} eq $class } @results;
 
-		    # print STDERR "$name '$car' '$full_class' '$pca_race' '$number' '$class' $race\n";
-
-		    next if !$name || !$class;
-		    $car =~ s/\&nbsp\;<a.*//x;
-
-		    my ( $classresult ) = grep { $_->{class} eq $class } @results;
-
-		    if ( !$classresult ) {
-			print STDERR "unable to find class for $name and $class\n";
-			next;
-		    }
-		    my ( $racer ) = grep { $_->{racername} eq $name } @{$classresult->{ classResults } };
-		    if ( !$racer ) {
-			print STDERR "unable to find result for $name and $class\n";
-			next;
-		    }
-
-		    if ( $#{$racer->{racerResults}} >= 0 ) {
-			$racer->{besttime} = $racer->{racerResults}->[0]->{resulttime};
-			$racer->{resultdate} = $racer->{racerResults}->[0]->{resultdate};
-			$racer->{resulturl} = $racer->{racerResults}->[0]->{resulturl};
-		    }
-
-		    push @newresults, $racer;
-		}
+	    if ( !$classresult ) {
+		print STDERR "unable to find class for $name and $class\n";
+		next;
 	    }
+	    my ( $racer ) = grep { $_->{racername} eq $name } @{$classresult->{ classResults } };
+	    if ( !$racer ) {
+		print STDERR "unable to find result for $name and $class\n";
+		next;
+	    }
+
+	    if ( $#{$racer->{racerResults}} >= 0 ) {
+		$racer->{besttime} = $racer->{racerResults}->[0]->{resulttime};
+		$racer->{resultdate} = $racer->{racerResults}->[0]->{resultdate};
+		$racer->{resulturl} = $racer->{racerResults}->[0]->{resulturl};
+	    }
+
+	    push @newresults, $racer;
 	}
 
 	@newresults = sort { $b->{hasPrediction} <=> $a->{hasPrediction} || ( ( $#{$a->{racerResults}} < 0 ? 999 : $a->{racerResults}->[0]->{realtime} ) 
@@ -448,8 +383,31 @@ EOF
     return $times;
 }
 
+
 sub getParticipants {
     my $id = shift;
+    my $DEBUG = 0;
 
-    
+    my $dbh = getDBConnection( 1 );
+    my $upcomingEvents = $dbh->selectall_arrayref( "SELECT * FROM clubreg_urls WHERE end_date >= CURDATE() AND registration <= CURDATE() AND (last_check_time IS NULL OR last_check_time < DATE_ADD(NOW(), INTERVAL -1 HOUR ))", {Slice => {} } );
+
+    foreach my $i ( @$upcomingEvents ) {
+	next if $id && $id != $i->{clubreg_id};
+	my $event = RennPoints::ClubRegistration::Event->new( id => $id, debug => $DEBUG );
+	my $participants = $event->participants;
+
+	if ( @$participants ) {
+	    $dbh->begin_work;
+	    $dbh->do( "DELETE FROM clubreg_roster_raw WHERE clubreg_id = ?", {}, $id );
+	    foreach my $participant ( @$participants ) {
+		$dbh->do( "INSERT INTO clubreg_roster_raw ( clubreg_id, name, number, race, car, class ) VALUES ( ?, ?, ?, ?, ?, ? )",
+			  {}, $id, $participant->{name}, $participant->{number}, $participant->{race}, $participant->{car}, $participant->{class} );
+	    }
+	    $dbh->do( "UPDATE clubreg_urls SET last_check_time = NOW() WHERE clubreg_id = ?", {}, $id );
+	    $dbh->commit;
+	}
+    }
+
+    my $racers = $dbh->selectall_arrayref( "SELECT name, number, race, car, class FROM clubreg_roster_raw WHERE clubreg_id = ?", {Slice => {}}, $id );
+    return @$racers;
 }
