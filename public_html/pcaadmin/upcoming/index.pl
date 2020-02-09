@@ -25,6 +25,9 @@ sub main_page : StartRunmode {
 	    RennPoints::DB::Track->new( dbh => $self->dbh, city => $event->{CITY}, state => $event->{STATE}, name => $event->{TRACKNAME} )->id;
 
 	my $track = RennPoints::DB::Track->new( id => $event->{TRACKID} );
+
+	$event->{CITY} ||= $track->city;
+	$event->{STATE} ||= $track->state;
 	$event->{EVENTCOUNT} = $track->event_count;
 	$event->{UPDATE} = checkEventData( CLUBREG => $clubreg_track_ids,
 					   TRACK => $track,
