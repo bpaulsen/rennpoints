@@ -12,11 +12,8 @@ has 'participants' => ( is => 'ro', isa => 'ArrayRef', builder => '_build_partic
 sub _build_content {
     my $self = shift;
 
-    my $newUrl = $self->_root_url . "/events/rosterOptions.json.cfm?viewOption=" . $self->id;
-#    $newUrl = "https://clubregistration.net/events/rosterOptions.json.cfm?viewOption=16063";
-#    print STDERR $newUrl, "\n";
-#    exit;
-    my $response = $self->ua->request( GET $newUrl );
+    my $url = $self->_root_url . "/events/rosterOptions.json.cfm?viewOption=" . $self->id;
+    my $response = $self->ua->request( GET $url );
     return if !$response->is_success;
     return $response->content;
 }

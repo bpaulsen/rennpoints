@@ -2,15 +2,18 @@
 
 use warnings;
 use strict;
+use RennPoints::ClubRegistration::Event;
 use RennPoints::ClubRegistration::Race;
 use Data::Dumper;
 
+my $event_id = shift;
 my $id = shift;
+my $debug = shift;
 
-my $clubreg = RennPoints::ClubRegistration::Race->new( id => $id );
+my $event = RennPoints::ClubRegistration::Event->new( id => $event_id, debug => $debug );
+my $races = $event->races;
 
-print $clubreg->content;
-exit;
+my $clubreg = RennPoints::ClubRegistration::Race->new( id => $id, ua => $event->ua, debug => $debug );
 my $participants = $clubreg->participants;
 
 if ( @$participants ) {

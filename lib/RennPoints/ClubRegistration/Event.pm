@@ -60,8 +60,9 @@ sub _build_participants {
 
     my @racers;
     foreach my $id ( @{$self->races} ) {
-	my $race = RennPoints::ClubRegistration::Race->new( id => $id );
-	push @racers, @{$race->participants};
+	my $race = RennPoints::ClubRegistration::Race->new( ua => $self->ua, id => $id );
+	my $participants = $race->participants;
+	push @racers, @$participants if @$participants > 0;
     }
 
     return \@racers;
