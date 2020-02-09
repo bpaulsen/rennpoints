@@ -2,7 +2,7 @@
 
 use warnings;
 use strict;
-use RennPoints qw( getDBConnection getAllClassRecords getLapTimePrediction formatTime insertRacerIntoDB );
+use RennPoints qw( getDBConnection );
 use LWP::UserAgent;
 use HTTP::Cookies;
 use HTML::Form;
