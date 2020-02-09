@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Roster :: ClubRegistration.net</title>
+        
+
+
+		<meta name="robots" content="NOINDEX,NOFOLLOW">
+		<meta name="format-detection" content="telephone=yes">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        
+        <link href="//clubregistration.net/events/roster.cfm" rel="canonical">
+        <link href="/assets/css/clubreg.css" rel="stylesheet" type="text/css">
+        <!--[if lt IE 9]>
+            <script src="/assets/js/html5shiv.js?v=3.6.2"></script>
+            <script src="/assets/js/respond.min.js?v=1.3.0"></script>
+        <![endif]-->
+		<script src="/assets/js/jquery.js?v=1.10.2"></script>
+		
+		<link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href="/assets/css/atc-style-blue.css" rel="stylesheet" type="text/css">
+		
+		
+		<script src="/assets/js/jquery.collapser.min.js"></script>
+		<script>
+		$(document).ready(function(){
+			$('.collapseChar').collapser({
+				mode: 'chars',
+				showText: '(EXPAND)',
+				hideText: '(COLLAPSE)',
+				truncate: 30
+			});
+			
+			$('.collapseBlock').collapser({
+				target: 'next',
+				mode: 'block',
+				showText: '(Expand)',
+				hideText: '(Collapse)',
+				changeText: 1
+			});
+
+			$('.collapseBlockShow').collapser({
+				target: 'next',
+				mode: 'block',
+				showText: '(Expand)',
+				hideText: '(Collapse)',
+				changeText: 1,
+				atStart: 'show'
+			});
+
+			$('.collapseBlockHide').collapser({
+				target: 'next',
+				mode: 'block',
+				showText: '(Expand)',
+				hideText: '(Collapse)',
+				changeText: 1,
+				atStart: 'hide'
+			});
+
+			$('.collapseBlockHideMembership').collapser({
+				target: 'next',
+				mode: 'block',
+				showText: 'Show Membership',
+				hideText: 'Hide Membership',
+				changeText: 1,
+				atStart: 'hide'
+			});
+
+			$('.collapseLineShow').collapser({
+				mode: 'lines',
+				showText: '...Show More',
+				hideText: '...Show Less',
+				changeText: 1,
+				atStart: 'hide',
+				truncate: 2
+			});
+
+			$('.collapseLineShowTall').collapser({
+				mode: 'lines',
+				showText: '...Show More',
+				hideText: '...Show Less',
+				changeText: 1,
+				atStart: 'hide',
+				truncate: 8
+			});
+
+			$('.collapseWords li').collapser({
+				mode: 'words',
+				truncate: 2,
+			});
+			
+		});
+		
+		</script>	
+		<style>
+			.show-class{
+				background: #f2f2f2;
+			}
+			.hide-class{
+				background: #fff;
+			}
+		</style>
+		
+		<link href="/assets/ico/crnet-icon-iTunesArtwork.png" rel="apple-touch-icon-precomposed">
+		<link href="/assets/ico/crnet-icon.ico" rel="shortcut icon">
+		
+	</head>
+	
+	
+		<body>
+	
+	
+        <noscript>
+            <div class="wrapper">
+                <div class="wrap three-quarter offset">
+					
+                </div>
+            </div>
+        </noscript>
+        <span id="top"></span>
+        <a class="sr-only" href="#content">Skip navigation</a>
+        <header class="header" role="banner">
+            <div class="wrapper">
+                <div class="branding-lg">
+                    <a class="brand-lg" href="/" title="ClubRegistration.net"><span>ClubRegistration.net</span></a>
+                </div>
+                <div class="branding-sm">
+                    <a class="brand-sm" href="/" title="ClubRegistration.net"><span>ClubRegistration.net</span></a>
+                </div>
+            </div>
+        </header>
+		
+		
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+			
+				
+				
+					<li><a href="/the-shop/index.cfm">ClubReg Store</a></li>
+				
+					<li>
+						<li><a href="//ontrackinsurance.com/index6.aspx" rel="external">Track Insurance</a></li>
+					</li>
+					<li>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Classifieds and More... <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="/classifieds/index.cfm">Classifieds</a></li>							
+							<li><a href="/the-shop/trackMaps.cfm">Track Maps</a></li>
+							<li><a href="https://www.youtube.com/watch?t=9&v=xsMMPHMEtL0" target="_blank">Track Day Guide (video)</a></li>
+							<li><a href="/racing-quotes/">Racing Quotes</a></li>
+							<li><a href="/events/photos/photo_gallery.cfm">Photo Gallery</a></li>
+							<li><a href="/screen-saver">Screen Saver (Auto Refreshes)</a></li>
+						</ul>
+					</li>
+					
+					
+						<li>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Membership <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="/membership/index.cfm?seriesSelected=Chicago Region PCA">Chicago Region PCA</a></li>
+								<li><a href="/membership/index.cfm?seriesSelected=Just Track It">Just Track It</a></li>
+								<li><a href="/membership/index.cfm?seriesSelected=PCA">Porsche Club of America</a></li>
+							</ul>
+						</li>
+					
+						<li><a href="/contact-us/">Contact Us</a></li>
+					
+			</ul>
+
+            
+            
+				
+                
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="/driver/menuRegistrant.cfm" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="/driver/home.cfm">Dashboard</a></li>
+							<li><a href="/driver/eventHistory.cfm">Event History</a></li>
+							
+							
+								<li><a href="/driver/eventReminder.cfm">Event Reminders</a></li>
+								<li><a href="/misc/reserved_numbers_check.cfm">Search Reserved #s</a></li>
+								<li><a href="/events/photos/upload.cfm">My Photo Gallery</a></li>
+								<li><a href="/driver/classifieds/index.cfm">Classifieds</a></li>								
+								<li><a href="/misc/faq/">FAQs</a></li>
+							
+							
+							<li class="divider"></li>
+							<li><a href="/driver/registrant_profile.cfm">Edit Profile</a></li>
+							<li><a href="/driver/vehicle/vehicle_edit.cfm">Edit Vehicles</a></li>
+							
+							
+								<li><a href="/driver/membership/membership_edit.cfm">Edit Memberships</a></li>
+							
+						</ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/driver/event_sign_up.cfm" class="dropdown-toggle" data-toggle="dropdown">Search for Events <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                        	
+								<li><a href="/events/event-search.cfm">Find Event</a></li>
+							
+								<li><a href="/events/rosterAll.cfm">View All Rosters</a></li>
+								<li class="divider"></li>
+								<li><a href="/the-shop/index.cfm">Search Products</a></li>
+							
+                        </ul>
+                    </li>
+					
+					
+					
+                </ul>
+
+            
+            <ul class="nav navbar-nav navbar-right">
+				
+                    <li><a href="/logout/" title="Logout">Logout <i class="fa fa-sign-out"></i></a></li>
+                
+            </ul>
+        </div>
+    </nav>
+
+        
+        <section class="content" id="content">
+
+
+<script language="JavaScript">
+	
+	function eventRegister()
+		{
+			
+				self.location.href=("/events/signUp.cfm/event/" + 8500);
+			
+		}
+</script>
+
+<div class="wrapper">
+    <div class="wrap full">
+		<div class="wrapper">
+			
+			
+			
+				<div class="wrap three-quarter">
+					<h1>Roster: Mardi Gras Region PCA</h1>
+					<h2>Mardi Gras Cup 2017</h2>
+				</div>
+				
+				
+				<div class="wrap quarter">
+					
+			<div class="sponsors-image text-center">
+			
+				
+					<small><em>ClubRegistration.net sponsor</em></small>
+				
+					<a href="http://bit.ly/conquerhelmet" target="_blank">
+						
+							<img src="https://clubregistration.net/assets/img/sponsors/conquer%2Epng" alt="Conquer Fitness Equipment" style="width: 350px;">
+						
+					</a>
+				
+			</div>
+		
+				</div>
+			
+		</div>
+		
+		
+		
+				<div class="alert alert-info">
+					<strong>New feature!</strong> You can now upload a picture of your vehicle into your profile. Your picture will show up on this page.
+				</div>
+
+				<form id="frmRoster" name="frmRoster" method="post" action="roster.cfm">
+					<label for="viewOption">Select Roster</label>
+					<select id="viewOption" name="viewOption" size="1">
+						
+							<option value="0" selected>Main Roster</option>
+						
+								<option value="16063"
+									
+								
+								>Primary Driver Weekend package</option>
+							
+								<option value="16071"
+									
+								
+								>Enduro ONLY Co-Driver</option>
+							
+					</select>
+					<button class="btn btn-alternate btn-sm btn-120" id="btn_login" name="btn_login" type="submit">View</button>
+				
+					
+						<button id="btn-register" name="btn-register" type="button" class="btn btn-alternate btn-sm btn-120" onClick="eventRegister();">Register</button>
+					
+				</form>
+				
+			
+			
+			<h2><small>Main Roster</small></h2>
+			
+			
+			
+
+			
+			<table id="roster" class="table table-bordered table-striped table-condensed">
+				<thead>
+					<tr>
+						<th>Registrants (49) <i class="fa fa-sort"></i></th>
+						
+						
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+			
+			
+			
+			<script type="text/javascript">
+				$(document).ready(function()
+					{
+						if($("#roster").length > 0)
+							{
+								$("#roster").dataTable(
+									{
+										"aoColumnDefs"    : [
+											{"sWidth"     : "128px",  "aTargets" : [0]}
+											
+											
+											
+										],
+										"bAutoWidth"      : false,
+										"bDeferRender"    : true,
+										"bFilter"         : true,
+										"bLengthChange"   : false,
+										"bPaginate"       : false,
+										"bProcessing"     : false,
+										"bScrollAutoCss"  : true,
+										"bScrollCollapse" : false,
+										"bSort"           : true,
+										"bSortCellsTop"   : true,
+										"sAjaxSource"     : "rosterMain.json.cfm",
+										"sDom"            : '<"category-table-top"f>rt<"clearfix">'
+									}
+								);
+							}
+					}
+				);
+			</script>
+
+		
+		
+	</div>
+</div>
+
+
+
+        </section>
+		<footer class="footer" role="contentinfo">
+			<div class="wrapper">
+				
+				
+	<div class="text-center">
+		
+			<a href="/racing-quotes">
+				<strong><em>You know you're a racer if&hellip;</em></strong>
+			</a>
+			<em>You always do a toe & heel downshift while whoever might be your passenger gives you a real funny look.</em>
+		
+	</div>
+	<br>
+
+	<div class="text-center" style="padding-bottom: 10px;">
+		
+			<table style="margin: 0 auto;">
+				<tr>
+					 
+						<td style="text-align: center; vertical-align: top; padding-right: 10px;">
+							
+									<a href="//clubregistration.net/the-shop/index.cfm/productid/749">
+										<img class="product-image" src="//clubregistration.net/assets/img/products/BellSport2011.jpg" alt="SPORT SA2010 HELMET RENTAL" style="width: 100px;">
+									</a>
+								
+						</td>
+					
+					<td style="text-align: left; vertical-align: top; width: 600px;">
+						
+								<a href="https://clubregistration.net/the-shop/index.cfm/productid/749"><strong>SPORT SA2010 HELMET RENTAL</strong></a>&nbsp;($75.00)
+								<br>
+								<em>(Package includes helmet & neck support collar)<br>Sizes: S, M, L, XL.<br>Price includes Standard FedEx Ground Shipping</em>
+							
+					</td>
+				</tr>
+			</table>
+		
+	</div>
+
+				
+				<hr>
+				
+				<div class="legal">
+					<ul>
+						<li>Copyright &copy; 2017 ClubRegistration.net LLC. All rights reserved.</li>
+						<li><a href="/privacy/" title="Privacy Policy">Privacy Policy</a></li>
+						<li>Office: 512.273.5016</li>
+					</ul>
+				</div>
+				<small class="facebook">
+					<a href="//www.facebook.com/ClubRegistration" rel="external" title="Follow us on Facebook!"><i class="fa fa-facebook-square fa-3x"></i></a>
+				</small>
+			</div>
+		</footer>
+        <script src="/assets/js/bootstrap.min.js?v=3.0.0"></script>
+        <script src="/assets/js/holder.js?v=2.0.0"></script>
+        <script src="/assets/js/retina.js?v=0.0.2"></script>
+        <script src="/assets/js/jquery.smooth-scroll.min.js?v=1.4.11"></script>
+        <script src="/assets/js/scripts.js"></script>
+        <script src="/assets/js/common.js"></script>
+		<script src="/assets/js/libs/DataTables-1.9.4/media/js/jquery.dataTables.min.js?v=1.9.4"></script>
+    </body>
+</html>
