@@ -27,6 +27,7 @@ sub _build_races {
 
     my ( $form ) = HTML::Form->parse( $self->content, $self->_root_url );
     my $viewOption = $form->find_input( "viewOption" );
+    return [] if !$viewOption && !$viewOption->value_names;
 
     my @results;
     foreach my $name ( $viewOption->value_names() ) {
