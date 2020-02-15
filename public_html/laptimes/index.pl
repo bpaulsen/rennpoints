@@ -394,7 +394,7 @@ sub getParticipants {
     foreach my $i ( @$upcomingEvents ) {
 	next if $id && $id != $i->{clubreg_id};
 	my $event = RennPoints::ClubRegistration::Event->new( id => $id, debug => $DEBUG );
-	my $participants = $event->participants;
+	my $participants = eval { $event->participants };
 
 	if ( @$participants ) {
 	    $dbh->begin_work;
@@ -406,6 +406,7 @@ sub getParticipants {
 	    $dbh->do( "UPDATE clubreg_urls SET last_check_time = NOW() WHERE clubreg_id = ?", {}, $id );
 	    $dbh->commit;
 	}
+
     }
 
     my $racers = $dbh->selectall_arrayref( "SELECT name, number, race, car, class FROM clubreg_roster_raw WHERE clubreg_id = ?", {Slice => {}}, $id );
