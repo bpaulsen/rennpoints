@@ -16,11 +16,12 @@ has '_root_url' => ( is => 'ro', isa => 'Str', builder => '_build_root_url', laz
 has '_config' => ( is => 'ro', builder => '_build_config', lazy => 1 );
 
 my $DEFAULT_UA;
+my $ua_age = 0;
 
 sub _build_ua {
     my $self = shift;
 
-    if ( !$DEFAULT_UA ) {
+    if ( !$DEFAULT_UA || (time - $ua_age > 600) ) {
         $DEFAULT_UA = LWP::UserAgent->new();
         my $cookiejar = HTTP::Cookies->new();
         $DEFAULT_UA->cookie_jar( $cookiejar );
@@ -31,6 +32,7 @@ sub _build_ua {
 	$form->param( "username" => $self->username );
 	$form->param( "password" => $self->password );
 	$DEFAULT_UA->request( $form->click( "btn_login" ) );
+	$ua_age = time;
     }
 
     return $DEFAULT_UA;

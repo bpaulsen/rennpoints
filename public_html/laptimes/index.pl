@@ -386,7 +386,7 @@ EOF
 
 sub getParticipants {
     my $id = shift;
-    my $DEBUG = 0;
+    my $DEBUG = 1;
 
     my $dbh = getDBConnection( 1 );
     my $upcomingEvents = $dbh->selectall_arrayref( "SELECT * FROM clubreg_urls WHERE end_date >= CURDATE() AND registration <= CURDATE() AND (last_check_time IS NULL OR last_check_time < DATE_ADD(NOW(), INTERVAL -1 HOUR ))", {Slice => {} } );
@@ -395,8 +395,11 @@ sub getParticipants {
 	next if $id && $id != $i->{clubreg_id};
 	my $event = RennPoints::ClubRegistration::Event->new( id => $id, debug => $DEBUG );
 	my $participants = eval { $event->participants };
+	if ( $@ ) {
+	    print STDERR "ERROR: $@\n";
+	}
 
-	if ( @$participants ) {
+	if ( defined($participants) && @$participants ) {
 	    $dbh->begin_work;
 	    $dbh->do( "DELETE FROM clubreg_roster_raw WHERE clubreg_id = ?", {}, $id );
 	    foreach my $participant ( @$participants ) {
