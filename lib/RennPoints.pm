@@ -34,45 +34,13 @@ sub getDetailedClassRecords {
     my $class   = $ARGS{CLASS}   || "";
     my $session = $ARGS{SESSION} || 0;
 
-    my $query = <<"EOF";
-SELECT * 
-FROM ( SELECT  T1.short_name, S1.current_class, S1.best_lap_time, S1.full_name, DATE(R1.date) as 'date', R1.mylaps_url, R1.track_id, ST.type, S1.racer_id, R1.mylaps_id
-       FROM    race R1, results S1, track T1, session_types ST
-       WHERE   R1.race_id = S1.race_id
-       AND     R1.track_id = T1.track_id
-       AND     R1.session_type =ST.session_type
-       AND     S1.best_lap_time > 40
-       AND     S1.current_class not like '%EX'
-       AND     S1.current_class not like 'GT4CS%'
-       AND     S1.current_class not like 'V%4%'
-       AND     char_length(S1.current_class) > 0
-       AND     S1.class_record_eligible = 1
-       AND     R1.track_id != 56
-       AND     ( ? = 0 OR R1.track_id = ? )
-       AND     ( ? = '' OR S1.current_class = ? )
-       AND     ( ? = 0 OR ( ? = 7 AND R1.session_type BETWEEN 3 AND 5 ) OR R1.session_type = ? )
-       AND     S1.status != 3
-       ORDER BY S1.best_lap_time, R1.date
-     ) AS T
-GROUP BY T.short_name, T.current_class
-ORDER BY T.short_name, CHAR_LENGTH(T.current_class), T.current_class
-EOF
+    my $query = "CALL get_detailed_class_records(?, ?, ?)";
+    my $data = $dbh->selectall_arrayref( $query, { Slice => {}}, $trackid, $session, $class );
+    foreach my $i ( @$data ) {
+	$i->{ laptime } = formatTime( $i->{ rawtime } );
+    }
 
-    my $data = $dbh->selectall_arrayref( $query, {}, $trackid, $trackid, $class, $class, $session, $session, $session );
-    my @results = map { { track   => $_->[0],
-			  class   => $_->[1],
-			  rawtime => $_->[2],
-			  laptime => formatTime( $_->[2] ),
-			  racer   => $_->[3],
-			  date    => $_->[4],
-			  url     => $_->[5],
-                          trackid => $_->[6],
-			  session_type => $_->[7],
-			  racer_id => $_->[8],
-			  id       => $_->[9],
-	} } @$data;
-
-    return \@results;
+    return $data;
 }
 
 sub getClassRecords {
