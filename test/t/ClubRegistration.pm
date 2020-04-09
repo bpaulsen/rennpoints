@@ -38,8 +38,6 @@ sub test_parseLocation {
 sub test_parseRaces {
     my $test = shift;
 
-    isa_ok my $clubracing = RennPoints::ClubRacing->new( content => scalar(read_file("test_files/clubracing/clubracing_1")) ), 'RennPoints::ClubRacing';
-
     isa_ok my $clubreg = RennPoints::ClubRegistration->new( content => scalar(read_file("test_files/clubregistration/clubregistration_1")),
 							    retrieve_registration_dates => 0 ), 
     'RennPoints::ClubRegistration';
@@ -58,8 +56,6 @@ sub test_parseRaces {
 sub test_parseRaces2 {
     my $test = shift;
 
-    isa_ok my $clubracing = RennPoints::ClubRacing->new( content => scalar(read_file("test_files/clubracing/clubracing_1")) ), 'RennPoints::ClubRacing';
-
     isa_ok my $clubreg = RennPoints::ClubRegistration->new( content => scalar(read_file("test_files/clubregistration/clubregistration_2")),
 							    retrieve_registration_dates => 0 ), 
     'RennPoints::ClubRegistration';
@@ -72,6 +68,25 @@ sub test_parseRaces2 {
 				      'STARTDATE' => '02/28/20',
 				      'ENDDATE' => '03/01/20',
 				      'STATE' => 'TX'
+                                    }, 'Test structure of first race'
+}
+
+sub test_parseRaces3 {
+    my $test = shift;
+
+    isa_ok my $clubreg = RennPoints::ClubRegistration->new( content => scalar(read_file("test_files/clubregistration/clubregistration_3")),
+							    retrieve_registration_dates => 0 ), 
+    'RennPoints::ClubRegistration';
+    is @{$clubreg->races}, 24, "Testing number of races that were parsed";
+
+    is_deeply $clubreg->races->[0], { 'TRACKNAME' => 'Lime Rock Park',
+				      'LOCATION' => 'Lime Rock Park - Lakeville, CT',
+				      'ID' => '10526',
+				      'CITY' => 'Lakeville',
+				      'CANCELLED' => 1,
+				      'ENDDATE' => '04/25/20',
+				      'STARTDATE' => '04/24/20',
+				      'STATE' => 'CT'
                                     }, 'Test structure of first race'
 }
 

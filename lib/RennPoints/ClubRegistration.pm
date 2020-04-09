@@ -53,6 +53,10 @@ sub _build_races {
 
         next unless $match->{REGISTRAR} =~ /pca\.org/i;
 
+	if ( $match->{NAME} =~ /cancel/ixo ) {
+	    $match->{CANCELLED} = 1;
+	}
+	
         $match->{LOCATION} =~ s/–/-/gxo;
         $match->{NAME} =~ s/–/-/gxo;
 
@@ -75,6 +79,7 @@ sub _build_races {
 
     if ( $self->retrieve_registration_dates ) {
         foreach my $i ( @results ) {
+	    next if $i->{CANCELLED};
             $i->{REGISTRATION} = RennPoints::ClubRegistration::Event->new( id => $i->{ID} )->registration_date;
         }
     }
