@@ -533,10 +533,10 @@ sub searchForRacer {
 
     my $string;
     foreach my $i ( split " ", $search ) {
-	$string .= "+$i* ";
+	$string .= "+$i* " if $i;
     }
 
-    my $data = $dbh->selectall_arrayref( "SELECT R.racer_id, CASE WHEN R.givenname IS NULL OR R.surname IS NULL THEN R.clubreg_name ELSE CONCAT(IFNULL(R.givenname, ''), ' ', IFNULL(R.surname, '') ) END AS 'fullname', R.clubreg_name, K.full_name, MAX(MATCH(K.full_name) AGAINST (? IN BOOLEAN MODE)) AS relevance FROM   racer_keys K, racer R WHERE  MATCH(K.full_name) AGAINST (? IN BOOLEAN MODE)  AND ( R.givenname IS NOT NULL OR R.surname IS NOT NULL )  AND K.racer_id = R.racer_id AND K.codriver = 0 AND NOT EXISTS ( SELECT 1 FROM racer_keys K2 WHERE K.full_name = K2.full_name AND K2.codriver = 1 ) GROUP BY R.racer_id ORDER BY 5 DESC", { Slice => {} }, $string, $string );
+    my $data = $dbh->selectall_arrayref( "CALL driver_lookup_search(?)", { Slice => {} }, $string );
 
     if ( !$data || $#$data < 0 ) {
 	$data = $dbh->selectall_arrayref( "SELECT racer_id, CASE WHEN givenname IS NULL OR surname IS NULL THEN clubreg_name ELSE CONCAT(IFNULL(givenname, ''), ' ', IFNULL(surname, '') ) END AS 'fullname', clubreg_name, MATCH(clubreg_name) AGAINST (? IN BOOLEAN MODE) AS relevance FROM racer WHERE MATCH(clubreg_name) AGAINST (? IN BOOLEAN MODE) AND ( givenname IS NOT NULL OR surname IS NOT NULL ) ORDER BY 4 DESC", { Slice => {} }, $string, $string );
