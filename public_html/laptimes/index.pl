@@ -37,7 +37,7 @@ sub printPage {
     }
 
     if ( $event && $event =~ /^(\d+)$/x ) {
-	( $startdate, $enddate, $trackid, $clubregid, $google_lat, $google_lng, $google_zoom, $google_width, $google_height, $registration_open, $registration_date ) = $dbh->selectrow_array( "select date_format(date, '%c/%e'), date_format(end_date, '%c/%e'), c.track_id, clubreg_id, google_lat, google_lng, google_zoom, google_width, google_height, case when date_add(registration, interval 22 hour) <= now() then 1 else 0 end as 'registration_open', date_format(registration, '%c/%e') as 'registration' from clubreg_urls c, track t where c.clubreg_id = ? and end_date >= CURDATE() and t.track_id = c.track_id", {}, $event );
+	( $startdate, $enddate, $trackid, $clubregid, $google_lat, $google_lng, $google_zoom, $google_width, $google_height, $registration_open, $registration_date ) = $dbh->selectrow_array( "select date_format(date, '%c/%e'), date_format(end_date, '%c/%e'), c.track_id, clubreg_id, google_lat, google_lng, google_zoom, google_width, google_height, case when date_add(registration, interval 22 hour) <= now() then 1 else 0 end as 'registration_open', date_format(registration, '%c/%e') as 'registration' from clubreg_urls c, track t where c.clubreg_id = ? and end_date >= CURDATE() and t.track_id = c.track_id and IFNULL(c.cancelled,0) != 1", {}, $event );
 
 	if ( $registration_open ) {
 	    ( $times, $races ) = getRacersTimes( $dbh, $1, $cgi->param( "race" ) || "", $cgi->param("ignorecache") || 0 );
@@ -287,10 +287,10 @@ sub getRacersTimes {
 sub getTracks {
     my $dbh = shift;
 
-    my $tracks = $dbh->selectall_arrayref( "select C.clubreg_id, C.date, C.url, T.name from clubreg_urls C, track T where C.track_id = T.track_id AND C.end_date >= CURDATE() order by C.date" );
+    my $tracks = $dbh->selectall_arrayref( "select C.clubreg_id, C.date, T.name from clubreg_urls C, track T where C.track_id = T.track_id AND C.end_date >= CURDATE() AND IFNULL(C.cancelled, 0) != 1 order by C.date", { Slice => {} } );
 
-    my @ids = map { $_->[0] } @$tracks;
-    my %values = map { $_->[0] => $_->[3] } @$tracks;
+    my @ids = map { $_->{clubreg_id} } @$tracks;
+    my %values = map { $_->{clubreg_id} => $_->{name} } @$tracks;
 
     return ( \@ids, \%values );
 }
@@ -389,7 +389,7 @@ sub getParticipants {
     my $DEBUG = 1;
 
     my $dbh = getDBConnection( 1 );
-    my $upcomingEvents = $dbh->selectall_arrayref( "SELECT * FROM clubreg_urls WHERE end_date >= CURDATE() AND registration <= CURDATE() AND (last_check_time IS NULL OR last_check_time < DATE_ADD(NOW(), INTERVAL -1 HOUR ))", {Slice => {} } );
+    my $upcomingEvents = $dbh->selectall_arrayref( "SELECT * FROM clubreg_urls WHERE end_date >= CURDATE() AND registration <= CURDATE() AND (last_check_time IS NULL OR last_check_time < DATE_ADD(NOW(), INTERVAL -1 HOUR )) AND IFNULL(cancelled, 0) != 1", {Slice => {} } );
 
     foreach my $i ( @$upcomingEvents ) {
 	next if $id && $id != $i->{clubreg_id};

@@ -20,6 +20,7 @@
 	    <tr>
 	      <th>ID</th>
 	      <th>Location</th>
+	      <th>Cancelled</th>
 	      <th>Registration</th>
 	      <th>Start Date</th>
 	      <th>End Date</th>
@@ -44,6 +45,13 @@
 		                     Default => event.LOCATION,
 		                     Size    => 60,
 		                   )
+		  -%]
+		</td>
+		<td>
+		  [%- CGI.checkbox( Name    => "cancelled_$count",
+		                    Label   => "",
+		                    Checked => event.CANCELLED,
+                                  )
 		  -%]
 		</td>
 		<td>
