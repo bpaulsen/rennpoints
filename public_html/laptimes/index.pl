@@ -303,29 +303,7 @@ sub getBestTimes {
     my $classRecords = shift;
     my $id = shift;
 
-    my $query = <<"EOF";
-SELECT S.full_name, S.class, T.best_time, DATE(R.date) as 'date', R.mylaps_url, S.current_class
-FROM results S, race R,
-   ( SELECT R1.track_id, S1.current_class, min(S1.best_lap_time) as 'best_time'
-     FROM   race R1, results S1
-     WHERE  R1.race_id = S1.race_id
-     AND    R1.track_id = ?
-     AND    S1.best_lap_time > 30
-     AND    S1.racer_id = ?
-     AND    S1.coracer_id = 0
-     AND    S1.status != 3
-     GROUP BY R1.track_id, S1.current_class
-   ) AS T
-WHERE R.track_id = T.track_id
-AND   R.race_id = S.race_id
-AND   S.current_class = T.current_class
-AND   S.best_lap_time = T.best_time
-AND   S.status != 3
-AND   S.racer_id = ?
-AND   S.coracer_id = 0
-ORDER BY 3
-EOF
-    my $times = $dbh->selectall_arrayref( $query, {}, $trackid, $id, $id );
+    my $times = $dbh->selectall_arrayref( "CALL get_detailed_class_records( ?, ? )", {}, $id, $trackid );
 
     my @classmatches = grep { $_->[5] eq $class } @$times;
 
