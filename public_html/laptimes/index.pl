@@ -303,7 +303,7 @@ sub getBestTimes {
     my $classRecords = shift;
     my $id = shift;
 
-    my $times = $dbh->selectall_arrayref( "CALL get_detailed_class_records( ?, ? )", {}, $id, $trackid );
+    my $times = $dbh->selectall_arrayref( "CALL get_detailed_class_records( ?, ?, ? )", {}, $id, $trackid, $class );
 
     my @classmatches = grep { $_->[5] eq $class } @$times;
 
