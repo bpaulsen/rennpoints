@@ -13,7 +13,7 @@ sub main_page : StartRunmode {
     my $cgi = $self->query;
 
     my $year = getYear();
-    my $races = $self->dbh->selectall_arrayref( "select s.race_id, s.car_number, s.full_name, s.status, s.dq_reason, r.description as 'race', e.description as 'event', r.mylaps_url from results s, race r, event e where r.date > ? and r.race_id = s.race_id and r.event_id = e.event_id and r.session_type between 3 and 5 and s.status in ( 3, 4 ) ORDER BY r.date, s.full_name", { Slice => {} }, $year );
+    my $races = $self->dbh->selectall_arrayref( "select s.race_id, s.car_number, s.full_name, s.status, s.dq_reason, r.description as 'race', e.description as 'event', r.mylaps_url from results s, race r, event e where YEAR(r.date) >= ? and r.race_id = s.race_id and r.event_id = e.event_id and r.session_type between 3 and 5 and s.status in ( 3, 4 ) ORDER BY r.date, s.full_name", { Slice => {} }, $year );
 
     return $self->tt_process( 'dq.html', 
 			      { RACES => $races,
