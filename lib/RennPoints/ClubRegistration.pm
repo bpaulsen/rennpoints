@@ -36,7 +36,7 @@ sub _build_races {
                             .*?<td.*?>\s*Name.*?<td.*?>(.*?)</td>
                             .*?Dates.*?(\d\d/\d\d/\d\d)-(\d\d/\d\d/\d\d)
                             .*?Event\sType.*?Club\sRace
-                            .*?Location.*?<a\shref.*?>(.*?)</a>
+                            .*?Location.*?<td.*?>(.*?)</td>
                             .*?Registrar.*?<a\shref.*?>(.*?)</a>
                             .*?eventRoster\((\d+)\)
                          }sgx ) {
@@ -49,6 +49,9 @@ sub _build_races {
                       ID => $7,
         };
 
+	$match->{HOST} =~ s/^\s*(.*?)\s*$/$1/gxo;
+	$match->{LOCATION} =~ s/^\s*(.*?)\s*$/$1/gxo;
+	$match->{LOCATION} =~ s{^<a\s+href.*?>(.*?)</a>}{$1}gxo;
 	print STDERR "'$match->{HOST}' '$match->{NAME}' '$match->{STARTDATE}' '$match->{ENDDATE}' '$match->{LOCATION}' '$match->{REGISTRAR}' '$match->{ID}'\n" if $self->debug;
 
         next unless $match->{REGISTRAR} =~ /pca\.org/i;

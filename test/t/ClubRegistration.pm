@@ -90,4 +90,24 @@ sub test_parseRaces3 {
                                     }, 'Test structure of first race'
 }
 
+sub test_parseRaces4 {
+    my $test = shift;
+
+    isa_ok my $clubreg = RennPoints::ClubRegistration->new( content => scalar(read_file("test_files/clubregistration/clubregistration_4")),
+							    retrieve_registration_dates => 0,
+	                                                  ), 
+    'RennPoints::ClubRegistration';
+    is @{$clubreg->races}, 16, "Testing number of races that were parsed";
+
+    is_deeply $clubreg->races->[0], { 'TRACKNAME' => 'Brainerd International Raceway',
+				      'LOCATION' => 'Brainerd International Raceway - Brainerd, MN',
+				      'ID' => '10623',
+				      'CITY' => 'Brainerd',
+				      'ENDDATE' => '07/26/20',
+				      'STARTDATE' => '07/25/20',
+				      'STATE' => 'MN'
+    }, 'Test structure of first race';
+
+}
+
 1;
