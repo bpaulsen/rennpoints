@@ -153,7 +153,7 @@ sub getRacersTimes {
 
 	$classes{$class}->{$name} = $car;
     }
-    my $cache = Cache::File->new( cache_root => "/tmp/rennpoints",
+    my $cache = Cache::File->new( cache_root => "/var/tmp/rennpoints",
 				  lock_level => Cache::File::LOCK_LOCAL(),
 				  );
 
