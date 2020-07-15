@@ -303,9 +303,9 @@ sub getBestTimes {
     my $classRecords = shift;
     my $id = shift;
 
-    my $times = $dbh->selectall_arrayref( "CALL get_detailed_class_records( ?, ?, ? )", {}, $id, $trackid, $class );
+    my $times = $dbh->selectall_arrayref( "CALL get_driver_best_lap_times( ?, ? )", {}, $id, $trackid );
 
-    my @classmatches = grep { $_->[5] eq $class } @$times;
+    my @classmatches = grep { ($_->[5] || "") eq $class } @$times;
 
     if ( $#classmatches >= 0 ) {
 	$times = [ $classmatches[0] ];
