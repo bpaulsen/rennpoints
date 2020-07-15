@@ -129,6 +129,7 @@ EOF
     my $data = $dbh->selectall_arrayref( $query, { Slice => {} }, $id, $id );
 
     foreach my $i ( @$data ) {
+	$i->{best_lap_time} ||= 0;
 	$i->{ best_lap_time } = $i->{best_lap_time} < 30 ?  "" : formatTime( $i->{ best_lap_time } );
 	if ( $i->{status} == 2 ) {
 	    $i->{ position_on_results_page } = "DNF";
