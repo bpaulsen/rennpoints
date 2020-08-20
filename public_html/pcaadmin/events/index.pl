@@ -108,14 +108,14 @@ sub update_event : Runmode {
     foreach my $i ( 1 .. $count ) {
 	next if !$cgi->param( "check_$i" );
 
-	my %event_info = ( DESCRIPTION => $cgi->param( "description_$i" ),
-			   TRACKID => $cgi->param( "track_$i" ),
-			   DATE => $cgi->param( "date_$i" ),
-			   URL => $cgi->param( "url_$i" ),
-			   ID => $cgi->param( "id_$i" ),
-			   STATUSTYPE => $cgi->param( "status_$i" ),
-			   TYPE => $cgi->param( "type_$i" ),
-			   PCAURL => $cgi->param( "pca_$i" ),
+	my %event_info = ( DESCRIPTION => scalar($cgi->param( "description_$i" )),
+			   TRACKID => scalar($cgi->param( "track_$i" )),
+			   DATE => scalar($cgi->param( "date_$i" )),
+			   URL => scalar($cgi->param( "url_$i" )),
+			   ID => scalar($cgi->param( "id_$i" )),
+			   STATUSTYPE => scalar($cgi->param( "status_$i" )),
+			   TYPE => scalar($cgi->param( "type_$i" )),
+			   PCAURL => scalar($cgi->param( "pca_$i" )),
 	    );
 	if ( $cgi->param( "clubregid_$i" ) ) {
 	    $event_info{ CLUBREGID } = $cgi->param( "clubregid_$i" );
@@ -157,7 +157,7 @@ sub upsertMyLapsEvent {
     if ( !$count ) {
 	( $count ) = $dbh->selectrow_array( "select count(*) from event where description = ?", {}, $ARGS{DESCRIPTION} );
 	if ( !$count ) {
-	    $dbh->do( "insert into event ( date, description, mylaps_url, mylaps_id ) values ( ?, ?, ?, ? )", {}, $ARGS{DATE}, $ARGS{DESCRIPTION}, $ARGS{URL}, $ARGS{ID} );
+	    $dbh->do( "insert into event ( date, description, mylaps_url, mylaps_id, track_id ) values ( ?, ?, ?, ?, ? )", {}, $ARGS{DATE}, $ARGS{DESCRIPTION}, $ARGS{URL}, $ARGS{ID}, $ARGS{TRACKID} );
 	}
     }
 

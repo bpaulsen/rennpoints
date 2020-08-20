@@ -30,7 +30,7 @@ sub populateFromMyLaps {
     my $race_list = $dbh->selectall_arrayref( "SELECT distinct r.race_id, mylaps_id, session_type FROM race r WHERE event_id = ?", { Slice => {} }, $event );
 
     foreach my $race ( @$race_list ) {
-	print "$race->{ race_id } $race->{ mylaps_id }\n";
+	print STDERR "race_id=$race->{ race_id } mylaps_id=$race->{ mylaps_id }\n";
 
 	my $israce = $race->{session_type} >=3 && $race->{session_type} <= 6 ? 1 : 0;
 	my $participants = RennPoints::MyLaps::Race->new(id => $race->{mylaps_id})->participants();

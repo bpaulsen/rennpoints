@@ -17,7 +17,7 @@ my $DEFAULT_UA;
 sub _build_ua {
     my $self = shift;
 
-    if ( !$DEFAULT_UA ) {
+    if ( 1 || !$DEFAULT_UA ) {
         $DEFAULT_UA = LWP::UserAgent->new();
         my $cookiejar = HTTP::Cookies->new();
         $DEFAULT_UA->cookie_jar( $cookiejar );
