@@ -165,9 +165,10 @@ sub populateFromMyLaps {
 
     my $dbh = getDBConnection(1);
 
-    my %CLASS_REMAP = ( 'GTC6C' => 'GTC6',
-			'GTC7C' => 'GTC7',
-			'GTD1C' => 'GTD',
+    my %CLASS_REMAP = ( 'GTC6C'   => 'GTC6',
+			'GTC7C'   => 'GTC7',
+			'GTD1C'   => 'GTD',
+			'911 CUP' => '911CUP',
 	              );
 
     my $race_list = $dbh->selectall_arrayref( "SELECT distinct r.race_id, mylaps_id, session_type FROM race r WHERE event_id = ?", { Slice => {} }, $event );
