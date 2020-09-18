@@ -3,15 +3,16 @@
 use warnings;
 use strict;
 use RennPoints qw( getDBConnection getAllClassRecords getLapTimePrediction formatTime insertRacerIntoDB myLapsURL );
+use RennPoints::DBI qw( getDBConnection );
 use RennPoints::ClubRegistration::Event;
 use HTML::Template;
 use Carp qw(croak);
-use Cache::File;
 use List::Util qw( sum first );
 use HTTP::BrowserDetect;
 use Data::Dumper;
 use CGI;
 use RennPoints::Config;
+use Storable qw( freeze thaw );
 
 printPage();
 
@@ -153,23 +154,12 @@ sub getRacersTimes {
 
 	$classes{$class}->{$name} = $car;
     }
-    my $cache = Cache::File->new( cache_root => "/var/tmp/rennpoints",
-				  lock_level => Cache::File::LOCK_LOCAL(),
-				  );
 
-    my $valuekey = "laptimesTimes$trackid";
-
-    my $timestampKey = "Timestamp:$valuekey";
-    my ( $dbTimestamp ) = $dbh->selectrow_array( "SELECT lastUpdate FROM cacheTimestamp" );
-    my $cacheTimestamp = $cache->thaw( $timestampKey );
-    $cacheTimestamp = $$cacheTimestamp if $cacheTimestamp;
-    if ( !$cacheTimestamp || $dbTimestamp gt $cacheTimestamp ) {
-	$ignorecache = 1;
-    }
-
+    my $key = "laptimesTimes.$trackid";
     my $data;
-    if ( !$ignorecache && $ENV{SCRIPT_FILENAME} ) {
-	$data = $cache->thaw($valuekey);
+    my ( $thaw ) = $dbh->selectrow_array( "SELECT value FROM cache C JOIN cacheTimestamp T ON C.ts > T.lastUpdate WHERE cache_key = ?", {}, $key );
+    if ( !$ignorecache && $ENV{SCRIPT_FILENAME} && $thaw ) {
+	$data = thaw $thaw;
     }
 
     my @results;
@@ -231,8 +221,9 @@ sub getRacersTimes {
     }
 
     if ( $ENV{SCRIPT_FILENAME} ) {
-	$cache->freeze( $valuekey, \@results );
-	$cache->freeze( $timestampKey, \$dbTimestamp );
+	my $frozen = freeze(\@results);
+	my $dbhwrite = getDBConnection(1);
+	$dbhwrite->do( "INSERT INTO cache ( cache_key, ts, value ) VALUES ( ?, NOW(), ? ) ON DUPLICATE KEY UPDATE ts = NOW(), value = ?", {}, $key, $frozen, $frozen );
     }
 
     if ( $race && $races{$race} ) {

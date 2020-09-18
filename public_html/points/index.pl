@@ -5,8 +5,9 @@ use warnings;
 
 use base 'CGIBase';
 use RennPoints qw( getClasses );
+use RennPoints::DBI qw( getDBConnection );
 use List::Util qw( sum );
-use Cache::File;
+use Storable qw( freeze thaw );
 
 __PACKAGE__->new()->run();
 
@@ -88,26 +89,23 @@ sub getPoints {
     my $eligible = shift || 0;
     my $ignorecache = shift || 0;
 
-    my $cache = Cache::File->new( cache_root => "/tmp/rennpoints",
-				  lock_level => Cache::File::LOCK_LOCAL(),
-				  );
-
-    my $key = "NEWSYSTEM7.$year.$region";
-
-    my $timestampKey = "Timestamp:$key";
-    my ( $dbTimestamp ) = $dbh->selectrow_array( "SELECT lastUpdate FROM cacheTimestamp" );
-    my $cacheTimestamp = $cache->thaw( $timestampKey );
-    $cacheTimestamp = $$cacheTimestamp if $cacheTimestamp;
-    if ( !$cacheTimestamp || $dbTimestamp gt $cacheTimestamp ) {
-	$ignorecache = 1;
-    }
+    my $key = "points.$year.$region";
 
     my $data;
-    # $ignorecache = 1;
-    if ($ignorecache || !$ENV{SCRIPT_FILENAME} || !($data = $cache->thaw($key) )) {
-	warn "refreshing cache\n";
-	$data = cacheResults( $cache, $key, $dbh, $year, $region );
-	$cache->freeze( $timestampKey, \$dbTimestamp );
+    my ( $thaw ) = $dbh->selectrow_array( "SELECT value FROM cache C JOIN cacheTimestamp T ON C.ts > T.lastUpdate WHERE cache_key = ?", {}, $key );
+    if ( $thaw ) {
+	$data = thaw $thaw;
+    }
+    
+    if ($ignorecache || !$ENV{SCRIPT_FILENAME} || !$data ) {
+	warn "refreshing cache for $year $region\n";
+	$data = getResults( $dbh, $year, $region );
+
+	if ( $ENV{SCRIPT_FILENAME} ) {
+	    my $frozen = freeze($data);
+	    my $dbhwrite = getDBConnection(1);
+	    $dbhwrite->do( "INSERT INTO cache ( cache_key, ts, value ) VALUES ( ?, NOW(), ? ) ON DUPLICATE KEY UPDATE ts = NOW(), value = ?", {}, $key, $frozen, $frozen );
+	}
     }
 
     if ( $zone && $year >= 2012 ) {
@@ -127,9 +125,7 @@ sub getPoints {
     return $data;
 }
 
-sub cacheResults {
-    my $cache = shift;
-    my $key = shift;
+sub getResults {
     my $dbh = shift;
     my $year = shift;
     my $region = shift || 0;
@@ -321,9 +317,6 @@ EOF
 	push @classresults, { racerclass => $i, racers => $classes{$i} };
     }
   
-  if ( $ENV{SCRIPT_FILENAME} ) {
-      $cache->freeze( $key, \@classresults );
-  }
 
     return \@classresults;
 }
