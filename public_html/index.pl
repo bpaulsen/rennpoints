@@ -2,9 +2,7 @@
 
 use strict;
 use warnings;
-use base 'CGI::Application';
-use CGI::Application::Plugin::TT;
-use CGI::Application::Plugin::AutoRunmode;
+use base 'CGIBase';
 
 __PACKAGE__->new()->run();
 

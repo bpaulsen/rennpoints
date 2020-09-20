@@ -13,6 +13,7 @@ use Data::Dumper;
 use CGI;
 use RennPoints::Config;
 use Storable qw( freeze thaw );
+use File::Basename qw(dirname);
 
 printPage();
 
@@ -72,7 +73,10 @@ sub printPage {
 	    );
     }
 
-    my $template = HTML::Template->new(filename => "laptimes.html",
+    my $template = HTML::Template->new(filename => dirname($ENV{SCRIPT_FILENAME}) . "/laptimes.html",
+#				       INCLUDE_PATH => dirname($ENV{SCRIPT_FILENAME}),
+#				       RELATIVE => 1,
+#				       ABSOLUTE => 1,
 				       associate => $cgi,
 				       global_vars => 1,
 				       die_on_bad_params => 0,

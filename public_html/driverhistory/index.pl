@@ -6,6 +6,7 @@ use RennPoints qw( getDBConnection formatTime searchForRacer );
 use HTML::Template;
 use CGI;
 use List::Util qw(sum);
+use File::Basename qw(dirname);
 use Data::Dumper;
 
 printPage();
@@ -14,7 +15,7 @@ sub printPage {
     my $cgi = new CGI;
     my $dbh = getDBConnection();
 
-    my $template = HTML::Template->new(filename => "driverhistory.html",
+    my $template = HTML::Template->new(filename => dirname($ENV{SCRIPT_FILENAME}) . "/driverhistory.html",
 				       associate => $cgi,
 				       global_vars => 1,
 				       die_on_bad_params => 0,

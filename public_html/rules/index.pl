@@ -2,21 +2,12 @@
 
 use strict;
 use warnings;
-use Template;
-use CGI;
+use base 'CGIBase';
 
-printPage();
+__PACKAGE__->new()->run();
 
-sub printPage {
-    my $cgi = new CGI;
+sub main_page : StartRunmode {
+    my $self = shift;
 
-    my $output;
-    my $template = Template->new( RELATIVE => 1 );
-    $template->process( 'rules.html', 
-			{},
-			\$output );
-
-    print $cgi->header;
-    print $output;
-    return;
+    return $self->tt_process('rules.html');
 }

@@ -9,5 +9,5 @@ __PACKAGE__->new()->run();
 sub main_page : StartRunmode {
     my $self = shift;
 
-    return $self->tt_process('splash.html');
+    return $self->tt_process('pcaadmin.html');
 }
