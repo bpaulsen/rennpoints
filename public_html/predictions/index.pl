@@ -6,6 +6,7 @@ use CGI;
 use RennPoints qw( getDBConnection formatTime getLapTimePrediction getTracks getClasses );
 use HTML::Template;
 use List::Util qw( sum );
+use File::Basename qw(dirname);
 
 printPage();
 
@@ -53,7 +54,7 @@ sub printPage {
     my ( $racername ) = $dbh->selectrow_array( "select clubreg_name from racer where racer_id = ?", {}, $racer );
     my ( $trackname, $shortname ) = $dbh->selectrow_array( "select name, short_name from track where track_id = ?", {}, $track );
 
-    my $template = HTML::Template->new(filename => "predictions.html",
+    my $template = HTML::Template->new(filename => dirname($ENV{SCRIPT_FILENAME}) . "/predictions.html",
 				       associate => $cgi,
 				       global_vars => 1,
 				       die_on_bad_params => 0,
