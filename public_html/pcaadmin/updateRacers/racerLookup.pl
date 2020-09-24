@@ -5,6 +5,7 @@ use strict;
 use RennPoints qw( getDBConnection );
 use HTML::Template;
 use CGI;
+use File::Basename qw(dirname);
 
 printPage();
 
@@ -22,7 +23,7 @@ sub printPage {
 
     my $transponderList = $dbh->selectall_arrayref( "SELECT S.full_name, S.class, S.racer_id, S.coracer_id, count(*) AS 'count' FROM results S WHERE transponder = ? GROUP BY S.full_name, S.class, S.racer_id, S.coracer_id ORDER BY 5 DESC", { Slice => {} }, $transponder );
 
-    my $template = HTML::Template->new(filename => "racerLookup.html",
+    my $template = HTML::Template->new(filename => dirname($ENV{SCRIPT_FILENAME}) . "/racerLookup.html",
 				       associate => $cgi,
 				       global_vars => 1,
 				       die_on_bad_params => 0,
