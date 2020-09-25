@@ -3,7 +3,8 @@
 use warnings;
 use strict;
 use CGI;
-use RennPoints qw( getDBConnection formatTime getLapTimePrediction getTracks getClasses );
+use RennPoints qw( formatTime getLapTimePrediction getTracks getClasses );
+use RennPoints::DBI qw( getDBConnection );
 use HTML::Template;
 use List::Util qw( sum );
 use File::Basename qw(dirname);
