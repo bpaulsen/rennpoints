@@ -2,7 +2,8 @@
 
 use warnings;
 use strict;
-use RennPoints qw( getDBConnection formatTime searchForRacer );
+use RennPoints qw( formatTime searchForRacer );
+use RennPoints::DBI qw( getDBConnection );
 use HTML::Template;
 use CGI;
 use List::Util qw(sum);
