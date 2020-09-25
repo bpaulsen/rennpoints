@@ -4,7 +4,6 @@ use warnings;
 use strict;
 use base 'CGIBase';
 use Spreadsheet::Read;
-use RennPoints qw( getDBConnection );
 
 __PACKAGE__->new()->run();
 

@@ -4,18 +4,12 @@ use strict;
 use warnings;
 
 use base qw( Exporter );
-use RennPoints::DBI;
+use RennPoints::DBI qw(getDBConnection);
 use Data::Dumper;
 use Lingua::EN::NameParse;
 use List::Util qw( sum );
 
-our @EXPORT_OK = qw( getDBConnection formatTime getDetailedClassRecords getAllClassRecords getLapTimePrediction getPredictionOfPrediction getAllTracks getTracks getClasses insertRacerIntoDB hasCodriver populateRacerIdsForEvent populateRacerIdsForEventUsingRegion searchForRacer getRecentEvents myLapsURL );
-
-sub getDBConnection {
-    my $writeable = shift || 0;
-
-    return RennPoints::DBI::getDBConnection($writeable);
-}
+our @EXPORT_OK = qw( formatTime getDetailedClassRecords getAllClassRecords getLapTimePrediction getPredictionOfPrediction getAllTracks getTracks getClasses insertRacerIntoDB hasCodriver populateRacerIdsForEvent populateRacerIdsForEventUsingRegion searchForRacer getRecentEvents myLapsURL );
 
 sub formatTime {
     my $time = shift;

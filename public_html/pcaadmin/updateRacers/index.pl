@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 use base 'CGIBase';
-use RennPoints qw( getDBConnection hasCodriver populateRacerIdsForEventUsingRegion populateRacerIdsForEvent getRecentEvents insertRacerIntoDB );
+use RennPoints qw( hasCodriver populateRacerIdsForEventUsingRegion populateRacerIdsForEvent getRecentEvents insertRacerIntoDB );
 use Data::Dumper;
 
 __PACKAGE__->new()->run();
@@ -190,13 +190,4 @@ sub new_racer : Runmode {
     }
 
     return $self->main_page;
-}
-
-sub setup {
-    my $self = shift;
- 
-    # Configure the DB connection
-    $self->dbh_config(sub { getDBConnection(1); } );
-
-    return;
 }

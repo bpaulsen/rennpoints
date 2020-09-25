@@ -4,7 +4,6 @@ use warnings;
 use strict;
 use base 'CGIBase';
 use Spreadsheet::Read;
-use RennPoints qw( getDBConnection );
 
 __PACKAGE__->new()->run();
 
@@ -64,13 +63,4 @@ sub upload_file : Runmode {
     return $self->tt_process('racerRegions.html',
 			     { DATA => \@data }
  	                    );
-}
-
-sub setup {
-    my $self = shift;
- 
-    # Configure the DB connection
-    $self->dbh_config(sub { getDBConnection(1); } );
-
-    return;
 }

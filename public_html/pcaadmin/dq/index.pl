@@ -4,7 +4,6 @@ use warnings;
 use strict;
 use base 'CGIBase';
 use DateTime;
-use RennPoints qw( getDBConnection );
 
 __PACKAGE__->new()->run();
 
@@ -46,13 +45,4 @@ sub getYear {
     my $dt = DateTime->now;
 
     return $dt->year - ( $dt->month == 1 ? 1 : 0 );
-}
-
-sub setup {
-    my $self = shift;
-
-    # Configure the DB connection
-    $self->dbh_config(sub { getDBConnection(1); } );
-
-    return;
 }

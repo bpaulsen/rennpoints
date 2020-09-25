@@ -2,7 +2,7 @@
 
 use warnings;
 use strict;
-use RennPoints qw( getDBConnection getAllClassRecords getLapTimePrediction formatTime insertRacerIntoDB myLapsURL );
+use RennPoints qw( getAllClassRecords getLapTimePrediction formatTime insertRacerIntoDB myLapsURL );
 use RennPoints::DBI qw( getDBConnection );
 use RennPoints::ClubRegistration::Event;
 use HTML::Template;

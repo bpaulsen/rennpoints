@@ -2,7 +2,7 @@
 
 use warnings;
 use strict;
-use RennPoints qw( getDBConnection );
+use RennPoints::DBI qw( getDBConnection );
 use HTML::Template;
 use CGI;
 use File::Basename qw(dirname);
