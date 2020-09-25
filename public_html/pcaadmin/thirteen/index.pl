@@ -54,12 +54,3 @@ sub upload_file : Runmode {
 			     { DATA => \@data }
  	                    );
 }
-
-sub setup {
-    my $self = shift;
- 
-    # Configure the DB connection
-    $self->dbh_config(sub { getDBConnection(1); } );
-
-    return;
-}

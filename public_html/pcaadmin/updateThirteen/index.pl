@@ -3,7 +3,6 @@
 use warnings;
 use strict;
 use base 'CGIBase';
-use RennPoints qw( getDBConnection );
 
 __PACKAGE__->new()->run();
 
@@ -56,13 +55,4 @@ sub update_racers : Runmode {
     }
 
     return $self->main_page();
-}
-
-sub setup {
-    my $self = shift;
- 
-    # Configure the DB connection
-    $self->dbh_config(sub { getDBConnection(1); } );
-
-    return;
 }
