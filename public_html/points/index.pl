@@ -165,8 +165,7 @@ AND    a.session_type in (3,4,5)
 -- AND    status = 1
 AND    class not like "%EX"
 AND    class not like "GT4CS%"
-AND    class not like "V%4%"
-AND    class not like "V%6%"
+AND    class not like "V%"
 AND    YEAR(a.date) = ?
 AND    ( ? = 0 OR t.region_id = ? OR e.event_type = 3 )
 AND    e.event_type > 0
@@ -205,7 +204,7 @@ AND    r.coracer_id = r2.racer_id
 -- AND    status = 1
 AND    class not like "%EX"
 AND    class not like "GT4CS%"
-AND    class not like "V%4%"
+AND    class not like "V%"
 AND    r.coracer_id > 0
 AND    a.date > '20120101'
 AND    YEAR(a.date) = ?
