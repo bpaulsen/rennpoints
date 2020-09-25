@@ -5,7 +5,6 @@ use warnings;
 
 use base qw( Exporter );
 use RennPoints::DBI qw(getDBConnection);
-use Data::Dumper;
 use Lingua::EN::NameParse;
 use List::Util qw( sum );
 
