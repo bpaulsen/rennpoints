@@ -67,7 +67,7 @@ sub _build_events {
                             description => "$year-$MONTHS{$month} $track",
                             date => $date,
                             event => RennPoints::ClubRacing::Event->new( content => $data ),
-                        };
+	    };
         }
     }
 
