@@ -13,7 +13,12 @@ sub test_parse_races {
 
     isa_ok $event = RennPoints::ClubRacing::Event->new( content => scalar(read_file("test_files/clubracing/event_2")) ), 'RennPoints::ClubRacing::Event';
     is @{$event->races}, 11, "Testing number of races that were parsed";
-    is $event->races->[10], 'http://pcaclubracing.org/wp-content/uploads/results/current/Sebring/PinkEnduro.html', 'Check name of first race';
+    is $event->races->[10], 'http://pcaclubracing.org/wp-content/uploads/results/current/Sebring/PinkEnduro.html', 'Check name of eleventh race';
+
+    isa_ok $event = RennPoints::ClubRacing::Event->new( content => scalar(read_file("test_files/clubracing/event_3")) ), 'RennPoints::ClubRacing::Event';
+    is @{$event->races}, 3, "Testing number of races that were parsed";
+    is $event->races->[0], 'http://pcaclubracing.org/wp-content/uploads/results/current/HighPlains/Sprint1.php', 'Check name of first race';
+
 }
 
 1;

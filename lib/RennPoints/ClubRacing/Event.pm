@@ -21,7 +21,7 @@ sub _build_races {
 
     my $content = $self->content;
     my @races;
-    while ( $content =~ m{<a href="(.*?/uploads/results/[^"]+)[^>]+([^<]+)}sg ) {
+    while ( $content =~ m{<a.*?href="(.*?/uploads/results/[^"]+)[^>]+([^<]+)}sg ) {
         my ( $href, $name ) = ( $1, $2 );
         $name =~ s/\&\#8211\;/-/g;
 
