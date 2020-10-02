@@ -2,6 +2,7 @@ package RennPoints::MyLaps;
 
 use Moose;
 use RennPoints::MyLaps::Unescape qw( unescape );
+use Date::Parse qw(strptime);
 
 with 'RennPoints::MyLaps::LWP';
 
@@ -21,7 +22,7 @@ sub _build_events {
                         date => formatDate($3),
                     };
     }
-
+    
     @events = sort { $b->{date} cmp $a->{date} } @events;
 
     return \@events;
@@ -30,6 +31,13 @@ sub _build_events {
 sub formatDate {
     my $date = shift;
 
+    if ( 1 ) {
+	my @time = strptime $date;
+	if (@time) {
+	    return sprintf( "%4d-%02d-%02d", 1900 + $time[5], 1 + $time[4], $time[3] );
+	}
+    }
+    
     my ( $m, $d, $yyyy ) = $date =~ m{(\d+)/(\d+)/(\d+)}x;
     return $date if !$m;
 
