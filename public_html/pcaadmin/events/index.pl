@@ -55,10 +55,11 @@ sub get_events {
 
     foreach my $event ( @events ) {
 	my ( $track_name ) = $event->{ DESCRIPTION } =~ /\s+\-\s+2[01]\d\d\s+(.*)/xo;
-	$event->{TRACKID} = RennPoints::DB::Track->new( name => $track_name )->id;
 	if ( !$track_name ) {
 	    ( $track_name ) = $event->{ DESCRIPTION } =~ /\s+\-\s+(.*)/xo;
 	}
+
+	$event->{TRACKID} = RennPoints::DB::Track->new( name => $track_name )->id;
 
 	my ( $clubreg ) = grep { $_->{ date } eq $event->{ DATE } && $_->{ track_id } == $event->{TRACKID} } @$clubreg_list;
 	$event->{ CLUBREGID } = $clubreg->{ clubreg_id } if $clubreg;
