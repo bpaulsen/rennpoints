@@ -31,7 +31,7 @@ sub _build_races {
 
     my @results;
     foreach my $name ( $viewOption->value_names() ) {
-	next unless $name =~ /(sprint|enduro|Race|primary\s+driver\s+weekend\s+package)/ix;
+	next unless $name =~ /(sprint|enduro|Race|primary\s+driver\s+weekend\s+package|Weekend\s+event\s+fee)/ix;
 	$viewOption->value($name);
 	my $value = $viewOption->value();
 	push @results, $value;
