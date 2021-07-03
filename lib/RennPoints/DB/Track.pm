@@ -25,6 +25,7 @@ sub _build_id {
     my $city = $self->city || "";
     my $state = $self->state || "";
     my $name = lc($self->name || "");
+    $name =~ s/\s+\(updated.*\)$//xo;
     my ( $track ) = grep{ ( !$city || $_->{ city } eq $city ) 
 			  && ( !$state || $_->{ state } eq $state )
 			  && ( !$name || $_->{ lc_name } eq $name )
