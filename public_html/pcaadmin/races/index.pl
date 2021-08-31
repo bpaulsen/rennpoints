@@ -167,6 +167,8 @@ sub populateFromMyLaps {
 
     my %CLASS_REMAP = ( 'GTC6C'   => 'GTC6',
 			'GTC7C'   => 'GTC7',
+			'VU 6'    => 'VU',
+			'VU6'     => 'VU',
 			'GTD1C'   => 'GTD',
 			'911 CUP' => '911CUP',
 	              );
