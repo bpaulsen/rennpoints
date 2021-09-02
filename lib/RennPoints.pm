@@ -339,7 +339,7 @@ sub getTracks {
 sub getClasses {
     my $dbh = shift || getDBConnection();
 
-    my $classes = $dbh->selectall_arrayref( "select distinct e.current_class from results e, race r where e.current_class not like '%EX' AND e.current_class NOT LIKE 'GT4CS%' AND e.current_class NOT LIKE 'V%4%' and e.race_id = r.race_id and r.session_type in ( 3,4,5 ) and status = 1 and r.date >= '20070101' order by length(current_class), current_class" );
+    my $classes = $dbh->selectall_arrayref( "select distinct e.current_class from results e, race r where e.current_class not like '%EX' AND e.current_class NOT LIKE 'GT4CS%' and e.race_id = r.race_id and r.session_type in ( 3,4,5 ) and status = 1 and r.date >= '20070101' order by length(current_class), current_class" );
     my @classes = map { $_->[0] } @$classes;
     return @classes;
 }
