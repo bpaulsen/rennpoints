@@ -1,0 +1,4 @@
+cpanm Lingua::EN::NameParse
+cpanm HTML::LinkExtractor
+cpanm Test::Class::Moose::Load
+cpanm Lingua::EN::NameCase
