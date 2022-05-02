@@ -22,6 +22,15 @@ sub test_parse_events2 {
     is $clubracing->events->[0]->{description}, '2022-02 Sebring', 'Check description of first race';
 }
 
+sub test_parse_events3 {
+    my $test = shift;
+
+    isa_ok my $clubracing = RennPoints::ClubRacing->new( content => scalar(read_file("test_files/clubracing/clubracing_3")) ), 'RennPoints::ClubRacing';
+
+    is @{$clubracing->events}, 6, "Testing number of events that were parsed";
+    is $clubracing->events->[0]->{description}, '2022-04 Heartland', 'Check description of first race';
+}
+
 sub test_url {
     my $test = shift;
 

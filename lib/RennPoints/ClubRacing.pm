@@ -95,6 +95,35 @@ sub _build_events {
 	# "description' => '2022-02 Sebring'
 
 	if ( !@events ) {
+	    my @tmpTracks = grep { $_ =~ m{https://pcaclubracing.org/results/#} } split( /\n/, $content );
+	    my %trackMap;
+	    foreach my $row ( @tmpTracks ) {
+		my ( $anchor, $trackName ) = $row =~ m{href="https://pcaclubracing.org/results/#([^"]+)".*>(.*?)</a>};
+		$trackName =~ s/ \(.*\)$//;
+		$anchor =~ s/Thunderhill/Thunder/;
+		$trackMap{$anchor} = $trackName;
+	    }
+
+	    while ( $content =~ m{<div id="([^"]+)" class="et_pb_section.*?"}sgp ) {
+		my ( $anchor, $data ) = ( $1, ${^POSTMATCH} );
+
+		my ( $name ) = $data =~ m{<h1.*?>(.*?)</h1>};
+		next if !$name;
+		my $track = $trackMap{$anchor};
+		$data =~ s/ //g;
+ 		my ( $date ) = $data =~ m{<p style="text-align: center;">(.*?)</p>};
+		my ( $month, $day, $year ) = $date =~ m{^(\S+)\s*(\d+),\s*(\d+)};
+
+		push @events, { track => $track,
+				name => $name,
+				description => "$year-$MONTHS{$month} $track",
+				date => $date,
+				event => RennPoints::ClubRacing::Event->new( content => $data ),
+		              };
+	    }
+	}
+	
+	if ( !@events ) {
 #	    my @tmpEvents = split /<div id="([^"]+)" class="et_pb_section et_pb_section_26 et_section_regular" >.*/sp, $content;
 	    my @tmpEvents = split /<div class="et_pb_text_inner"><h1 style/s, $content;
 	    foreach my $data ( @tmpEvents ) {
