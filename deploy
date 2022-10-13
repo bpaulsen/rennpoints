@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-my $www_dir = "/var/www/html/rennpoints2";
+my $www_dir = "/var/www/html/rennpoints";
 my $lib_dir = "/usr/src/rennpoints";
 
 system( "rsync -a --delete public_html/. $www_dir" );
