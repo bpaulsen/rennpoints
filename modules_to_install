@@ -1,3 +1,10 @@
+sudo yum install git
+sudo yum install emacs
+sudo yum update -y
+sudo yum install -y mariadb-server
+sudo systemctl start mariadb
+sudo systemctl enable mariadb
+
 cpanm Lingua::EN::NameParse
 cpanm HTML::LinkExtractor
 cpanm Test::Class::Moose::Load
