@@ -36,6 +36,9 @@ sub update_dq : Runmode {
 
 	$self->dbh->do( "UPDATE results SET dq_reason = ?, status = ? WHERE race_id = ? AND full_name = ? AND status in ( 3,4 )", {}, $dq_reason, $status, $race_id, $full_name );
     }
+
+    my $year = getYear();
+    $self->dbh->do( "call update_regions($year)" );
     $self->dbh->do( "UPDATE cacheTimestamp SET lastUpdate = NOW()" );
 
     return $self->main_page();
