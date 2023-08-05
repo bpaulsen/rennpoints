@@ -557,7 +557,7 @@ window.twttr = (function (d, s, id) {
                     <a href="#all-results" aria-controls="all-results" class="event-tab allresults-tab" role="tab" data-toggle="tab">All Results</a>
                 </li>
                 <li role="presentation">
-                    <a href="#byClass" aria-controls="byClass" class="event-tab  byclass-tab" role="tab" data-toggle="tab"><span class="hidden-xs">Results By Class</span><span class="visible-xs-block">By Class</span></a>
+                    <a href="#byclass" aria-controls="byclass" class="event-tab  byclass-tab" role="tab" data-toggle="tab"><span class="hidden-xs">Results By Class</span><span class="visible-xs-block">By Class</span></a>
                 </li>
                 <li role="presentation">
                     <a href="#lapChart" aria-controls="lapChart" class="event-tab lapchartTab" role="tab" data-toggle="tab">Lap Chart</a>
@@ -1710,7 +1710,7 @@ window.twttr = (function (d, s, id) {
 
 
         
-<div role="tabpanel" class="row session-details-all-results tab-pane" id="byClass">
+<div role="tabpanel" class="row session-details-all-results tab-pane" id="byclass">
     <div class="col-xs-12">
         <div class="scrollable" style="overflow: hidden;" tabindex="5000">
             <div class="data-loading session-detail-results" id="session-results">
