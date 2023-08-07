@@ -282,7 +282,7 @@ sub getRacersTimes {
 sub getTracks {
     my $dbh = shift;
 
-    my $tracks = $dbh->selectall_arrayref( "select C.clubreg_id, C.date, T.name from clubreg_urls C, track T where C.track_id = T.track_id AND C.end_date >= CURDATE() AND IFNULL(C.cancelled, 0) != 1 order by C.date", { Slice => {} } );
+    my $tracks = $dbh->selectall_arrayref( "select C.clubreg_id, C.date, T.name from clubreg_urls C, track T where C.track_id = T.track_id AND C.end_date >= CURDATE() AND IFNULL(C.cancelled, 0) != 1 order by C.date, T.name", { Slice => {} } );
 
     my @ids = map { $_->{clubreg_id} } @$tracks;
     my %values = map { $_->{clubreg_id} => $_->{name} } @$tracks;
