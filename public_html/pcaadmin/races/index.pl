@@ -176,7 +176,7 @@ sub populateFromMyLaps {
     my $race_list = $dbh->selectall_arrayref( "SELECT distinct r.race_id, mylaps_id, session_type FROM race r WHERE event_id = ?", { Slice => {} }, $event );
 
     foreach my $race ( @$race_list ) {
-	print STDERR "race_id=$race->{ race_id } mylaps_id=$race->{ mylaps_id }\n";
+	print STDERR "parsing MyLaps event $event : race_id=$race->{ race_id } mylaps_id=$race->{ mylaps_id }\n";
 
 	my $israce = $race->{session_type} >=3 && $race->{session_type} <= 6 ? 1 : 0;
 	my $participants = RennPoints::MyLaps::Race->new(id => $race->{mylaps_id})->participants();
@@ -214,18 +214,18 @@ sub populateFromMyLaps {
 		    $status = $tmpstatus;
 		}
 
-		print STDERR " UPDATING BASE RECORD FOR $name $class $besttime $position\n";
+		# print STDERR " UPDATING BASE RECORD FOR $name $class $besttime $position\n";
 		$dbh->do( "UPDATE results SET position = ?, position_on_results_page = ?, position_in_class = ?, full_name = ?, class = ?, laps_completed = ?, best_lap_time = ?, best_lap_time_lap_number = ?, status = ?, car_number = ?, transponder = ? WHERE race_id = ? AND position_on_results_page = ?", 
 			  {}, $position, $position, $classpos, $name, $class, $laps, $besttime, $lapnum, $status, $carnum, $transponder, $race->{race_id}, $position );
 	    }
 	    else {
-		print STDERR " INSERTING BASE RECORD FOR $name\n";
+		# print STDERR " INSERTING BASE RECORD FOR $name\n";
 		$dbh->do( "INSERT INTO results ( race_id, position, position_on_results_page, position_in_class, car_number, transponder, full_name, class, laps_completed, best_lap_time, best_lap_time_lap_number, status, current_class ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
 			  {}, $race->{race_id}, $position, $position, $classpos, $carnum, $transponder, $name, $class, $laps, $besttime, $lapnum, $status, $class );
 	    }
 
 	    if ( $israce ) {
-		print STDERR  " UPDATING RECORD for race results\n";
+		# print STDERR  " UPDATING RECORD for race results\n";
 		$dbh->do( "UPDATE results SET total_time = ?, time_difference = ? WHERE race_id = ? AND position_on_results_page = ?", 
 			  {}, $totaltime, $diff, $race->{race_id}, $position );
 	    }
@@ -246,7 +246,7 @@ sub populateFromPCA {
     my $races = $pca->races;
 
     foreach my $race_name ( @$races ) {
-	print STDERR "parsing $race_name\n";
+	print STDERR "parsing PCA event $event : $race_name\n";
 	my $race = RennPoints::PCA::Race->new(content => $pca->content, race => $race_name);
 	my $participants = $race->participants;
 
@@ -273,7 +273,7 @@ sub populateFromPCA {
 	    }
 	    else {
 		my $count = @$data;
-		print STDERR "FOUND $count : $race_name ", Dumper( $participant ), "\n";
+		# print STDERR "FOUND $count : $race_name ", Dumper( $participant ), "\n";
 	    }
 	}
     }
@@ -293,7 +293,7 @@ sub populateFromClubRacing {
     my $races = $clubracing_event->{event}->races;
 
     foreach my $race_name ( @$races ) {
-	print STDERR "parsing $race_name\n";
+	print STDERR "parsing ClubRacing event $event : $race_name\n";
 	my $race = RennPoints::ClubRacing::Race->new(url => $race_name );
 	my $participants = $race->participants;
 
@@ -320,7 +320,7 @@ sub populateFromClubRacing {
 	    }
 	    else {
 		my $count = @$data;
-		print STDERR  "FOUND $count : $race_name ", Dumper( $participant ), "\n";
+		# print STDERR  "FOUND $count : $race_name ", Dumper( $participant ), "\n";
 	    }
 	}
     }
