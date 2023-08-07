@@ -8,7 +8,7 @@ sub test_parse_races {
     my $test = shift;
 
     isa_ok my $race = RennPoints::MyLaps::Race->new( content => scalar(read_file("test_files/mylaps/race_1")), id => 0 ), 'RennPoints::MyLaps::Race';
-    is @{$race->participants}, 48, "Testing number of participants that were parsed";
+    is @{$race->participants}, 20, "Testing number of participants that were parsed";
 }
 
 sub test_url {

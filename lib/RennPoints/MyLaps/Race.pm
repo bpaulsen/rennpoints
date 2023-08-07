@@ -34,7 +34,7 @@ sub _build_participants {
                                overall_laps_behind     => bestLapTime( $_->{ difference }->{ lapsBehind } ),
                                transponder             => $_->{ user }->{ chip }->{ code },
                                is_qualified            => $_->{ isQualified } + 0,
-                           } } @{$data->{rows}};
+                           } } @{$json->{rows}};
 
     return \@participants;
 }
