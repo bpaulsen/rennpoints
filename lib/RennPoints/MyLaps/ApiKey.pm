@@ -16,12 +16,12 @@ has '_dbh' => ( is => 'ro', builder => '_build_dbh', lazy => 1 );
 sub key {
     my $self = shift;
 
-    if ( $self->expiry < scalar(gmtime) ) {
+    if ( $self->expiry < time ) {
 	$self->_populate_from_db();
 	
-	if ( $self->expiry < scalar(gmtime) ) {
-	    $self->_populate_from_mylap();
-	    if ( $self->expiry > scalar(gmtime) ) {
+	if ( $self->expiry < time ) {
+	    $self->_populate_from_mylaps();
+	    if ( $self->expiry > time ) {
 		$self->_persist();
 	    }
 	}
