@@ -10,8 +10,6 @@ sub test_parse_events {
 
     isa_ok my $mylaps = RennPoints::MyLaps->new( content => scalar(read_file("test_files/mylaps/mylaps_4")) ), 'RennPoints::MyLaps';
 
-    print STDERR Dumper( $mylaps->events );
-    
     is @{$mylaps->events}, 25, "Testing number of events that were parsed";
 
     is $mylaps->events->[0]->{id}, 2318956, "Testing event id of first event";
