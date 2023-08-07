@@ -30,7 +30,7 @@ sub _build_races {
 	    my $name = $session->{name};
 	    $name =~ s/\s+$//;
 	    my $datetime = $session->{startTime};
-	    $datetime =~ s/T//;
+	    $datetime =~ s/T/ /;
 	    
             push @sessions, { id => $id,
 			      type => $type,
