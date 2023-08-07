@@ -42,7 +42,7 @@ sub _populate_from_db {
     my $self = shift;
 
     my ( $key, $expiry ) = $self->_dbh->selectrow_array("SELECT apikey, UNIX_TIMESTAMP(expiry) FROM mylaps_apikey WHERE id = ? AND expiry > NOW()", {}, $self->id );
-    if ( $key && $expiry && $expiry > scalar(gmtime()) ) {
+    if ( $key && $expiry && $expiry > time ) {
 	$self->_key($key);
 	$self->expiry($expiry);
     }
