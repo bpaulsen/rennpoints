@@ -2,19 +2,20 @@ package RennPoints::MyLaps::Race;
 
 use Moose;
 use RennPoints::MyLaps::Unescape qw( unescape );
+use RennPoints::MyLaps::ApiKey;
 use JSON;
 
 with 'RennPoints::MyLaps::LWP';
 
 has 'id' => ( is => 'ro', isa => 'Int', required => 1 );
 has 'participants' => ( is => 'ro', isa => 'ArrayRef', builder => '_build_participants', lazy => 1 );
+has 'api_key_name' => ( is => 'ro', isa => 'Str', default => 'EventResults' );
 
 sub _build_participants {
     my $self = shift;
 
     my $content = $self->content;
-    my ( $json ) = $content =~ m{var ClassificationModel = (.*);}o;
-    my $data = from_json( $json );
+    my $json = from_json($self->content);
 
     my @participants = map { { class                   => $_->{resultClass },
                                overall_position        => $_->{ position },
@@ -38,9 +39,15 @@ sub _build_participants {
     return \@participants;
 }
 
-sub _build_root_url {
+sub _build_url {
     my $self = shift;
-    return $self->_config->get( 'list_participants_url' );
+    return 'https://eventresults-api.speedhive.com/api/v0.2.3/eventresults/sessions/' . $self->id . '/classification'
+}
+
+sub _build_api_key {
+    my $self = shift;
+
+    return RennPoints::MyLaps::ApiKey->new( id => $self->api_key_name );
 }
 
 sub bestLapTime {
