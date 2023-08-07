@@ -7,7 +7,7 @@ use File::Slurp qw(read_file);
 sub test_parse_races {
     my $test = shift;
 
-    isa_ok my $event = RennPoints::MyLaps::Event->new( content => scalar(read_file("test_files/mylaps/event_3")), id => 0 ), 'RennPoints::MyLaps::Event';
+    isa_ok my $event = RennPoints::MyLaps::Event->new( content => scalar(read_file("test_files/mylaps/event_1")), id => 0 ), 'RennPoints::MyLaps::Event';
     is @{$event->races}, 10, "Testing number of races that were parsed";
 }
 
