@@ -9,6 +9,7 @@ use RennPoints::Config;
 has 'ua' => ( is => 'ro', builder => '_build_ua', lazy => 1 );
 has 'content' => ( is => 'ro', isa => 'Str', builder => '_build_content', lazy => 1 );
 has 'url' => ( is => 'ro', isa => 'Str', builder => '_build_url', lazy => 1 );
+has 'api_key' => ( is => 'ro', builder => '_build_api_key', lazy => 1 );
 has '_root_url' => ( is => 'ro', isa => 'Str', builder => '_build_root_url', lazy => 1 );
 has '_config' => ( is => 'ro', builder => '_build_config', lazy => 1 );
 
@@ -42,7 +43,16 @@ sub _build_content {
     my $self = shift;
 
     my $ua = $self->ua;
-    my $response = $ua->request( GET $self->url );
+
+    my %headers;
+    my $key = $self->api_key;
+    if ( $key ) {
+	$headers{ApiKey} = $key->key;
+    }
+
+    my $response = $ua->request( GET $self->url,
+				 %headers
+	                       );
     return if !$response->is_success;
 
     return $response->content;

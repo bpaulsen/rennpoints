@@ -30,6 +30,10 @@ sub key {
     return $self->_key;
 }
 
+sub _build_api_key {
+    return;
+}
+
 sub _build_dbh {
     return getDBConnection(1);
 }
