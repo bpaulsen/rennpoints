@@ -106,7 +106,7 @@ sub _build_events {
 
 	    while ( $content =~ m{<div id="([^"]+)" class="et_pb_section.*?"}sgp ) {
 		my ( $anchor, $data ) = ( $1, ${^POSTMATCH} );
-		$data =~ s/<div id=".*//s;
+		$data =~ s/<div id="[^"]+" class="et_pb_section.*//s;
 
 		my ( $name ) = $data =~ m{<h1.*?>(.*?)</h1>};
 		next if !$name;
