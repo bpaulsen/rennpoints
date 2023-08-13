@@ -46,9 +46,11 @@ sub _build_content {
 
     my %headers = ( 'Origin' => 'https://beta.speedhive.com' );
 
-    my $key = $self->api_key;
-    if ( $key ) {
-	$headers{ApiKey} = $key->key;
+    if ( 0 ) {
+	my $key = $self->api_key;
+	if ( $key ) {
+	    $headers{ApiKey} = $key->key;
+	}
     }
 
     my $response = $ua->request( GET $self->url,
