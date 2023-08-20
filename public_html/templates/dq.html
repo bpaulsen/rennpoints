@@ -30,7 +30,7 @@
 	    [%- count = loop.count %]
 	      <tr class="[% loop.parity %]">
 		<td>[% HTML.escape( race.event ) %]</td>
-		<td><a href="[% race.mylaps_url %]">[% HTML.escape( race.race ) %]</a></td>
+		<td><a href="https://speedhive.mylaps.com/Sessions/[% race.mylaps_id %]">[% HTML.escape( race.race ) %]</a></td>
 		<td>[% HTML.escape( race.car_number ) %]</td>
 		<td>[% HTML.escape( race.full_name ) %]</td>
 		<td>

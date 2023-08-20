@@ -110,7 +110,7 @@
 		                    Label => "",
 		                    Class => "racecheck",
                                   )
-		  -%]&nbsp;<a href="[% race.URL %]">[% race.STATUS %]</a>
+		  -%]&nbsp;<a href="https://speedhive.mylaps.com/Sessions/[% race.ID %]">[% race.STATUS %]</a>
 		  [%- CGI.hidden( Name    => "url_$count", 
                                   Default => race.URL,
                                 )
