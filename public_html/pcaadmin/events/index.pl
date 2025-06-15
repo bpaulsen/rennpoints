@@ -58,6 +58,9 @@ sub get_events {
 	if ( !$track_name ) {
 	    ( $track_name ) = $event->{ DESCRIPTION } =~ /\s+\-\s+(.*)/xo;
 	}
+	if ( !$track_name ) {
+	    $track_name = 'Watkins Glen' if $event->{ DESCRIPTION } eq 'Clash At The Glen';
+	}
 
 	$event->{TRACKID} = RennPoints::DB::Track->new( name => $track_name )->id;
 

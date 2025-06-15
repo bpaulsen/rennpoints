@@ -76,18 +76,20 @@ sub getUnidentifiedRacersUsingTransponder {
 
 	my $matches = $dbh->selectall_arrayref( "SELECT racer_id, clubreg_name FROM racer WHERE MATCH(clubreg_name) AGAINST ( ? )", { Slice => {} }, $i->{full_name} );
 
-	my $morematches = $dbh->selectall_arrayref( "SELECT full_name, racer_id, COUNT(*) AS 'count' FROM results WHERE transponder = ? AND racer_id IS NOT NULL AND coracer_id = 0 GROUP BY full_name, racer_id ORDER BY 3 DESC", { Slice => {} }, $i->{transponder} );
+	if ( $i->{transponder} ) {
+	    my $morematches = $dbh->selectall_arrayref( "SELECT full_name, racer_id, COUNT(*) AS 'count' FROM results WHERE transponder = ? AND racer_id IS NOT NULL AND coracer_id = 0 GROUP BY full_name, racer_id ORDER BY 3 DESC", { Slice => {} }, $i->{transponder} );
 	
-	my %seen = map { $_->{ racer_id } => $_ } @$matches;
-	foreach my $j ( @$morematches ) {
-	    if ( $seen{ $j->{racer_id } } ) {
-		$seen{$j->{racer_id}}->{clubreg_name} = "$j->{ full_name } ($j->{count})";
-		next;
+	    my %seen = map { $_->{ racer_id } => $_ } @$matches;
+	    foreach my $j ( @$morematches ) {
+		if ( $seen{ $j->{racer_id } } ) {
+		    $seen{$j->{racer_id}}->{clubreg_name} = "$j->{ full_name } ($j->{count})";
+		    next;
+		}
+		push @$matches, { racer_id => $j->{ racer_id },
+				  clubreg_name => "$j->{ full_name } ($j->{count})",
+		};
+		$seen{ $j->{racer_id } } = $j;
 	    }
-	    push @$matches, { racer_id => $j->{ racer_id },
-			      clubreg_name => "$j->{ full_name } ($j->{count})",
-	                    };
-	    $seen{ $j->{racer_id } } = $j;
 	}
 
 	$i->{matches} = $matches;
