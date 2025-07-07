@@ -54,7 +54,7 @@ sub get_events {
                      } } @$events;
 
     foreach my $event ( @events ) {
-	my ( $track_name ) = $event->{ DESCRIPTION } =~ /\s+\-\s+2[01]\d\d\s+(.*)/xo;
+	my ( $track_name ) = $event->{ DESCRIPTION } =~ /\s+\-\s*2[01]\d\d\s+(.*)/xo;
 	if ( !$track_name ) {
 	    ( $track_name ) = $event->{ DESCRIPTION } =~ /\s+\-\s+(.*)/xo;
 	}
