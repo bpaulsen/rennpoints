@@ -61,6 +61,9 @@ sub get_events {
 	if ( !$track_name ) {
 	    $track_name = 'Watkins Glen' if $event->{ DESCRIPTION } eq 'Clash At The Glen';
 	}
+	if ( !$track_name ) {
+	    $track_name = 'NJMP Thunderbolt Raceway' if $event->{ DESCRIPTION } =~ /^Schattenbaum Showdown 20\d\d/;
+	}
 
 	$event->{TRACKID} = RennPoints::DB::Track->new( name => $track_name )->id;
 
