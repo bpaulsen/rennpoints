@@ -62,6 +62,9 @@ sub get_events {
 	    $track_name = 'Watkins Glen' if $event->{ DESCRIPTION } eq 'Clash At The Glen';
 	}
 	if ( !$track_name ) {
+	    $track_name = 'Road America' if $event->{ DESCRIPTION } eq 'The Road America Challenge';
+	}
+	if ( !$track_name ) {
 	    $track_name = 'NJMP Thunderbolt Raceway' if $event->{ DESCRIPTION } =~ /^Schattenbaum Showdown 20\d\d/;
 	}
 
