@@ -59,13 +59,10 @@ sub get_events {
 	    ( $track_name ) = $event->{ DESCRIPTION } =~ /\s+\-\s+(.*)/xo;
 	}
 	if ( !$track_name ) {
-	    $track_name = 'Watkins Glen' if $event->{ DESCRIPTION } eq 'Clash At The Glen';
+	    $track_name = 'Summit Point Motorsports Park' if $event->{ DESCRIPTION } eq 'PCA Patomic Rock the Summit';
 	}
 	if ( !$track_name ) {
-	    $track_name = 'Road America' if $event->{ DESCRIPTION } eq 'The Road America Challenge';
-	}
-	if ( !$track_name ) {
-	    $track_name = 'NJMP Thunderbolt Raceway' if $event->{ DESCRIPTION } =~ /^Schattenbaum Showdown 20\d\d/;
+	    $track_name = 'Summit Point Motorsports Park' if $event->{ DESCRIPTION } eq 'PCA Potomac Rock the Summit';
 	}
 
 	$event->{TRACKID} = RennPoints::DB::Track->new( name => $track_name )->id;
