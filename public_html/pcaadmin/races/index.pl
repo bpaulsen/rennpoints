@@ -287,6 +287,8 @@ sub populateFromClubRacing {
     my $dbh = getDBConnection(1);
     my ($description) = $dbh->selectrow_array("SELECT pca_url FROM event WHERE event_id = ?", {}, $event );
 
+    return if !$description;
+
     my $clubracing = RennPoints::ClubRacing->new();
     my ( $clubracing_event ) = grep { $_->{description} eq $description } @{$clubracing->events};
 
