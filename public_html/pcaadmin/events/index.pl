@@ -74,7 +74,7 @@ sub get_events {
 
 	( $event->{CLUBREGID} ) = $self->dbh->selectrow_array( "SELECT clubreg_id FROM clubreg_urls WHERE track_id IN ( 19, 75 ) AND date BETWEEN DATE_ADD( ?, INTERVAL -3 DAY ) AND DATE_ADD( ?, INTERVAL 3 DAY )", {}, $event->{DATE}, $event->{DATE} ) if !$event->{CLUBREGID} && $event->{TRACKID} == 19;
 
-	my ( $mylaps_event ) = grep { ( $_->{ date } eq $event->{ DATE } && $_->{ track_id } eq $event->{TRACKID} ) || $_->{description} eq $event->{DESCRIPTION} } @$event_list;
+	my ( $mylaps_event ) = grep { $_->{ date } eq $event->{ DATE } && ( $_->{ track_id } eq $event->{TRACKID} || $_->{description} eq $event->{DESCRIPTION}) } @$event_list;
 	if ( !$mylaps_event ) {
 	    $event->{STATUS} = 'NEW EVENT';
 	    $event->{STATUSTYPE} = 1;
