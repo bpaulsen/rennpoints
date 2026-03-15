@@ -10,6 +10,8 @@ sub test_parse_events {
 
     isa_ok my $clubracing = RennPoints::ClubRacing->new( content => scalar(read_file("test_files/clubracing/clubracing_1")) ), 'RennPoints::ClubRacing';
 
+    # print STDERR Dumper $clubracing->events;
+    
     is @{$clubracing->events}, 2, "Testing number of events that were parsed";
     is $clubracing->events->[0]->{description}, '2018-03 COTA', 'Check description of first race';
 }
@@ -37,7 +39,7 @@ sub test_parse_events4 {
 
     isa_ok my $clubracing = RennPoints::ClubRacing->new( content => scalar(read_file("test_files/clubracing/clubracing_4")) ), 'RennPoints::ClubRacing';
 
-    is @{$clubracing->events}, 20, "Testing number of events that were parsed";
+    is @{$clubracing->events}, 21, "Testing number of events that were parsed";
     is $clubracing->events->[0]->{description}, '2022-09 Thunderhill', 'Check description of first race';
 }
 
@@ -50,10 +52,22 @@ sub test_parse_events5 {
     my ( $clubracing_event ) = grep { $_->{description} eq '2023-07 Brainerd' } @{$clubracing->events};
 
     is $clubracing_event->{description}, '2023-07 Brainerd', 'Check description of second race';
-    is @{$clubracing_event->{event}->races}, 3, "Testing number of events that were parsed";
+    is @{$clubracing_event->{event}->races}, 3, "Testing number of races that were parsed";
 
 #    my $races = $clubracing_event->{event}->races;
 
+}
+
+sub test_parse_events6 {
+    my $test = shift;
+
+    isa_ok my $clubracing = RennPoints::ClubRacing->new( content => scalar(read_file("test_files/clubracing/clubracing_6")) ), 'RennPoints::ClubRacing';
+
+    is @{$clubracing->events}, 1, "Testing number of events that were parsed";
+    my ( $clubracing_event ) = grep { $_->{description} eq '2026-01 Sebring' } @{$clubracing->events};
+
+    is $clubracing_event->{description}, '2026-01 Sebring', 'Check description of race';
+    is @{$clubracing_event->{event}->races}, 9, "Testing number of races that were parsed";
 }
 
 

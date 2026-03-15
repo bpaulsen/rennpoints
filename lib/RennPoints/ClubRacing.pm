@@ -46,7 +46,7 @@ sub _build_content {
 
     my $ua = $self->ua;
     my $response = $ua->request( GET $self->url );
-    return if !$response->is_success;
+    # return if !$response->is_success;
 
     return $response->content;
 }
@@ -72,9 +72,9 @@ sub _build_events {
         while ( $content =~ m{div id="Results-([^"]+)".*?<h1.*?>([^<]+).*?<p.*?>([^<]+)}sgp ) {
             my ( $track, $name, $date, $data ) = ( $1, $2, $3, ${^POSTMATCH} );
 
-            $data =~ s/<div id="Results.*//s;
+	    $data =~ s/<div id="Results.*//s;
 
-            my ( $month, $year ) = $date =~ m{^(...).*, (\d+)$};
+	    my ( $month, $year ) = $date =~ m{^(...).*, (\d+)$};
             push @events, { track => $track,
                             name => $name,
                             description => "$year-$MONTHS{$month} $track",
@@ -101,6 +101,11 @@ sub _build_events {
 		my ( $anchor, $trackName ) = $row =~ m{href="https://pcaclubracing.org/results/#([^"]+)".*>(.*?)</a>};
 		$trackName =~ s/ \(.*\)$//;
 		$anchor =~ s/Thunderhill/Thunder/;
+		if ( $trackMap{ $anchor } ) { # anchor is already defined.  Use different logic
+		    $anchor = $trackName;
+		    $anchor =~ s/-//;
+		}
+
 		$trackMap{$anchor} = $trackName;
 	    }
 
@@ -108,11 +113,13 @@ sub _build_events {
 		my ( $anchor, $data ) = ( $1, ${^POSTMATCH} );
 		$data =~ s/<div id="[^"]+" class="et_pb_section.*//s;
 
+		$data =~ s{href="http://www.mylaps.com/}{}s;
+		
 		my ( $name ) = $data =~ m{<h1.*?>(.*?)</h1>};
 		next if !$name;
 		my $track = $trackMap{$anchor};
 		$data =~ s/ //g;
- 		my ( $date ) = $data =~ m{<p style="text-align: center;">(.*?)</p>};
+ 		my ( $date ) = $data =~ m{<p style="text-align: center;">(?!Speedhive)(.*?)</p>};
 		my ( $month, $day, $year ) = $date =~ m{^(\S+)\s*(\d+),\s*(\d+)};
 
 		push @events, { track => $track,

@@ -28,6 +28,16 @@ sub _build_races {
         push @races, $href;
     }
 
+    if ( !@races ) {
+	while ( $content =~ m{<a\s+href="(.*?/results/current/[^"]+)[^>]+([^<]+)}sg ) {
+	    my ( $href, $name ) = ( $1, $2 );
+	    $name =~ s/\&\#8211\;/-/g;
+
+	    push @races, $href;
+	}
+    }
+	
+
     return \@races;
 }
 
