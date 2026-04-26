@@ -29,14 +29,13 @@ sub _build_races {
     }
 
     if ( !@races ) {
-	while ( $content =~ m{<a\s+href="(.*?/results/current/[^"]+)[^>]+([^<]+)}sg ) {
+	while ( $content =~ m{<a\s+href="(.*?/(?:results|RaceResults)/current/[^"]+)[^>]+([^<]+)}sg ) {
 	    my ( $href, $name ) = ( $1, $2 );
 	    $name =~ s/\&\#8211\;/-/g;
 
 	    push @races, $href;
 	}
     }
-	
 
     return \@races;
 }
