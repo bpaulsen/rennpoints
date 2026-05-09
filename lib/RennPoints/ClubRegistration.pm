@@ -14,12 +14,14 @@ sub _build_content {
     my $self = shift;
     my $ua = $self->ua;
 
-    my $url = $self->_root_url . "/events/event-search.cfm";
-    print STDERR "URL = $url\n" if $self->debug;
-    my $req = POST $url,
-    eventTypeSelected => "Club Race";
+    my $page = $ua->request( GET $self->_root_url . "/events/event-search.cfm" );
+    my @forms = HTML::Form->parse( $page );
 
-    my $response = $ua->request( $req );
+    my ($form) = grep { $_->find_input( "eventTypeSelected" ) } @forms;
+
+    $form->param( "eventTypeSelected" => "Club Race" );
+    my $response = $ua->request( $form->click( "btnSearchByEventType" ) );
+
     return if !$response->is_success;
 
     return $response->content;
