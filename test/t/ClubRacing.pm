@@ -82,6 +82,18 @@ sub test_parse_events7 {
     is @{$clubracing_event->{event}->races}, 6, "Testing number of races that were parsed";
 }
 
+sub test_parse_events8 {
+    my $test = shift;
+
+    isa_ok my $clubracing = RennPoints::ClubRacing->new( content => scalar(read_file("test_files/clubracing/clubracing_8")) ), 'RennPoints::ClubRacing';
+
+    is @{$clubracing->events}, 12, "Testing number of events that were parsed";
+    my ( $clubracing_event ) = grep { $_->{description} eq '2026-04 Road Atlanta' } @{$clubracing->events};
+
+    is $clubracing_event->{description}, '2026-04 Road Atlanta', 'Check description of race';
+    is @{$clubracing_event->{event}->races}, 6, "Testing number of races that were parsed";
+}
+
 
 sub test_url {
     my $test = shift;
