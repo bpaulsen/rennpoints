@@ -44,8 +44,11 @@ sub _build_url {
 sub _build_content {
     my $self = shift;
 
+    my $url = $self->url;
+    return `curl -s $url`;
+    
     my $ua = $self->ua;
-    my $response = $ua->request( GET $self->url );
+    my $response = $ua->request( GET $url );
     # return if !$response->is_success;
 
     return $response->content;

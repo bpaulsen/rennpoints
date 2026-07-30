@@ -12,8 +12,11 @@ has 'content' => ( is => 'ro', isa => 'Maybe[Str]', builder => '_build_content',
 sub _build_content {
     my $self = shift;
 
+    my $url = $self->url;
+    return `curl -s $url`;
+
     my $ua = LWP::UserAgent->new();
-    my $response = $ua->request( GET $self->url );
+    my $response = $ua->request( GET $url );
     return if !$response->is_success;
     return $response->content;
 }
